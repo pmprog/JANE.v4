@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!-- Modifying this generated file will probably render it invalid -->
+<DockingConfig FormatVersion="5" InnerFill="False" InnerMinimum="20, 20">
+  <DockObject Name="Help" Visible="True" Docked="True" AutoHidden="False" CaptionBar="True" CloseButton="True" DisplaySize="455, 459" DisplayLocation="1184, 24" AutoHideSize="216, 1007" FloatingSize="216, 1007" FullTitle="Help">
+    <DefaultRestore Type="NETXP.Controls.Docking.RestoreDockObjectState">
+      <DockObject Name="Help" />
+      <State Value="DockLeft" />
+      <Child Type="null" />
+    </DefaultRestore>
+    <AutoHideRestore Type="NETXP.Controls.Docking.RestoreAutoHideState">
+      <DockObject Name="Help" />
+      <State Value="DockLeft" />
+      <Child Type="null" />
+    </AutoHideRestore>
+    <DockingRestore Type="NETXP.Controls.Docking.RestoreDockObjectDockingAffinity">
+      <DockObject Name="Help" />
+      <State Value="DockRight" />
+      <Position Size="455, 459" Location="1184, 24" />
+      <Best Count="2">
+        <Item Name="Help" />
+        <Item Name="Project" />
+      </Best>
+      <Next Count="0" />
+      <Previous Count="0" />
+      <NextAll Count="0" />
+      <PreviousAll Count="0" />
+      <Child Type="NETXP.Controls.Docking.RestoreDockRegionAffinity">
+        <DockObject Name="Help" />
+        <Space Value="79.65056526207605344295991778" />
+        <Best Count="1">
+          <Item Name="Help" />
+        </Best>
+        <Next Count="0" />
+        <Previous Count="1">
+          <Item Name="Project" />
+        </Previous>
+        <Child Type="NETXP.Controls.Docking.RestoreWindowObjects">
+          <DockObject Name="Help" />
+          <Next Count="0" />
+          <Previous Count="0" />
+          <Selected Value="True" />
+          <Child Type="null" />
+        </Child>
+      </Child>
+    </DockingRestore>
+    <FloatingRestore Type="NETXP.Controls.Docking.RestoreDockObjectState">
+      <DockObject Name="Help" />
+      <State Value="Floating" />
+      <Child Type="null" />
+    </FloatingRestore>
+  </DockObject>
+  <DockObject Name="Project" Visible="True" Docked="True" AutoHidden="False" CaptionBar="True" CloseButton="False" DisplaySize="455, 459" DisplayLocation="1203, 24" AutoHideSize="197, 1007" FloatingSize="216, 1007" FullTitle="Project">
+    <DefaultRestore Type="NETXP.Controls.Docking.RestoreDockObjectState">
+      <DockObject Name="Project" />
+      <State Value="DockLeft" />
+      <Child Type="null" />
+    </DefaultRestore>
+    <AutoHideRestore Type="NETXP.Controls.Docking.RestoreAutoHideState">
+      <DockObject Name="Project" />
+      <State Value="DockLeft" />
+      <Child Type="null" />
+    </AutoHideRestore>
+    <DockingRestore Type="NETXP.Controls.Docking.RestoreDockObjectDockingAffinity">
+      <DockObject Name="Project" />
+      <State Value="DockRight" />
+      <Position Size="455, 459" Location="1203, 24" />
+      <Best Count="1">
+        <Item Name="Project" />
+      </Best>
+      <Next Count="0" />
+      <Previous Count="0" />
+      <NextAll Count="0" />
+      <PreviousAll Count="0" />
+      <Child Type="NETXP.Controls.Docking.RestoreDockRegionAffinity">
+        <DockObject Name="Project" />
+        <Space Value="100.000" />
+        <Best Count="1">
+          <Item Name="Project" />
+        </Best>
+        <Next Count="0" />
+        <Previous Count="0" />
+        <Child Type="NETXP.Controls.Docking.RestoreWindowObjects">
+          <DockObject Name="Project" />
+          <Next Count="0" />
+          <Previous Count="0" />
+          <Selected Value="True" />
+          <Child Type="null" />
+        </Child>
+      </Child>
+    </DockingRestore>
+    <FloatingRestore Type="NETXP.Controls.Docking.RestoreDockObjectState">
+      <DockObject Name="Project" />
+      <State Value="Floating" />
+      <Child Type="null" />
+    </FloatingRestore>
+  </DockObject>
+</DockingConfig>

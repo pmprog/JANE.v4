@@ -1,0 +1,11 @@
+Moving=No
+Falling=No
+Start=Player
+TeamNinjaStart=No
+TeamSamuraiStart=No
+RepeatAnimation=Yes
+RepeatFrame=0
+OnDamage=-1
+OnPickup=-1
+OnCollidePlayer=-1
+OnCollideScenery=-1
