@@ -10,15 +10,15 @@ void Menu::Begin()
 	menuItemColour = al_map_rgb( 220, 220, 220 );
 
 	ninjapos = new Vector2i( 0, 0 );
-	ninjaanim = new Animation( new SpriteSheet( "resources/ninja.png", 80, 100 ), true, 3 );
-	ninjaanim->AddFrame( 28 + 7 );
-	ninjaanim->AddFrame( 28 + 6 );
-	ninjaanim->AddFrame( 28 + 5 );
-	ninjaanim->AddFrame( 28 + 4 );
-	ninjaanim->AddFrame( 28 + 3 );
-	ninjaanim->AddFrame( 28 + 2 );
-	ninjaanim->AddFrame( 28 + 1 );
-	ninjaanim->AddFrame( 28 + 0 );
+	ninjaanim = new Animation( new SpriteSheet( "resources/ninja.png", 80, 100 ), true, 2);
+	ninjaanim->AddFrame( 56 + 0 );
+	ninjaanim->AddFrame( 56 + 1 );
+	ninjaanim->AddFrame( 56 + 2 );
+	ninjaanim->AddFrame( 56 + 3 );
+	ninjaanim->AddFrame( 56 + 4 );
+	ninjaanim->AddFrame( 56 + 5 );
+	ninjaanim->AddFrame( 56 + 6 );
+	ninjaanim->AddFrame( 56 + 7 );
 
 }
 
