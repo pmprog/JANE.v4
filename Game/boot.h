@@ -2,7 +2,6 @@
 #pragma once
 
 #include "includes.h"
-#include "../Framework/Display/spritesheet.h"
 
 class BootUp : public Stage
 {

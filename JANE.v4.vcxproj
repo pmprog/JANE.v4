@@ -123,6 +123,8 @@
     <ClCompile Include="Game\boot.cpp" />
     <ClCompile Include="Game\menu.cpp" />
     <ClCompile Include="Game\settingskeyset.cpp" />
+    <ClCompile Include="Scripting\my_basic.c" />
+    <ClCompile Include="Scripting\scriptengine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\configfile.h" />
@@ -173,6 +175,8 @@
     <ClInclude Include="Game\includes.h" />
     <ClInclude Include="Game\menu.h" />
     <ClInclude Include="Game\settingskeyset.h" />
+    <ClInclude Include="Scripting\my_basic.h" />
+    <ClInclude Include="Scripting\scriptengine.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

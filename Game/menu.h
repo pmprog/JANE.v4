@@ -13,6 +13,9 @@ class Menu : public Stage
 		ALLEGRO_COLOR menuSelectedColour;
 		ALLEGRO_COLOR menuItemColour;
 
+		Animation* ninjaanim;
+		Vector2i* ninjapos;
+
   public:
 
     // Stage control

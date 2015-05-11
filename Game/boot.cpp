@@ -1,8 +1,5 @@
 
 #include "boot.h"
-#include "../Framework/framework.h"
-#include "../Framework/Display/display.h"
-#include "../Framework/Network/download.h"
 #include "menu.h"
 
 bool BootUp::loadingComplete = false;

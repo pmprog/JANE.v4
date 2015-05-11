@@ -8,6 +8,18 @@ void Menu::Begin()
 
 	menuSelectedColour = al_map_rgb( 255, 255, 0 );
 	menuItemColour = al_map_rgb( 220, 220, 220 );
+
+	ninjapos = new Vector2i( 0, 0 );
+	ninjaanim = new Animation( new SpriteSheet( "resources/ninja.png", 80, 100 ), true, 3 );
+	ninjaanim->AddFrame( 28 + 7 );
+	ninjaanim->AddFrame( 28 + 6 );
+	ninjaanim->AddFrame( 28 + 5 );
+	ninjaanim->AddFrame( 28 + 4 );
+	ninjaanim->AddFrame( 28 + 3 );
+	ninjaanim->AddFrame( 28 + 2 );
+	ninjaanim->AddFrame( 28 + 1 );
+	ninjaanim->AddFrame( 28 + 0 );
+
 }
 
 void Menu::Pause()
@@ -93,11 +105,16 @@ void Menu::EventOccurred(Event *e)
 void Menu::Update()
 {
 	menuTime++;
+	ninjapos->X = (ninjapos->X + 4) % DISPLAY->GetWidth();
+	ninjapos->Y = (ninjapos->Y + 1) % DISPLAY->GetHeight();
+	ninjaanim->Update();
 }
 
 void Menu::Render()
 {
-	al_clear_to_color( al_map_rgb( 0, 0, 0 ) );
+	al_clear_to_color( al_map_rgb( 255, 255, 255 ) );
+
+	ninjaanim->DrawFrame( ninjapos->X, ninjapos->Y );
 
 	// al_draw_text( fntTitle, ( menuSelection == 0 ? menuSelectedColour : menuItemColour ), DISPLAY->GetWidth() - 20, 310, ALLEGRO_ALIGN_RIGHT, "Arcade" );
 	// al_draw_text( fntTitle, ( menuSelection == 1 ? menuSelectedColour : menuItemColour ), DISPLAY->GetWidth() - 20, 340, ALLEGRO_ALIGN_RIGHT, "Network" );
