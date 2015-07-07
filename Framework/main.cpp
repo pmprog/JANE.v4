@@ -5,9 +5,9 @@
 #include <signal.h>
 #endif
 
-int main ( int argc, char* argv[] )
+int main( int argc, char* argv[] )
 {
-  Framework* fw = new Framework( 800, 480, 30, false );
+  Framework* fw = new Framework( 320, 240, 60, false );
   fw->Run();
   delete fw;
 

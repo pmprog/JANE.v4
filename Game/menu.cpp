@@ -10,15 +10,15 @@ void Menu::Begin()
 	menuItemColour = al_map_rgb( 220, 220, 220 );
 
 	ninjapos = new Vector2i( 0, 0 );
-	ninjaanim = new Animation( new SpriteSheet( "resources/ninja.png", 80, 100 ), true, 2);
-	ninjaanim->AddFrame( 56 + 0 );
-	ninjaanim->AddFrame( 56 + 1 );
-	ninjaanim->AddFrame( 56 + 2 );
-	ninjaanim->AddFrame( 56 + 3 );
-	ninjaanim->AddFrame( 56 + 4 );
-	ninjaanim->AddFrame( 56 + 5 );
-	ninjaanim->AddFrame( 56 + 6 );
-	ninjaanim->AddFrame( 56 + 7 );
+	ninjaanim = new Animation( new SpriteSheet( "resources/ln2_combined.png", 24, 21 ), true, 6);
+	ninjaanim->AddFrame( 0 );
+	ninjaanim->AddFrame( 1 );
+	ninjaanim->AddFrame( 2 );
+	ninjaanim->AddFrame( 3 );
+	ninjaanim->AddFrame( 4 );
+	ninjaanim->AddFrame( 5 );
+	ninjaanim->AddFrame( 6 );
+	ninjaanim->AddFrame( 7 );
 
 }
 
@@ -105,7 +105,7 @@ void Menu::EventOccurred(Event *e)
 void Menu::Update()
 {
 	menuTime++;
-	ninjapos->X = (ninjapos->X + 4) % DISPLAY->GetWidth();
+	ninjapos->X = ((ninjapos->X + 28) % (DISPLAY->GetWidth() + 24)) - 24;
 	ninjapos->Y = (ninjapos->Y + 1) % DISPLAY->GetHeight();
 	ninjaanim->Update();
 }

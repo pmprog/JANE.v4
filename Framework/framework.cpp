@@ -10,26 +10,26 @@ Framework* Framework::System;
 
 Framework::Framework( int Width, int Height, int Framerate, bool DropFrames )
 {
+    Settings = nullptr;
+    quitProgram = true;
 	System = this;
 
 #ifdef WRITE_LOG
 	LogFile = fopen( "jane.log", "a" );
-	
+
 	fprintf( LogFile, "Framework: Startup: Allegro\n" );
 #endif
 
 	if( !al_init() )
 	{
 		fprintf( LogFile, "Framework: Error: Cannot init Allegro\n" );
-		quitProgram = true;
 		return;
 	}
-	
+
 	al_init_font_addon();
 	if( !al_install_keyboard() || !al_install_mouse() || !al_install_joystick() || !al_init_primitives_addon() || !al_init_ttf_addon() || !al_init_image_addon() )
 	{
 		fprintf( LogFile, "Framework: Error: Cannot init Allegro plugin\n" );
-		quitProgram = true;
 		return;
 	}
 
@@ -40,7 +40,6 @@ Framework::Framework( int Width, int Height, int Framerate, bool DropFrames )
 	if( enet_initialize() != 0 )
 	{
 		fprintf( LogFile, "Framework: Error: Cannot init enet\n" );
-		quitProgram = true;
 		return;
 	}
 #endif
@@ -103,7 +102,10 @@ Framework::~Framework()
 #ifdef WRITE_LOG
   fprintf( LogFile, "Framework: Save Config\n" );
 #endif
-  SaveSettings();
+    if( Settings != nullptr )
+    {
+        SaveSettings();
+    }
 
 #ifdef PANDORA
 #ifdef WRITE_LOG
@@ -139,7 +141,7 @@ Framework::~Framework()
   fprintf( LogFile, "Framework: Shutdown audio\n" );
 #endif
 	delete AUDIO;
-	
+
 #ifdef NETWORK_SUPPORT
 #ifdef WRITE_LOG
   fprintf( LogFile, "Framework: Shutdown enet\n" );
@@ -172,7 +174,12 @@ void Framework::Run()
   fprintf( LogFile, "Framework: Run.Program Loop\n" );
 #endif
 
-  ProgramStages->Push( new BootUp() );
+    if( quitProgram )
+    {
+        return;
+    }
+
+    ProgramStages->Push( new BootUp() );
 
 	al_start_timer( frameTimer );
 

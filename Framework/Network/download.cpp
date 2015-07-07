@@ -53,7 +53,7 @@ void DownloadManager::EventOccured( Event* e )
 			}
 		}
 #ifdef WRITE_LOG
-		fprintf( FRAMEWORK->LogFile, "DownloadManager: Completed '%s' (Queue Length: %d, Download Count: %d)\n", e->Data.Download.URL.c_str(), urlList.size(), urlDownloading.size() );
+		fprintf( FRAMEWORK->LogFile, "DownloadManager: Completed '%s' (Queue Length: %d, Download Count: %d)\n", e->Data.Download.URL->c_str(), urlList.size(), urlDownloading.size() );
 #endif
 	}
 }
@@ -74,7 +74,7 @@ void DownloadManager::Update()
     al_start_thread( t );
 		urlList.pop_front();
 #ifdef WRITE_LOG
-		fprintf( FRAMEWORK->LogFile, "DownloadManager: Downloading '%s' (Queue Length: %d, Download Count: %d)\n", urlDownloading.back()->URL.c_str(), urlList.size(), urlDownloading.size() );
+		fprintf( FRAMEWORK->LogFile, "DownloadManager: Downloading '%s' (Queue Length: %ld, Download Count: %ld)\n", urlDownloading.back()->URL.c_str(), urlList.size(), urlDownloading.size() );
 #endif
 	}
 }

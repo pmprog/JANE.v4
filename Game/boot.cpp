@@ -89,7 +89,11 @@ bool BootUp::IsTransition()
 void* BootUp::ThreadedLoad( ALLEGRO_THREAD*, void* )
 {
 	// TODO: Load all resources for caching
-	BitmapCache::LoadBitmap("resources/ninja.png");
+	BitmapCache::LoadBitmap("resources/ln2_combined.png");
+	BitmapCache::LoadBitmap("resources/ln1_1.png");
+	BitmapCache::LoadBitmap("resources/ln1_2.png");
+	BitmapCache::LoadBitmap("resources/ln1_3.png");
+	BitmapCache::LoadBitmap("resources/ln1_4.png");
 	loadingComplete = true;
 	return nullptr;
 }
