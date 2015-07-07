@@ -65,7 +65,7 @@ void BootUp::Update()
 	if( logoFadeIn > 40 )
   {
     logoSprite->ClearOverrides();
-  } else if( logoFadeIn > 36 ) {
+  } else if( logoFadeIn > 37 ) {
     logoSprite->BeginOverrides();
     logoSprite->SetOverride( 2, 12 );
     logoSprite->SetOverride( 8, 12 );
@@ -73,7 +73,7 @@ void BootUp::Update()
     logoSprite->SetOverride( 10, 1 );
     logoSprite->SetOverride( 11, 12 );
     logoSprite->EndOverrides();
-  } else if( logoFadeIn > 32 ) {
+  } else if( logoFadeIn > 34 ) {
     logoSprite->BeginOverrides();
     logoSprite->SetOverride( 2, 8 );
     logoSprite->SetOverride( 8, 8 );
@@ -81,7 +81,7 @@ void BootUp::Update()
     logoSprite->SetOverride( 10, 10 );
     logoSprite->SetOverride( 11, 8 );
     logoSprite->EndOverrides();
-  } else if( logoFadeIn > 28 ) {
+  } else if( logoFadeIn > 31 ) {
     logoSprite->BeginOverrides();
     logoSprite->SetOverride( 2, 2 );
     logoSprite->SetOverride( 8, 2 );
@@ -89,9 +89,9 @@ void BootUp::Update()
     logoSprite->SetOverride( 10, 8 );
     logoSprite->SetOverride( 11, 2 );
     logoSprite->EndOverrides();
-  } else if( logoFadeIn > 24 ) {
+  } else if( logoFadeIn > 28 ) {
     logoSprite->SetOverride( 10, 2 );
-  } else if( logoFadeIn > 20 ) {
+  } else if( logoFadeIn > 25 ) {
     logoSprite->SetOverride( 10, 9 );
   } else {
     logoSprite->BeginOverrides();
