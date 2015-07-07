@@ -113,6 +113,10 @@
 		<Unit filename="Framework/Primitives/box.h" />
 		<Unit filename="Framework/Primitives/line.cpp" />
 		<Unit filename="Framework/Primitives/line.h" />
+		<Unit filename="Framework/Primitives/list.cpp" />
+		<Unit filename="Framework/Primitives/list.h" />
+		<Unit filename="Framework/Primitives/polygon.cpp" />
+		<Unit filename="Framework/Primitives/polygon.h" />
 		<Unit filename="Framework/Primitives/strings.h" />
 		<Unit filename="Framework/Primitives/vector2.cpp" />
 		<Unit filename="Framework/Primitives/vector2.h" />
@@ -147,6 +151,14 @@
 		<Unit filename="Framework/maths.h" />
 		<Unit filename="Framework/memory.cpp" />
 		<Unit filename="Framework/memory.h" />
+		<Unit filename="Game/Entities/combatant.cpp" />
+		<Unit filename="Game/Entities/combatant.h" />
+		<Unit filename="Game/Entities/room.cpp" />
+		<Unit filename="Game/Entities/room.h" />
+		<Unit filename="Game/Entities/roomzone.cpp" />
+		<Unit filename="Game/Entities/roomzone.h" />
+		<Unit filename="Game/Entities/world.cpp" />
+		<Unit filename="Game/Entities/world.h" />
 		<Unit filename="Game/Paletted/palette.cpp" />
 		<Unit filename="Game/Paletted/palette.h" />
 		<Unit filename="Game/Paletted/palettedbitmap.cpp" />
@@ -160,6 +172,12 @@
 		<Unit filename="Game/menu.h" />
 		<Unit filename="Game/settingskeyset.cpp" />
 		<Unit filename="Game/settingskeyset.h" />
+		<Unit filename="Scripting/my_basic.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Scripting/my_basic.h" />
+		<Unit filename="Scripting/scriptengine.cpp" />
+		<Unit filename="Scripting/scriptengine.h" />
 		<Extensions>
 			<envvars />
 			<code_completion />

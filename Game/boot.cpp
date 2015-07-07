@@ -9,8 +9,9 @@ void BootUp::Begin()
   PreparePalette();
 	DISPLAY->SetTitle("JANE - Just Another Ninja Engine - Version 4");
 	bootBarSize = 0;
-	bootBarAdjust = (DISPLAY->GetWidth() / (FRAMEWORK->GetFramesPerSecond() * 1.5f));
+	bootBarAdjust = (DISPLAY->GetWidth() / (FRAMEWORK->GetFramesPerSecond() * 1.75f));
 
+  logoFadeOut = false;
 	logoSprite = PalettedBitmapCache::LoadBitmap("resources/pmprog.png");
   logoSprite->BeginOverrides();
   logoSprite->SetOverride( 2, 0 );
@@ -46,14 +47,20 @@ void BootUp::EventOccurred(Event *e)
 		{
 			delete FRAMEWORK->ProgramStages->Pop();
 		} else if( loadingComplete ) {
-			StartGame();
+			// StartGame();
+			logoFadeOut = true;
 		}
 	}
 }
 
 void BootUp::Update()
 {
-	logoFadeIn++;
+  if( logoFadeOut )
+  {
+    logoFadeIn--;
+  } else {
+    logoFadeIn++;
+  }
 
 	if( logoFadeIn > 40 )
   {
@@ -86,6 +93,14 @@ void BootUp::Update()
     logoSprite->SetOverride( 10, 2 );
   } else if( logoFadeIn > 20 ) {
     logoSprite->SetOverride( 10, 9 );
+  } else {
+    logoSprite->BeginOverrides();
+    logoSprite->SetOverride( 2, 0 );
+    logoSprite->SetOverride( 8, 0 );
+    logoSprite->SetOverride( 9, 0 );
+    logoSprite->SetOverride( 10, 0 );
+    logoSprite->SetOverride( 11, 0 );
+    logoSprite->EndOverrides();
   }
 
 	if( bootBarSize < DISPLAY->GetWidth() )
@@ -94,10 +109,17 @@ void BootUp::Update()
 	}
 
 	// Only allow completion when all resources are loaded
-	if( loadingComplete && bootBarSize >= DISPLAY->GetWidth() )
+	if( loadingComplete && bootBarSize >= DISPLAY->GetWidth() && !logoFadeOut )
 	{
-		StartGame();
+		// StartGame();
+		logoFadeOut = true;
+		logoFadeIn = 50;
 	}
+
+	if( logoFadeOut && logoFadeIn <= 0 )
+  {
+    StartGame();
+  }
 }
 
 void BootUp::Render()
@@ -111,7 +133,7 @@ void BootUp::Render()
 
 	int xPos = (DISPLAY->GetWidth() / 2) - (bootBarSize / 2);
 	int yPos = DISPLAY->GetHeight() - 12;
-	int colidx = ( logoSprite->GetOverride( 10 ) == 0 ? 2 : logoSprite->GetOverride( 10 ) );
+	int colidx = ( logoSprite->GetOverride( 10 ) == 0 && !logoFadeOut ? 2 : logoSprite->GetOverride( 10 ) );
 	al_draw_filled_rectangle( xPos, yPos, xPos + bootBarSize, yPos + 4, Palette::ColourPalette[ colidx ] ); // 2] );
 }
 

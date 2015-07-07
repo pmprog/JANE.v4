@@ -94,10 +94,13 @@ void Menu::Update()
 
 void Menu::Render()
 {
-	al_clear_to_color( Palette::ColourPalette[13] );
+	al_clear_to_color( Palette::ColourPalette[5] );
 
-	al_draw_bitmap( BitmapCache::LoadBitmap("resources/ninja.png"), 0, 0, 0 );
-	BitmapCache::UnloadBitmap("resources/ninja.png");
+  PalettedBitmap* b = new PalettedBitmap( BitmapCache::LoadBitmap("resources/ninja.png"), 0, 0, 24, 42 );
+  b->SetOverride( 0, 9 );
+  b->Draw( 0, 0, 48, 84, 0 );
+  delete b;
+
 
 	al_draw_bitmap( BitmapCache::LoadBitmap("resources/background.png"), 0, 0, 0 );
 	BitmapCache::UnloadBitmap("resources/background.png");

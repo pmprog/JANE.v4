@@ -4,21 +4,55 @@
 
 PalettedBitmap::PalettedBitmap( std::string Filename )
 {
-  ALLEGRO_BITMAP* b = BitmapCache::LoadBitmap( Filename );
-  Palette::ApplyColourOverrides( b ); // Make sure we're in the game's palette
+  ALLEGRO_BITMAP* image = BitmapCache::LoadBitmap( Filename );
+  Palette::ApplyColourOverrides( image ); // Make sure we're in the game's palette
+  ConvertBitmap( image, 0, 0, al_get_bitmap_width( image ), al_get_bitmap_height( image ) );
+  BitmapCache::UnloadBitmap( image );
+}
 
-  Setup( al_get_bitmap_width( b ), al_get_bitmap_height( b ) );
+PalettedBitmap::PalettedBitmap( int Width, int Height )
+{
+  Setup( Width, Height );
+}
+
+PalettedBitmap::PalettedBitmap( ALLEGRO_BITMAP* Copy )
+{
+  ConvertBitmap( Copy, 0, 0, al_get_bitmap_width( Copy ), al_get_bitmap_height( Copy ) );
+}
+
+PalettedBitmap::PalettedBitmap( ALLEGRO_BITMAP* PartialCopy, int X, int Y, int W, int H )
+{
+  ConvertBitmap( PartialCopy, X, Y, W, H );
+}
+
+void PalettedBitmap::Setup( int Width, int Height )
+{
+  width = Width;
+  height = Height;
+  indicies = (char*)malloc( width * height * sizeof(char) );
+  memset( (void*)indicies, -1, width * height * sizeof(char) );
+  batchoverrides = false;
+
+  prerendered = nullptr;
+  ClearOverrides();
+  PrerenderImage();
+}
+
+void PalettedBitmap::ConvertBitmap( ALLEGRO_BITMAP* Source, int X, int Y, int W, int H )
+{
+
+  Setup( W, H );
 
   PackedARGB8888* pixelcolour;
   ALLEGRO_COLOR pixeltranslated;
 
-  ALLEGRO_LOCKED_REGION* rgn = al_lock_bitmap( b, ALLEGRO_PIXEL_FORMAT_ABGR_8888_LE, ALLEGRO_LOCK_READONLY );
+  ALLEGRO_LOCKED_REGION* rgn = al_lock_bitmap( Source, ALLEGRO_PIXEL_FORMAT_ABGR_8888_LE, ALLEGRO_LOCK_READONLY );
   for( int y = 0; y < height; y++ )
   {
     for( int x = 0; x < width; x++ )
     {
-      PackedARGB8888* pxRow = (PackedARGB8888*)((char*)rgn->data + (y * rgn->pitch));
-      pixelcolour = &pxRow[x];
+      PackedARGB8888* pxRow = (PackedARGB8888*)((char*)rgn->data + ((Y + y) * rgn->pitch));
+      pixelcolour = &pxRow[(X + x)];
       pixeltranslated = al_map_rgba( pixelcolour->r, pixelcolour->g, pixelcolour->b, pixelcolour->a );
       for( int c = 0; c < 16; c++ )
       {
@@ -30,28 +64,8 @@ PalettedBitmap::PalettedBitmap( std::string Filename )
       }
     }
   }
-  al_unlock_bitmap( b );
+  al_unlock_bitmap( Source );
 
-  BitmapCache::UnloadBitmap( b );
-
-  PrerenderImage();
-}
-
-PalettedBitmap::PalettedBitmap( int Width, int Height )
-{
-  Setup( Width, Height );
-}
-
-void PalettedBitmap::Setup( int Width, int Height )
-{
-  width = Width;
-  height = Height;
-  indicies = (char*)malloc( width * height * sizeof(char) );
-  memset( (void*)indicies, 0, width * height * sizeof(char) );
-  batchoverrides = false;
-
-  prerendered = nullptr;
-  ClearOverrides();
   PrerenderImage();
 }
 
@@ -86,12 +100,12 @@ int PalettedBitmap::GetOverride(int ColourIndex)
 
 void PalettedBitmap::Draw(int X, int Y, int Flags)
 {
-  al_draw_bitmap( prerendered, X, Y, 0 );
+  al_draw_bitmap( prerendered, X, Y, Flags );
 }
 
 void PalettedBitmap::Draw(int X, int Y, int W, int H, int Flags)
 {
-
+  al_draw_scaled_bitmap( prerendered, 0, 0, width, height, X, Y, W, H, Flags );
 }
 
 int PalettedBitmap::GetWidth()
@@ -106,6 +120,10 @@ int PalettedBitmap::GetHeight()
 
 void PalettedBitmap::PrerenderImage()
 {
+  if( width == 0 || height == 0 )
+  {
+    return;
+  }
   if( prerendered == nullptr )
   {
     prerendered = al_create_bitmap( width, height );
@@ -121,11 +139,20 @@ void PalettedBitmap::PrerenderImage()
     {
       PackedARGB8888* pxRow = (PackedARGB8888*)((char*)rgn->data + (y * rgn->pitch));
       pixelcolour = &pxRow[x];
-      int colindex = colouroverrides[indicies[ (y * width) + x ]];
-      pixelcolour->r = Palette::ColourPalette[colindex].r * 255;
-      pixelcolour->g = Palette::ColourPalette[colindex].g * 255;
-      pixelcolour->b = Palette::ColourPalette[colindex].b * 255;
-      pixelcolour->a = Palette::ColourPalette[colindex].a * 255;
+      int indx = (int)indicies[ (y * width) + x ];
+      if( indx < 0 )
+      {
+        pixelcolour->r = 0;
+        pixelcolour->g = 0;
+        pixelcolour->b = 0;
+        pixelcolour->a = 0;
+      } else {
+        int colindex = colouroverrides[indx];
+        pixelcolour->r = Palette::ColourPalette[colindex].r * 255;
+        pixelcolour->g = Palette::ColourPalette[colindex].g * 255;
+        pixelcolour->b = Palette::ColourPalette[colindex].b * 255;
+        pixelcolour->a = Palette::ColourPalette[colindex].a * 255;
+      }
     }
   }
   al_unlock_bitmap( prerendered );

@@ -10,6 +10,7 @@ class BootUp : public Stage
 		int bootBarSize;
 		PalettedBitmap* logoSprite;
 		int logoFadeIn;
+		bool logoFadeOut;
 
 		ALLEGRO_THREAD* loadingthread;
 		static bool loadingComplete;

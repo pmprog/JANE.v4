@@ -16,11 +16,14 @@ class PalettedBitmap
     ALLEGRO_BITMAP* prerendered;
 
     void Setup( int Width, int Height );
+    void ConvertBitmap( ALLEGRO_BITMAP* Source, int X, int Y, int W, int H );
     void PrerenderImage();
 
   public:
     PalettedBitmap( std::string Filename );
     PalettedBitmap( int Width, int Height );
+    PalettedBitmap( ALLEGRO_BITMAP* Copy );
+    PalettedBitmap( ALLEGRO_BITMAP* PartialCopy, int X, int Y, int W, int H );
     ~PalettedBitmap();
 
     void ClearOverrides();
