@@ -7,7 +7,7 @@ BitmapCache::BitmapCache( std::string File )
 {
 	Filename = File;
 	Image = al_load_bitmap( File.c_str() );
-	Locks = 0;
+	Locks = 1;
 }
 
 ALLEGRO_BITMAP* BitmapCache::LoadBitmap( std::string Filename )

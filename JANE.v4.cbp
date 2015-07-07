@@ -147,6 +147,12 @@
 		<Unit filename="Framework/maths.h" />
 		<Unit filename="Framework/memory.cpp" />
 		<Unit filename="Framework/memory.h" />
+		<Unit filename="Game/Paletted/palette.cpp" />
+		<Unit filename="Game/Paletted/palette.h" />
+		<Unit filename="Game/Paletted/palettedbitmap.cpp" />
+		<Unit filename="Game/Paletted/palettedbitmap.h" />
+		<Unit filename="Game/Paletted/palettedbitmapcache.cpp" />
+		<Unit filename="Game/Paletted/palettedbitmapcache.h" />
 		<Unit filename="Game/boot.cpp" />
 		<Unit filename="Game/boot.h" />
 		<Unit filename="Game/includes.h" />

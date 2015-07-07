@@ -8,15 +8,15 @@ class BootUp : public Stage
 	private:
 		int bootBarAdjust;
 		int bootBarSize;
-		SpriteSheet* logoSprite;
+		PalettedBitmap* logoSprite;
 		int logoFadeIn;
 
 		ALLEGRO_THREAD* loadingthread;
 		static bool loadingComplete;
 
 		void StartGame();
+		void PreparePalette();
 		static void* ThreadedLoad(ALLEGRO_THREAD* source, void* arg);
-
 
   public:
     // Stage control

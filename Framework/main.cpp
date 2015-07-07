@@ -7,7 +7,7 @@
 
 int main( int argc, char* argv[] )
 {
-  Framework* fw = new Framework( 320, 240, 60, false );
+  Framework* fw = new Framework( 320, 200, 60, false );
   fw->Run();
   delete fw;
 

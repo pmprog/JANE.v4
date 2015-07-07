@@ -15,6 +15,14 @@ struct DisplayScaleMode
 	};
 };
 
+typedef struct PackedARGB8888
+{
+  unsigned char r;
+  unsigned char g;
+  unsigned char b;
+  unsigned char a;
+} PackedARGB8888;
+
 class Display
 {
 

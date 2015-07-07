@@ -1,0 +1,32 @@
+
+#pragma once
+
+#include <string>
+#include 
+
+class PalettedBitmap
+{
+
+  private:
+    int width;
+    int height;
+    char* indicies;
+    int colouroverrides[16];
+    ALLEGRO_BITMAP* prerendered;
+
+    void PrerenderImage();
+
+  public:
+    PalettedBitmap( std::string Filename );
+    PalettedBitmap( int Width, int Height );
+    ~PalettedBitmap();
+
+    void ClearOverrides();
+    void SetOverride(int ColourIndex, int NewColourIndex);
+
+    void Draw(int X, int Y, int Flags);
+    void Draw(int X, int Y, int W, int H, int Flags);
+
+    int GetWidth();
+    int GetHeight();
+};
