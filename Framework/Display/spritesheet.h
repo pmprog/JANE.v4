@@ -20,9 +20,20 @@ class SpriteSheet
 		ALLEGRO_BITMAP* sheet;
 		std::vector<SpriteSheetRegion*> frames;
 
+    int gridalloc_size;
+		int gridalloc_minx;
+		int gridalloc_miny;
+		int gridalloc_maxx;
+		int gridalloc_maxy;
+
+		void DepackFromGrid( int GridSize );
+		void ExtractSpriteFrom( char* Grid, int GridW, int GridH, int StartX, int StartY );
+		void AllocateGrid( char* Grid, int GridW, int GridH, int StartX, int StartY );
+
 	public:
 		SpriteSheet( std::string Filename );
 		SpriteSheet( std::string Filename, int FrameWidth, int FrameHeight );
+		SpriteSheet( std::string Filename, int GridSize );
 		~SpriteSheet();
 
 		ALLEGRO_BITMAP* GetSheet();
@@ -35,5 +46,7 @@ class SpriteSheet
 
 		SpriteSheetRegion* GetFrame( int FrameNumber );
 		int GetFrameCount();
+
+		ALLEGRO_BITMAP* ExtractFrame( int FrameNumber );
 
 };
