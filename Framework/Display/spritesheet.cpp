@@ -101,7 +101,6 @@ int SpriteSheet::GetFrameCount()
 	return frames.size();
 }
 
-void DepackFromGrid( int GridSize )void DepackFromGrid( int GridSize )
 void SpriteSheet::DepackFromGrid( int GridSize )
 {
 
@@ -110,12 +109,13 @@ void SpriteSheet::DepackFromGrid( int GridSize )
   int gridh = (al_get_bitmap_height(sheet) / GridSize);
   gridalloc_size = GridSize;
 
-  char* grid = (char*)malloc( gridw * gridh * sizeof(char) )
+  char* grid = (char*)malloc( gridw * gridh * sizeof(char) );
   memset( (void*)grid, 0, gridw * gridh * sizeof(char) );
 
   PackedARGB8888* pixelcolour;
   ALLEGRO_COLOR pixeltranslated;
 
+  ALLEGRO_LOCKED_REGION* rgn = al_lock_bitmap( sheet, ALLEGRO_PIXEL_FORMAT_ABGR_8888_LE, ALLEGRO_LOCK_READONLY );
   for( int gy = 0; gy < gridh; gy++ )
   {
     for( int gx = 0; gx < gridw; gx++ )
@@ -160,7 +160,10 @@ void SpriteSheet::DepackFromGrid( int GridSize )
     {
       if( grid[ (gy * gridw) + gx ] == 1 )
       {
-        ExtractSpriteFrom( grid, gx, gy );
+        ExtractSpriteFrom( grid, gridw, gridh, gx, gy );
+#ifdef WRITE_LOG
+        fprintf( FRAMEWORK->LogFile, "SpriteSheet: Depacked (%d, %d, %d, %d)\n", gridalloc_minx, gridalloc_miny, gridalloc_maxx, gridalloc_maxy );
+#endif
       }
     }
   }
@@ -179,7 +182,7 @@ void SpriteSheet::ExtractSpriteFrom( char* Grid, int GridW, int GridH, int Start
   gridalloc_maxy = StartY;
 
   // Follow the grid around for adjactent [1] cells
-  AllocateGrid( Grid, StartX, StartY );
+  AllocateGrid( Grid, GridW, GridH, StartX, StartY );
 
   // Add sprite to sheet
   AddSprite( gridalloc_minx * gridalloc_size, gridalloc_miny * gridalloc_size, ((gridalloc_maxx - gridalloc_minx) + 1) * gridalloc_size, ((gridalloc_maxy - gridalloc_miny) + 1) * gridalloc_size );
@@ -210,7 +213,7 @@ void SpriteSheet::AllocateGrid( char* Grid, int GridW, int GridH, int StartX, in
   {
     for( int x = -1; x < 2; x++ )
     {
-      if( y != 0 && x != 0 )
+      if( y != 0 || x != 0 )
       {
 
         if( StartX + x >= 0 && StartX + x < GridW && StartY + y >= 0 && StartY + y < GridH )
@@ -230,7 +233,7 @@ ALLEGRO_BITMAP* SpriteSheet::ExtractFrame( int FrameNumber )
 {
 	if( FrameNumber < 0 || FrameNumber >= (int)frames.size() )
 	{
-		return;
+		return nullptr;
 	}
 
 	SpriteSheetRegion* r = frames.at( FrameNumber );

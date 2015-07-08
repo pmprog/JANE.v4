@@ -30,59 +30,6 @@ void Menu::EventOccurred(Event *e)
 			FRAMEWORK->ShutdownFramework();
 			return;
 		}
-
-		if( e->Data.Keyboard.KeyCode == ALLEGRO_KEY_UP && menuSelection > 0 )
-		{
-			menuSelection--;
-		}
-		if( e->Data.Keyboard.KeyCode == ALLEGRO_KEY_DOWN && menuSelection < 4 )
-		{
-			menuSelection++;
-		}
-
-		if( e->Data.Keyboard.KeyCode == ALLEGRO_KEY_ENTER )
-		{
-			activateoption = true;
-		}
-	}
-
-	if( e->Type == EVENT_JOYSTICK_BUTTON_DOWN )
-	{
-		activateoption = true;
-	}
-
-	if( e->Type == EVENT_JOYSTICK_AXIS )
-	{
-		if( e->Data.Joystick.Axis == 1 )
-		{
-			if( e->Data.Joystick.Position < 0 && menuSelection > 0 )
-			{
-				menuSelection--;
-			}
-			if( e->Data.Joystick.Position > 0 && menuSelection < 4 )
-			{
-				menuSelection++;
-			}
-		}
-	}
-
-	if( activateoption )
-	{
-		switch( menuSelection )
-		{
-			case 0:
-				break;
-			case 1:
-				break;
-			case 2:
-				break;
-			case 3:
-				break;
-			case 4:
-				AUDIO->StopMusic();
-				FRAMEWORK->ShutdownFramework();
-				break;
-		}
 	}
 
 }
@@ -96,11 +43,12 @@ void Menu::Render()
 {
 	al_clear_to_color( Palette::ColourPalette[5] );
 
-  PalettedBitmap* b = new PalettedBitmap( BitmapCache::LoadBitmap("resources/ninja.png"), 0, 0, 24, 42 );
-  b->SetOverride( 0, 9 );
-  b->Draw( 0, 0, 48, 84, 0 );
-  delete b;
+//  PalettedBitmap* b = new PalettedBitmap( BitmapCache::LoadBitmap("resources/ninja.png") ), 0, 0, 24, 42 );
+//  b->SetOverride( 0, 9 );
+//  b->Draw( 0, 0, 48, 84, 0 );
+//  delete b;
 
+  GameResources::ObjectGraphics->GetPanel( 84 )->Draw( 0, 0, 0 );
 
 	al_draw_bitmap( BitmapCache::LoadBitmap("resources/background.png"), 0, 0, 0 );
 	BitmapCache::UnloadBitmap("resources/background.png");

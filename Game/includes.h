@@ -16,3 +16,5 @@
 
 #include "Paletted/palette.h"
 #include "Paletted/palettedbitmapcache.h"
+
+#include "Entities/panelsheet.h"

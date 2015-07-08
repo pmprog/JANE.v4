@@ -2,22 +2,15 @@
 #pragma once
 
 #include "includes.h"
-#include "../Framework/Display/spritesheet.h"
+#include "resources.h"
+
 
 class Menu : public Stage
 {
 	private:
 		int menuTime;
-		int menuSelection;
-
-		ALLEGRO_COLOR menuSelectedColour;
-		ALLEGRO_COLOR menuItemColour;
-
-		Animation* ninjaanim;
-		Vector2i* ninjapos;
 
   public:
-
     // Stage control
     virtual void Begin();
     virtual void Pause();

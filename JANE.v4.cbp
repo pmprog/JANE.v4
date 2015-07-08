@@ -153,6 +153,10 @@
 		<Unit filename="Framework/memory.h" />
 		<Unit filename="Game/Entities/combatant.cpp" />
 		<Unit filename="Game/Entities/combatant.h" />
+		<Unit filename="Game/Entities/panel.cpp" />
+		<Unit filename="Game/Entities/panel.h" />
+		<Unit filename="Game/Entities/panelsheet.cpp" />
+		<Unit filename="Game/Entities/panelsheet.h" />
 		<Unit filename="Game/Entities/room.cpp" />
 		<Unit filename="Game/Entities/room.h" />
 		<Unit filename="Game/Entities/roomzone.cpp" />
@@ -170,6 +174,8 @@
 		<Unit filename="Game/includes.h" />
 		<Unit filename="Game/menu.cpp" />
 		<Unit filename="Game/menu.h" />
+		<Unit filename="Game/resources.cpp" />
+		<Unit filename="Game/resources.h" />
 		<Unit filename="Game/settingskeyset.cpp" />
 		<Unit filename="Game/settingskeyset.h" />
 		<Unit filename="Scripting/my_basic.c">

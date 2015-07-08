@@ -108,6 +108,18 @@ void PalettedBitmap::Draw(int X, int Y, int W, int H, int Flags)
   al_draw_scaled_bitmap( prerendered, 0, 0, width, height, X, Y, W, H, Flags );
 }
 
+void PalettedBitmap::DrawPartial(int SourceX, int SourceY, int SourceW, int SourceH, int DestinationX, int DestinationY, int Flags)
+{
+  al_draw_bitmap_region( prerendered, SourceX, SourceY, SourceW, SourceH, DestinationX, DestinationY, Flags );
+}
+
+void PalettedBitmap::DrawPartial(int SourceX, int SourceY, int SourceW, int SourceH, int DestinationX, int DestinationY, int DestinationW, int DestinationH, int Flags)
+{
+  ALLEGRO_BITMAP* subbmp = al_create_sub_bitmap( prerendered, SourceX, SourceY, SourceW, SourceH );
+  al_draw_scaled_bitmap( subbmp, 0, 0, SourceW, SourceH, DestinationX, DestinationY, DestinationW, DestinationH, Flags );
+  al_destroy_bitmap( subbmp );
+}
+
 int PalettedBitmap::GetWidth()
 {
   return width;
@@ -168,3 +180,9 @@ void PalettedBitmap::EndOverrides()
   batchoverrides = false;
   PrerenderImage();
 }
+
+void PalettedBitmap::Save( std::string Filename )
+{
+  al_save_bitmap( Filename.c_str(), prerendered );
+}
+

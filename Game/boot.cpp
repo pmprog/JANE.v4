@@ -1,6 +1,8 @@
 
 #include "boot.h"
+#include "resources.h"
 #include "menu.h"
+#include "../Framework/Primitives/strings.h"
 
 bool BootUp::loadingComplete = false;
 
@@ -154,9 +156,21 @@ void* BootUp::ThreadedLoad( ALLEGRO_THREAD*, void* )
 	Palette::ApplyColourOverrides( BitmapCache::LoadBitmap("resources/background.png") );
 	Palette::ApplyColourOverrides( BitmapCache::LoadBitmap("resources/ninja.png") );
 	Palette::ApplyColourOverrides( BitmapCache::LoadBitmap("resources/ln1_1.png") );
+	GameResources::ObjectGraphics = new PanelSheet( "resources/ln1_1.png" );
 	Palette::ApplyColourOverrides( BitmapCache::LoadBitmap("resources/ln1_2.png") );
+	GameResources::ObjectGraphics->AddFromFile( "resources/ln1_2.png" );
 	Palette::ApplyColourOverrides( BitmapCache::LoadBitmap("resources/ln1_3.png") );
+	GameResources::ObjectGraphics->AddFromFile( "resources/ln1_3.png" );
 	Palette::ApplyColourOverrides( BitmapCache::LoadBitmap("resources/ln1_4.png") );
+	GameResources::ObjectGraphics->AddFromFile( "resources/ln1_4.png" );
+
+
+  // temp export all objects
+	for( int i = 0; i < GameResources::ObjectGraphics->GetCount(); i++ )
+  {
+    GameResources::ObjectGraphics->GetPanel( i )->Save( "xport" + Strings::FromNumber( i ) + ".png" );
+  }
+
 	loadingComplete = true;
 	return nullptr;
 }

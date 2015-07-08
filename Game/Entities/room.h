@@ -2,7 +2,8 @@
 #pragma once
 
 #include "../includes.h"
-
+#include "panel.h"
+#include "roomzone.h"
 
 #ifndef World
 class World;
@@ -15,13 +16,12 @@ class Room
     World* owner;
 
   public:
-    std::vector<Polygon*> Zones;
+    std::vector<RoomZone*> Zones;
     std::string Script_OnCombatantEnter;
     std::string Script_OnCombatantLeave;
 
 
     Room( World* Owner );
     ~Room();
-
 
 };

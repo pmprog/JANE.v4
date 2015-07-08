@@ -20,7 +20,7 @@ class Strings
 			}
 			return elems;
 		}
-		
+
 		static std::vector<std::string> Split(const std::string &s, char delim)
 		{
 			std::vector<std::string> elems;
@@ -79,7 +79,7 @@ class Strings
 		static std::string FromNumber( int n )
 		{
 			char buffer[200];
-			sfprintf( FRAMEWORK->LogFile, (char*)&buffer, "%d", n );
+			sprintf( (char*)&buffer, "%d", n );
 			return std::string(buffer);
 		}
 

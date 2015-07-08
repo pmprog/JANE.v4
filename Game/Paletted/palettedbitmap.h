@@ -34,7 +34,11 @@ class PalettedBitmap
 
     void Draw(int X, int Y, int Flags);
     void Draw(int X, int Y, int W, int H, int Flags);
+    void DrawPartial(int SourceX, int SourceY, int SourceW, int SourceH, int DestinationX, int DestinationY, int Flags);
+    void DrawPartial(int SourceX, int SourceY, int SourceW, int SourceH, int DestinationX, int DestinationY, int DestinationW, int DestinationH, int Flags);
 
     int GetWidth();
     int GetHeight();
+
+    void Save( std::string Filename );
 };
