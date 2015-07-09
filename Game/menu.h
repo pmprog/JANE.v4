@@ -8,7 +8,11 @@
 class Menu : public Stage
 {
 	private:
-		int menuTime;
+		int menutime;
+		PalettedBitmap* janelogo;
+		PalettedBitmap* theeyes;
+
+		void SetLogoColours();
 
   public:
     // Stage control

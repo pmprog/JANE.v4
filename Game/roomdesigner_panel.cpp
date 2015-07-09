@@ -41,8 +41,12 @@ void RoomDesigner::PanelEvent(Event *e)
         {
           AddLogText( "Deleted Panel " + Strings::FromNumber( panel_activeindex ) );
           p = workingroom->Panels.at( panel_activeindex );
-          std::remove( workingroom->Panels.begin(), workingroom->Panels.end(), p );
+          workingroom->Panels.erase( workingroom->Panels.begin() + panel_activeindex );
           delete p;
+          if( panel_activeindex >= workingroom->Panels.size() )
+          {
+            panel_activeindex = workingroom->Panels.size() - 1;
+          }
         }
         break;
       case ALLEGRO_KEY_PGUP:

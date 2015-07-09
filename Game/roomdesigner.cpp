@@ -56,7 +56,7 @@ void RoomDesigner::EventOccurred(Event *e)
 		switch( e->Data.Keyboard.KeyCode )
 		{
 		  case ALLEGRO_KEY_ESCAPE:
-        FRAMEWORK->ShutdownFramework();
+        delete FRAMEWORK->ProgramStages->Pop();
         return;
       case ALLEGRO_KEY_F1:
         designermode = (designermode + 1) % DesignerMode::ModeCount;
@@ -161,8 +161,7 @@ void RoomDesigner::Render()
       break;
   }
 
-	al_draw_bitmap( BitmapCache::LoadBitmap("resources/background.png"), 0, 0, 0 );
-	BitmapCache::UnloadBitmap("resources/background.png");
+	GameResources::GameOverlay->Draw( 0, 0, 0 );
 
 	al_draw_text( textfont, Palette::ColourPalette[ Palette::RampA[selection_rampindex] ], 250, 3, ALLEGRO_ALIGN_LEFT, modename.c_str() );
 

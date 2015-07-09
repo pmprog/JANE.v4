@@ -4,8 +4,10 @@
 
 void Menu::Begin()
 {
-	menuTime = 0;
-
+	menutime = 0;
+  janelogo = new PalettedBitmap( "resources/jane4.png" );
+  theeyes = new PalettedBitmap( "resources/theeyes.png" );
+  SetLogoColours();
 }
 
 void Menu::Pause()
@@ -18,6 +20,8 @@ void Menu::Resume()
 
 void Menu::Finish()
 {
+  delete janelogo;
+  delete theeyes;
 }
 
 void Menu::EventOccurred(Event *e)
@@ -42,26 +46,66 @@ void Menu::EventOccurred(Event *e)
 
 void Menu::Update()
 {
-	menuTime++;
+	menutime++;
+	SetLogoColours();
 }
 
 void Menu::Render()
 {
-	al_clear_to_color( Palette::ColourPalette[5] );
+	al_clear_to_color( Palette::ColourPalette[0] );
 
-//  PalettedBitmap* b = new PalettedBitmap( BitmapCache::LoadBitmap("resources/ninja.png") ), 0, 0, 24, 42 );
-//  b->SetOverride( 0, 9 );
-//  b->Draw( 0, 0, 48, 84, 0 );
-//  delete b;
+  theeyes->Draw( 0, 4, 0 );
+  janelogo->Draw( (240 - janelogo->GetWidth()) / 2, 90, 0 );
 
-  GameResources::ObjectGraphics->GetPanel( 84 )->Draw( 0, 0, 0 );
 
-	al_draw_bitmap( BitmapCache::LoadBitmap("resources/background.png"), 0, 0, 0 );
-	BitmapCache::UnloadBitmap("resources/background.png");
+	GameResources::GameOverlay->Draw( 0, 0, 0 );
 
 }
 
 bool Menu::IsTransition()
 {
 	return false;
+}
+
+void Menu::SetLogoColours()
+{
+  // Jane Logo
+  if( menutime < 20 )
+  {
+    janelogo->SetOverride( 9, 0 );
+    janelogo->SetOverride( 2, 0 );
+    janelogo->SetOverride( 10, 0 );
+    janelogo->SetOverride( 7, 0 );
+  } else if ( menutime < 22 ) {
+    janelogo->SetOverride( 9, 1 );
+  } else if ( menutime < 24 ) {
+    janelogo->SetOverride( 9, 7 );
+  } else if ( menutime < 26 ) {
+    janelogo->SetOverride( 9, 10 );
+  } else if ( menutime < 28 ) {
+    janelogo->SetOverride( 9, 2 );
+  } else if ( menutime < 30 ) {
+    janelogo->SetOverride( 9, 9 );
+  } else if ( menutime < 44 ) {
+  } else if ( menutime < 46 ) {
+    janelogo->SetOverride( 2, 1 );
+  } else if ( menutime < 48 ) {
+    janelogo->SetOverride( 2, 7 );
+  } else if ( menutime < 50 ) {
+    janelogo->SetOverride( 2, 10 );
+  } else if ( menutime < 52 ) {
+    janelogo->SetOverride( 2, 2 );
+  } else if ( menutime < 66 ) {
+  } else if ( menutime < 68 ) {
+    janelogo->SetOverride( 10, 1 );
+  } else if ( menutime < 70 ) {
+    janelogo->SetOverride( 10, 7 );
+  } else if ( menutime < 72 ) {
+    janelogo->SetOverride( 10, 10 );
+  } else if ( menutime < 86 ) {
+  } else if ( menutime < 88 ) {
+    janelogo->SetOverride( 7, 1 );
+  } else if ( menutime < 90 ) {
+    janelogo->SetOverride( 7, 7 );
+  }
 }
