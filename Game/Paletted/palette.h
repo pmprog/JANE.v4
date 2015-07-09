@@ -33,6 +33,9 @@ class Palette
 
     static ALLEGRO_COLOR ColourPalette[16];
 
+    static const int RampA[8];
+    static const int RampB[8];
+
     static void InitPalette();
     static void ApplyColourOverrides(ALLEGRO_BITMAP* Image);
 

@@ -93,6 +93,15 @@ void PalettedBitmap::SetOverride(int ColourIndex, int NewColourIndex)
   }
 }
 
+void PalettedBitmap::SetOverrides(int ColourSwap[16])
+{
+  for(int c = 0; c < 16; c++ )
+  {
+    colouroverrides[c] = ColourSwap[c];
+  }
+  PrerenderImage();
+}
+
 int PalettedBitmap::GetOverride(int ColourIndex)
 {
   return colouroverrides[ColourIndex];

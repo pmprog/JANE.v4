@@ -176,6 +176,12 @@
 		<Unit filename="Game/menu.h" />
 		<Unit filename="Game/resources.cpp" />
 		<Unit filename="Game/resources.h" />
+		<Unit filename="Game/roomdesigner.cpp" />
+		<Unit filename="Game/roomdesigner.h" />
+		<Unit filename="Game/roomdesigner_enemy.cpp" />
+		<Unit filename="Game/roomdesigner_object.cpp" />
+		<Unit filename="Game/roomdesigner_panel.cpp" />
+		<Unit filename="Game/roomdesigner_zone.cpp" />
 		<Unit filename="Game/settingskeyset.cpp" />
 		<Unit filename="Game/settingskeyset.h" />
 		<Unit filename="Scripting/my_basic.c">

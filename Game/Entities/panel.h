@@ -13,4 +13,10 @@ class Panel
     bool FlipVertical;
     int ForegroundAtY;
 
+    Panel();
+
+    bool operator<(const Panel& cmp) const;
+    bool operator<(const Panel* cmp) const;
+
+    static bool SortingPredicate(const Panel* A, const Panel* B);
 };

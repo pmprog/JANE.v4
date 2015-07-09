@@ -1,5 +1,6 @@
 
 #include "menu.h"
+#include "roomdesigner.h"
 
 void Menu::Begin()
 {
@@ -30,6 +31,11 @@ void Menu::EventOccurred(Event *e)
 			FRAMEWORK->ShutdownFramework();
 			return;
 		}
+		if( e->Data.Keyboard.KeyCode == ALLEGRO_KEY_F10 )
+    {
+      FRAMEWORK->ProgramStages->Push( new RoomDesigner() );
+      return;
+    }
 	}
 
 }

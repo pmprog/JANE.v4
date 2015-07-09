@@ -164,12 +164,14 @@ void* BootUp::ThreadedLoad( ALLEGRO_THREAD*, void* )
 	Palette::ApplyColourOverrides( BitmapCache::LoadBitmap("resources/ln1_4.png") );
 	GameResources::ObjectGraphics->AddFromFile( "resources/ln1_4.png" );
 
+  GameResources::GameDataFile = new ConfigFile( "resources/jane.cfg" );
+  GameResources::Scripting = new ScriptEngine();
 
   // temp export all objects
-	for( int i = 0; i < GameResources::ObjectGraphics->GetCount(); i++ )
-  {
-    GameResources::ObjectGraphics->GetPanel( i )->Save( "xport" + Strings::FromNumber( i ) + ".png" );
-  }
+	//for( int i = 0; i < GameResources::ObjectGraphics->GetCount(); i++ )
+  //{
+  //  GameResources::ObjectGraphics->GetPanel( i )->Save( "xport" + Strings::FromNumber( i ) + ".png" );
+  //}
 
 	loadingComplete = true;
 	return nullptr;

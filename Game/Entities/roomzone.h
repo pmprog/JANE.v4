@@ -2,7 +2,7 @@
 #pragma once
 
 #include "../includes.h"
-
+#include "../../Framework/Primitives/polygon.h"
 
 #ifndef Room
 class Room;

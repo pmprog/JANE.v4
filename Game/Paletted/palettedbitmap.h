@@ -30,6 +30,7 @@ class PalettedBitmap
     void BeginOverrides();
     void EndOverrides();
     void SetOverride(int ColourIndex, int NewColourIndex);
+    void SetOverrides(int ColourSwap[16]);
     int GetOverride(int ColourIndex);
 
     void Draw(int X, int Y, int Flags);
