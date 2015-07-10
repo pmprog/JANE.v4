@@ -15,7 +15,7 @@ class RoomZone
     Room* owner;
 
   public:
-    Polygon* Area;
+    Polyhedron* Area;
     std::string Script_OnCombatantEnter;
     std::string Script_OnCombatantLeave;
 

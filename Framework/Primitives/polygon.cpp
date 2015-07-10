@@ -1,14 +1,14 @@
 #include "polygon.h"
 #include "../maths.h"
 
-Polygon::Polygon()
+Polyhedron::Polyhedron()
 {
 	Points = new List();
 	Edges = new List();
 	Centre = new Vector2( 0, 0 );
 }
 
-void Polygon::Compute()
+void Polyhedron::Compute()
 {
 	Centre->X = 0;
 	Centre->Y = 0;
@@ -35,9 +35,9 @@ void Polygon::Compute()
 
 /**********************************************************
 		C# code from
-		http://www.codeproject.com/Articles/15573/2D-Polygon-Collision-Detection
+		http://www.codeproject.com/Articles/15573/2D-Polyhedron-Collision-Detection
 */
-bool Polygon::DoesCollide(Vector2* Velocity, Polygon* CheckWith)
+bool Polyhedron::DoesCollide(Vector2* Velocity, Polyhedron* CheckWith)
 {
 	bool Intersect = true;
 	bool WillIntersect = true;
@@ -48,7 +48,7 @@ bool Polygon::DoesCollide(Vector2* Velocity, Polygon* CheckWith)
 	// Vector2* translationAxis = new Vector2( 0, 0 );
 	Vector2* edge;
 
-	// Loop through all the edges of both polygons
+	// Loop through all the edges of both Polyhedrons
 	for( int edgeIndex = 0; edgeIndex < edgeCountA + edgeCountB; edgeIndex++ )
 	{
 		if( edgeIndex < edgeCountA )
@@ -58,29 +58,29 @@ bool Polygon::DoesCollide(Vector2* Velocity, Polygon* CheckWith)
 			edge = CheckWith->Edges->ItemAt<Vector2*>(edgeIndex - edgeCountA);
 		}
 
-		// ===== 1. Find if the polygons are currently intersecting =====
+		// ===== 1. Find if the Polyhedrons are currently intersecting =====
 
 		// Find the axis perpendicular to the current edge
 		Vector2* axis = new Vector2(-edge->Y, edge->X);
 		axis->Normalise();
 
-		// Find the projection of the polygon on the current axis
+		// Find the projection of the Polyhedron on the current axis
 		float minA = 0; float minB = 0; float maxA = 0; float maxB = 0;
 		Project(axis, &minA, &maxA);
 		CheckWith->Project(axis, &minB, &maxB);
 
-		// Check if the polygon projections are currentlty intersecting
+		// Check if the Polyhedron projections are currentlty intersecting
 		if( IntervalDistance(minA, maxA, minB, maxB) > 0 )
 		{
 			Intersect = false;
 		}
 
-		// ===== 2. Now find if the polygons *will* intersect =====
+		// ===== 2. Now find if the Polyhedrons *will* intersect =====
 
 		// Project the velocity on the current axis
 		float velocityProjection = axis->DotProduct( Velocity );
 
-		// Get the projection of polygon A during the movement
+		// Get the projection of Polyhedron A during the movement
 		if( velocityProjection < 0 )
 		{
 			minA += velocityProjection;
@@ -97,7 +97,7 @@ bool Polygon::DoesCollide(Vector2* Velocity, Polygon* CheckWith)
 
 		delete axis;
 
-		// If the polygons are not intersecting and won't intersect, exit the loop
+		// If the Polyhedrons are not intersecting and won't intersect, exit the loop
 		if( !Intersect && !WillIntersect)
 		{
 			break;
@@ -112,7 +112,7 @@ bool Polygon::DoesCollide(Vector2* Velocity, Polygon* CheckWith)
 			minIntervalDistance = intervalDistance;
 			translationAxis = axis;
 
-			Vector d = polygonA.Center - polygonB.Center;
+			Vector d = PolyhedronA.Center - PolyhedronB.Center;
 			if (d.DotProduct(translationAxis) < 0) translationAxis = -translationAxis;
 		}
 		*/
@@ -120,25 +120,25 @@ bool Polygon::DoesCollide(Vector2* Velocity, Polygon* CheckWith)
 
 	}
 
-	// The minimum translation vector can be used to push the polygons appart.
-	// First moves the polygons by their velocity
-	// then move polygonA by MinimumTranslationVector.
+	// The minimum translation vector can be used to push the Polyhedrons appart.
+	// First moves the Polyhedrons by their velocity
+	// then move PolyhedronA by MinimumTranslationVector.
 	// if (result.WillIntersect) result.MinimumTranslationVector = translationAxis * minIntervalDistance;
 
 	return (Intersect | WillIntersect);
 }
 
-Polygon* Polygon::Translate( Vector2* Offset, int FlipX, float Rotation )
+Polyhedron* Polyhedron::Translate( Vector2* Offset, int FlipX, float Rotation )
 {
 	return Translate( Offset->X, Offset->Y, FlipX, Rotation );
 }
 
-Polygon* Polygon::Translate( float OffsetX, float OffsetY, int FlipX, float Rotation )
+Polyhedron* Polyhedron::Translate( float OffsetX, float OffsetY, int FlipX, float Rotation )
 {
 	float cosR = cos(-Rotation * (M_PI / 180.0f));
 	float sinR = sin(-Rotation * (M_PI / 180.0f));
 
-	Polygon* newPoly = new Polygon;
+	Polyhedron* newPoly = new Polyhedron;
 	for( int idx = 0; idx < Points->count; idx++ )
 	{
 		Vector2* working = new Vector2( Points->ItemAt<Vector2*>(idx)->X * ( FlipX != 0 ? -1 : 1 ), Points->ItemAt<Vector2*>(idx)->Y );
@@ -162,10 +162,10 @@ Polygon* Polygon::Translate( float OffsetX, float OffsetY, int FlipX, float Rota
 
 /**********************************************************
 		C# code from
-		http://www.codeproject.com/Articles/15573/2D-Polygon-Collision-Detection
+		http://www.codeproject.com/Articles/15573/2D-Polyhedron-Collision-Detection
 */
-// Calculate the projection of a polygon on an axis and returns it as a [min, max] interval
-void Polygon::Project( Vector2* axis, float* min, float* max )
+// Calculate the projection of a Polyhedron on an axis and returns it as a [min, max] interval
+void Polyhedron::Project( Vector2* axis, float* min, float* max )
 {
 	// To project a point on an axis use the dot product
 	float d = axis->DotProduct(Points->ItemAt<Vector2*>(0));
@@ -185,11 +185,11 @@ void Polygon::Project( Vector2* axis, float* min, float* max )
 
 /**********************************************************
 		C# code from
-		http://www.codeproject.com/Articles/15573/2D-Polygon-Collision-Detection
+		http://www.codeproject.com/Articles/15573/2D-Polyhedron-Collision-Detection
 */
 // Calculate the distance between [minA, maxA] and [minB, maxB]
 // The distance will be negative if the intervals overlap
-float Polygon::IntervalDistance(float minA, float maxA, float minB, float maxB)
+float Polyhedron::IntervalDistance(float minA, float maxA, float minB, float maxB)
 {
 	if (minA < minB)
 	{
@@ -199,7 +199,7 @@ float Polygon::IntervalDistance(float minA, float maxA, float minB, float maxB)
 	}
 }
 
-bool Polygon::HitTest(Vector2* Point)
+bool Polyhedron::HitTest(Vector2* Point)
 {
 	int i;
 	int j;

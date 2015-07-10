@@ -1,5 +1,5 @@
 
-#include "list.h"
+#include "listbox.h"
 
 ListBox::ListBox( Control* Owner ) : Control( Owner )
 {

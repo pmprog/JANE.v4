@@ -1,6 +1,7 @@
 
 #include "framework.h"
 #include "../Game/boot.h"
+#include "../Game/recordbuffer.h"
 
 #ifdef PANDORA
 #include <signal.h>
@@ -179,7 +180,12 @@ void Framework::Run()
         return;
     }
 
-    ProgramStages->Push( new BootUp() );
+		if( Settings->GetQuickIntegerValue("Recording", 0) == 1 )
+		{
+			ProgramStages->Push( new RecordBuffer() );
+		} else {
+			ProgramStages->Push( new BootUp() );
+		}
 
 	al_start_timer( frameTimer );
 

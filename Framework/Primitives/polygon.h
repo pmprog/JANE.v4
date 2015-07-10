@@ -3,21 +3,21 @@
 #include "vector2.h"
 #include "list.h"
 
-// Collision Polygon
-class Polygon
+// Collision Polyhedron
+class Polyhedron
 {
 	public:
 		List* Points;
 		List* Edges;
 		Vector2* Centre;
 
-		Polygon();
+		Polyhedron();
 		void Compute();
 
 		bool HitTest(Vector2* Point);
-		bool DoesCollide(Vector2* Velocity, Polygon* CheckWith);
-		Polygon* Translate( Vector2* Offset, int FlipX, float Rotation );
-		Polygon* Translate( float OffsetX, float OffsetY, int FlipX, float Rotation );
+		bool DoesCollide(Vector2* Velocity, Polyhedron* CheckWith);
+		Polyhedron* Translate( Vector2* Offset, int FlipX, float Rotation );
+		Polyhedron* Translate( float OffsetX, float OffsetY, int FlipX, float Rotation );
 
 		void Project( Vector2* axis, float* min, float* max );
 		float IntervalDistance(float minA, float maxA, float minB, float maxB);
