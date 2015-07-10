@@ -79,6 +79,9 @@ void RoomDesigner::EventOccurred(Event *e)
             break;
         }
         return;
+      case ALLEGRO_KEY_R:
+        workingroom->OnEnter();
+        break;
 		}
 	}
 
@@ -104,6 +107,8 @@ void RoomDesigner::EventOccurred(Event *e)
 
 void RoomDesigner::Update()
 {
+  workingroom->Update();
+
   selection_rampdelay = (selection_rampdelay + 1) % 4;
   if( selection_rampdelay == 0 )
   {
@@ -162,12 +167,13 @@ void RoomDesigner::Render()
   }
 
 	GameResources::GameOverlay->Draw( 0, 0, 0 );
+	al_draw_filled_rectangle( 6, 150, 208, 195, Palette::ColourPalette[0] );
 
 	al_draw_text( textfont, Palette::ColourPalette[ Palette::RampA[selection_rampindex] ], 250, 3, ALLEGRO_ALIGN_LEFT, modename.c_str() );
 
   for( int i = 0; i < 5; i++ )
   {
-    al_draw_text( textfont, Palette::ColourPalette[7], 4, 150 + (i * 9), ALLEGRO_ALIGN_LEFT, LogText[i].c_str() );
+    al_draw_text( textfont, Palette::ColourPalette[7], 6, 150 + (i * 9), ALLEGRO_ALIGN_LEFT, LogText[i].c_str() );
     //al_draw_text( textfont, Palette::ColourPalette[ Palette::RampB[selection_rampindex] ], 4, 150 + (i * 9), ALLEGRO_ALIGN_LEFT, LogText[i].c_str() );
   }
 

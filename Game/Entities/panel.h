@@ -11,12 +11,9 @@ class Panel
     int ScreenY;
     bool FlipHorizontal;
     bool FlipVertical;
-    int ForegroundAtY;
+    int BackgroundAtY;
 
     Panel();
-
-    bool operator<(const Panel& cmp) const;
-    bool operator<(const Panel* cmp) const;
 
     static bool SortingPredicate(const Panel* A, const Panel* B);
 };

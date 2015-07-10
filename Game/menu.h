@@ -15,6 +15,7 @@ class Menu : public Stage
 		void SetLogoColours();
 
   public:
+    static bool CheatActive;
     // Stage control
     virtual void Begin();
     virtual void Pause();

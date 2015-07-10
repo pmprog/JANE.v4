@@ -23,7 +23,7 @@ void RoomDesigner::PanelEvent(Event *e)
           copypanel = new Panel();
           copypanel->FlipHorizontal = p->FlipHorizontal;
           copypanel->FlipVertical = p->FlipVertical;
-          copypanel->ForegroundAtY = p->ForegroundAtY;
+          copypanel->BackgroundAtY = p->BackgroundAtY;
           copypanel->ObjectGraphicIndex = p->ObjectGraphicIndex;
           copypanel->ScreenX = p->ScreenX;
           copypanel->ScreenY = p->ScreenY;
@@ -187,7 +187,7 @@ void RoomDesigner::PanelUpdate()
     if( panel_activeindex < workingroom->Panels.size() && panel_activeindex >= 0 )
     {
       p = workingroom->Panels.at( panel_activeindex );
-      p->ForegroundAtY += panel_fgychange;
+      p->BackgroundAtY += panel_fgychange;
       panel_activeindex = workingroom->SortPanels( panel_activeindex );
     }
   }
@@ -202,7 +202,7 @@ void RoomDesigner::PanelRender()
     p = workingroom->Panels.at( panel_activeindex );
     PalettedBitmap* b = GameResources::ObjectGraphics->GetPanel( p->ObjectGraphicIndex );
     al_draw_rectangle( p->ScreenX - 3, p->ScreenY - 4, p->ScreenX + b->GetWidth() + 4, p->ScreenY + b->GetHeight() + 3, Palette::ColourPalette[ Palette::RampB[selection_rampindex] ], 1 );
-    al_draw_line( 0, p->ForegroundAtY, 320, p->ForegroundAtY, Palette::ColourPalette[ Palette::RampB[selection_rampindex] ], 3 );
+    al_draw_line( 0, p->BackgroundAtY, 320, p->BackgroundAtY, Palette::ColourPalette[ Palette::RampB[selection_rampindex] ], 3 );
   }
 }
 

@@ -2,6 +2,8 @@
 #include "menu.h"
 #include "roomdesigner.h"
 
+bool Menu::CheatActive = false;
+
 void Menu::Begin()
 {
 	menutime = 0;
@@ -12,6 +14,7 @@ void Menu::Begin()
 
 void Menu::Pause()
 {
+  GameResources::GameOverlay->ClearOverrides();
 }
 
 void Menu::Resume()
@@ -40,6 +43,10 @@ void Menu::EventOccurred(Event *e)
       FRAMEWORK->ProgramStages->Push( new RoomDesigner() );
       return;
     }
+    if( e->Data.Keyboard.KeyCode == ALLEGRO_KEY_F12 )
+    {
+      CheatActive = true;
+    }
 	}
 
 }
@@ -48,6 +55,12 @@ void Menu::Update()
 {
 	menutime++;
 	SetLogoColours();
+
+  if( CheatActive )
+  {
+    GameResources::GameOverlay->SetOverride( 6, Palette::RampADark[(menutime / 4) % 8] );
+    GameResources::GameOverlay->SetOverride( 14, Palette::RampA[(menutime / 4) % 8] );
+  }
 }
 
 void Menu::Render()

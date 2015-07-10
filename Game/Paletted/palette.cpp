@@ -8,7 +8,9 @@ ALLEGRO_COLOR Palette::ColourPalette[16] = { COLOUR_BLACK, COLOUR_WHITE, COLOUR_
         COLOUR_ORANGE, COLOUR_BROWN, COLOUR_PINK, COLOUR_DARK_GRAY, COLOUR_MID_GRAY, COLOUR_LIGHT_GREEN, COLOUR_LIGHT_BLUE, COLOUR_LIGHT_GRAY };
 
 const int Palette::RampA[8] = { 6, 4, 14, 3, 13, 3, 14, 4 };
+const int Palette::RampADark[8] = { 0, 6, 4, 14, 3, 14, 4, 6 };
 const int Palette::RampB[8] = { 9, 2, 8, 10, 7, 10, 8, 2 };
+const int Palette::RampBDark[8] = { 0, 9, 2, 8, 10, 8, 2, 9 };
 
 
 void Palette::InitPalette()

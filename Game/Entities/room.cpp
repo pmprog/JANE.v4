@@ -52,9 +52,9 @@ void Room::Render(int FromY, int ToY)
   int panelstodraw = Panels.size();
 
   // Always 2 seconds to render a room
-  if( RoomTime < (FRAMEWORK->GetFramesPerSecond() * 2) )
+  if( RoomTime < FRAMEWORK->GetFramesPerSecond() )
   {
-    float c = (float)RoomTime / (float)(FRAMEWORK->GetFramesPerSecond() * 2); // % through the build
+    float c = (float)RoomTime / (float)FRAMEWORK->GetFramesPerSecond(); // % through the build
     c *= Panels.size(); // Number of panels to draw at this percentage
     panelstodraw = (int)c;
   }
@@ -62,7 +62,7 @@ void Room::Render(int FromY, int ToY)
   for( int idx = 0; idx < panelstodraw; idx++ )
   {
     Panel* p = Panels.at( idx );
-    if( p->ForegroundAtY >= FromY && p->ForegroundAtY <= ToY )
+    if( p->BackgroundAtY >= FromY && p->BackgroundAtY <= ToY )
     {
       PalettedBitmap* b = GameResources::ObjectGraphics->GetPanel( p->ObjectGraphicIndex );
       b->SetOverrides( p->ColourRemap );
