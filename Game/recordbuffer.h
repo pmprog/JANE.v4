@@ -5,7 +5,6 @@
 
 class RecordBuffer : public Stage
 {
-	private:
 
   public:
     // Stage control
