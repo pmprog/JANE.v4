@@ -1,8 +1,8 @@
 
 #pragma once
 
-#include "includes.h"
-#include "resources.h"
+#include "../includes.h"
+#include "../resources.h"
 
 #ifndef Room
 class Room;

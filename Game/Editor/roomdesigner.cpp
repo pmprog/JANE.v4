@@ -1,6 +1,5 @@
 
 #include "roomdesigner.h"
-#include "../Framework/Primitives/strings.h"
 #include "roomdesigner_background.h"
 #include "roomdesigner_panel.h"
 #include "roomdesigner_object.h"
@@ -9,6 +8,11 @@
 
 RoomDesigner::RoomDesigner()
 {
+  textfont = al_load_ttf_font( "resources/silkscreen.ttf", 8, ALLEGRO_TTF_MONOCHROME );
+
+  selection_rampdelay = 0;
+  selection_rampindex = 0;
+
 	designermodes[DesignerMode::BackgroundMode] = new RoomDesignerBackground();
 	designermodes[DesignerMode::PanelMode] = new RoomDesignerPanel();
 	designermodes[DesignerMode::ZoneMode] = new RoomDesignerZone();
@@ -27,14 +31,7 @@ RoomDesigner::RoomDesigner()
 	}
 	designermode = DesignerMode::PanelMode;
 
-  textfont = al_load_ttf_font( "resources/silkscreen.ttf", 8, ALLEGRO_TTF_MONOCHROME );
-
-  AddLogText("Welcome to the designer");
-
-  selection_rampdelay = 0;
-  selection_rampindex = 0;
-
-
+	AddLogText("Welcome to the designer");
 }
 
 RoomDesigner::~RoomDesigner()
@@ -89,6 +86,7 @@ void RoomDesigner::EventOccurred(Event *e)
             AddLogText("Mode change to { Enemy }");
             break;
         }
+				designermodes[designermode]->Init( this, workingroom, textfont );
         return;
       case ALLEGRO_KEY_R:
         workingroom->OnEnter();

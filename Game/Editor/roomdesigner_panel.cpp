@@ -1,7 +1,7 @@
 
 #include "roomdesigner_panel.h"
 #include "roomdesigner.h"
-#include "../Framework/Primitives/strings.h"
+#include "panelselector.h"
 
 RoomDesignerPanel::RoomDesignerPanel()
 {
@@ -125,6 +125,13 @@ void RoomDesignerPanel::OnEvent(Event *e)
       case ALLEGRO_KEY_R:
         panel_activeindex = workingroom->SortPanels( panel_activeindex );
         break;
+			case ALLEGRO_KEY_G:
+        if( panel_activeindex < workingroom->Panels.size() && panel_activeindex >= 0 )
+        {
+          p = workingroom->Panels.at( panel_activeindex );
+          FRAMEWORK->ProgramStages->Push( new PanelSelector( p ) );
+        }
+				break;
     }
   }
 
@@ -219,5 +226,13 @@ void RoomDesignerPanel::RenderRoom()
 
 void RoomDesignerPanel::RenderOverlay()
 {
-
+	al_draw_text( textfont, Palette::ColourPalette[8], 250, 16, ALLEGRO_ALIGN_LEFT, "INS: New" );
+	al_draw_text( textfont, Palette::ColourPalette[8], 250, 25, ALLEGRO_ALIGN_LEFT, "DEL: Delete" );
+	al_draw_text( textfont, Palette::ColourPalette[8], 250, 34, ALLEGRO_ALIGN_LEFT, "C: Copy" );
+	al_draw_text( textfont, Palette::ColourPalette[8], 250, 43, ALLEGRO_ALIGN_LEFT, "HOM: Prev" );
+	al_draw_text( textfont, Palette::ColourPalette[8], 250, 52, ALLEGRO_ALIGN_LEFT, "END: Next" );
+	al_draw_text( textfont, Palette::ColourPalette[8], 250, 61, ALLEGRO_ALIGN_LEFT, "H/V: Flip" );
+	al_draw_text( textfont, Palette::ColourPalette[8], 250, 70, ALLEGRO_ALIGN_LEFT, "A/Z: BkgY" );
+	al_draw_text( textfont, Palette::ColourPalette[8], 250, 79, ALLEGRO_ALIGN_LEFT, "R: Draw" );
+	al_draw_text( textfont, Palette::ColourPalette[8], 250, 88, ALLEGRO_ALIGN_LEFT, "G: Graphic" );
 }

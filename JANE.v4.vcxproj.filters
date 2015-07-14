@@ -141,21 +141,6 @@
     <ClCompile Include="Game\resources.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\roomdesigner.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\roomdesigner_enemy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\roomdesigner_object.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\roomdesigner_panel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\roomdesigner_zone.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Framework\Primitives\list.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -198,10 +183,28 @@
     <ClCompile Include="Game\recordbuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\roomdesigner_mode.cpp">
+    <ClCompile Include="Game\Editor\roomdesigner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\roomdesigner_background.cpp">
+    <ClCompile Include="Game\Editor\roomdesigner_background.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Editor\roomdesigner_enemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Editor\roomdesigner_mode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Editor\roomdesigner_object.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Editor\roomdesigner_panel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Editor\roomdesigner_zone.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Editor\panelselector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -347,9 +350,6 @@
     <ClInclude Include="Game\resources.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\roomdesigner.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Framework\Primitives\list.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -398,22 +398,28 @@
     <ClInclude Include="Game\recordbuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\roomdesigner_mode.h">
+    <ClInclude Include="Game\Editor\roomdesigner.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\roomdesigner_panel.h">
+    <ClInclude Include="Game\Editor\roomdesigner_background.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\roomdesigner_background.h">
+    <ClInclude Include="Game\Editor\roomdesigner_enemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\roomdesigner_enemy.h">
+    <ClInclude Include="Game\Editor\roomdesigner_mode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\roomdesigner_object.h">
+    <ClInclude Include="Game\Editor\roomdesigner_object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\roomdesigner_zone.h">
+    <ClInclude Include="Game\Editor\roomdesigner_panel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Editor\roomdesigner_zone.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Editor\panelselector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

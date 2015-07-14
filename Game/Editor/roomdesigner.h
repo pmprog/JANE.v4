@@ -1,10 +1,11 @@
 
 #pragma once
 
-#include "includes.h"
-#include "resources.h"
-#include "./Entities/room.h"
+#include "../includes.h"
+#include "../resources.h"
+#include "../Entities/room.h"
 #include "roomdesigner_mode.h"
+#include "../../Framework/Primitives/strings.h"
 
 class RoomDesigner : public Stage
 {
