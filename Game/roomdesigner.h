@@ -4,51 +4,19 @@
 #include "includes.h"
 #include "resources.h"
 #include "./Entities/room.h"
+#include "roomdesigner_mode.h"
 
 class RoomDesigner : public Stage
 {
 	private:
 		Room* workingroom;
 		ALLEGRO_FONT* textfont;
+		RoomDesignerModule* designermodes[5];
 		int designermode;
 		std::string LogText[5];
 
     int selection_rampdelay;
 		int selection_rampindex;
-
-    int panel_repeatdelay;
-    int panel_graphicchangedelay;
-    int panel_graphicchange;
-		int panel_activeindex;
-    int panel_xchange;
-    int panel_ychange;
-    int panel_fgychange;
-
-		void AddLogText(std::string Text);
-
-		void BackgroundEvent(Event *e);
-		void PanelEvent(Event *e);
-		void ZoneEvent(Event *e);
-		void ObjectEvent(Event *e);
-		void EnemyEvent(Event *e);
-
-		void BackgroundUpdate();
-		void PanelUpdate();
-		void ZoneUpdate();
-		void ObjectUpdate();
-		void EnemyUpdate();
-
-		void BackgroundRender();
-		void PanelRender();
-		void ZoneRender();
-		void ObjectRender();
-		void EnemyRender();
-
-		void BackgroundRenderStatus();
-		void PanelRenderStatus();
-		void ZoneRenderStatus();
-		void ObjectRenderStatus();
-		void EnemyRenderStatus();
 
   public:
 
@@ -65,6 +33,9 @@ class RoomDesigner : public Stage
 
     RoomDesigner();
     ~RoomDesigner();
+
+		void AddLogText(std::string Text);
+		int GetRampIndex();
 
     // Stage control
     virtual void Begin();

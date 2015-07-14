@@ -136,7 +136,9 @@
     <ClCompile Include="Game\recordbuffer.cpp" />
     <ClCompile Include="Game\resources.cpp" />
     <ClCompile Include="Game\roomdesigner.cpp" />
+    <ClCompile Include="Game\roomdesigner_background.cpp" />
     <ClCompile Include="Game\roomdesigner_enemy.cpp" />
+    <ClCompile Include="Game\roomdesigner_mode.cpp" />
     <ClCompile Include="Game\roomdesigner_object.cpp" />
     <ClCompile Include="Game\roomdesigner_panel.cpp" />
     <ClCompile Include="Game\roomdesigner_zone.cpp" />
@@ -206,6 +208,12 @@
     <ClInclude Include="Game\recordbuffer.h" />
     <ClInclude Include="Game\resources.h" />
     <ClInclude Include="Game\roomdesigner.h" />
+    <ClInclude Include="Game\roomdesigner_background.h" />
+    <ClInclude Include="Game\roomdesigner_enemy.h" />
+    <ClInclude Include="Game\roomdesigner_mode.h" />
+    <ClInclude Include="Game\roomdesigner_object.h" />
+    <ClInclude Include="Game\roomdesigner_panel.h" />
+    <ClInclude Include="Game\roomdesigner_zone.h" />
     <ClInclude Include="Game\settingskeyset.h" />
     <ClInclude Include="Scripting\my_basic.h" />
     <ClInclude Include="Scripting\scriptengine.h" />

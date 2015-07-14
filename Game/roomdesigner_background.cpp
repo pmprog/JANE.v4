@@ -1,13 +1,13 @@
 
-#include "roomdesigner_zone.h"
+#include "roomdesigner_background.h"
 #include "roomdesigner.h"
 
 
-RoomDesignerZone::RoomDesignerZone()
+RoomDesignerBackground::RoomDesignerBackground()
 {
 }
 
-void RoomDesignerZone::OnEvent(Event *e)
+void RoomDesignerBackground::OnEvent(Event *e)
 {
   if( e->Type == EVENT_KEY_DOWN )
   {
@@ -23,16 +23,16 @@ void RoomDesignerZone::OnEvent(Event *e)
   }
 }
 
-void RoomDesignerZone::Update()
+void RoomDesignerBackground::Update()
 {
 }
 
-void RoomDesignerZone::RenderRoom()
+void RoomDesignerBackground::RenderRoom()
 {
 
 }
 
-void RoomDesignerZone::RenderOverlay()
+void RoomDesignerBackground::RenderOverlay()
 {
   al_draw_text( textfont, Palette::ColourPalette[8], 250, 16, ALLEGRO_ALIGN_LEFT, "PgUp: Prev" );
   al_draw_text( textfont, Palette::ColourPalette[8], 250, 25, ALLEGRO_ALIGN_LEFT, "PgUp: Next" );

@@ -1,15 +1,31 @@
 
 #include "roomdesigner.h"
 #include "../Framework/Primitives/strings.h"
+#include "roomdesigner_background.h"
+#include "roomdesigner_panel.h"
+#include "roomdesigner_object.h"
+#include "roomdesigner_zone.h"
+#include "roomdesigner_enemy.h"
 
 RoomDesigner::RoomDesigner()
 {
-  designermode = DesignerMode::PanelMode;
+	designermodes[DesignerMode::BackgroundMode] = new RoomDesignerBackground();
+	designermodes[DesignerMode::PanelMode] = new RoomDesignerPanel();
+	designermodes[DesignerMode::ZoneMode] = new RoomDesignerZone();
+	designermodes[DesignerMode::ObjectMode] = new RoomDesignerObject();
+	designermodes[DesignerMode::EnemyMode] = new RoomDesignerEnemy();
+
   workingroom = new Room();
   for( int i = 0; i < FRAMEWORK->GetFramesPerSecond() * 2; i++ )
   {
     workingroom->Update();
   }
+
+	for(int i = 0; i < DesignerMode::ModeCount; i++ )
+	{
+		designermodes[i]->Init( this, workingroom, textfont );
+	}
+	designermode = DesignerMode::PanelMode;
 
   textfont = al_load_ttf_font( "resources/silkscreen.ttf", 8, ALLEGRO_TTF_MONOCHROME );
 
@@ -18,12 +34,7 @@ RoomDesigner::RoomDesigner()
   selection_rampdelay = 0;
   selection_rampindex = 0;
 
-  panel_repeatdelay = 0;
-  panel_graphicchangedelay = 0;
-  panel_graphicchange = 0;
-  panel_xchange = 0;
-  panel_ychange = 0;
-  panel_fgychange = 0;
+
 }
 
 RoomDesigner::~RoomDesigner()
@@ -85,24 +96,7 @@ void RoomDesigner::EventOccurred(Event *e)
 		}
 	}
 
-  switch( designermode )
-  {
-    case DesignerMode::BackgroundMode:
-      BackgroundEvent(e);
-      break;
-    case DesignerMode::ObjectMode:
-      ObjectEvent(e);
-      break;
-    case DesignerMode::PanelMode:
-      PanelEvent(e);
-      break;
-    case DesignerMode::ZoneMode:
-      ZoneEvent(e);
-      break;
-    case DesignerMode::EnemyMode:
-      EnemyEvent(e);
-      break;
-  }
+	designermodes[designermode]->OnEvent(e);
 }
 
 void RoomDesigner::Update()
@@ -115,24 +109,7 @@ void RoomDesigner::Update()
     selection_rampindex = (selection_rampindex + 1) % 8;
   }
 
-  switch( designermode )
-  {
-    case DesignerMode::BackgroundMode:
-      BackgroundUpdate();
-      break;
-    case DesignerMode::ObjectMode:
-      ObjectUpdate();
-      break;
-    case DesignerMode::PanelMode:
-      PanelUpdate();
-      break;
-    case DesignerMode::ZoneMode:
-      ZoneUpdate();
-      break;
-    case DesignerMode::EnemyMode:
-      EnemyUpdate();
-      break;
-  }
+  designermodes[designermode]->Update();
 }
 
 void RoomDesigner::Render()
@@ -142,27 +119,23 @@ void RoomDesigner::Render()
 
   workingroom->Render( 0, 200 );
 
+	designermodes[designermode]->RenderRoom();
   switch( designermode )
   {
     case DesignerMode::BackgroundMode:
       modename = "F1: Bkgrnd";
-      BackgroundRender();
       break;
     case DesignerMode::ObjectMode:
       modename = "F1: Object";
-      ObjectRender();
       break;
     case DesignerMode::PanelMode:
       modename = "F1: Panel";
-      PanelRender();
       break;
     case DesignerMode::ZoneMode:
       modename = "F1: Zone";
-      ZoneRender();
       break;
     case DesignerMode::EnemyMode:
       modename = "F1: Enemy";
-      EnemyRender();
       break;
   }
 
@@ -177,24 +150,7 @@ void RoomDesigner::Render()
     //al_draw_text( textfont, Palette::ColourPalette[ Palette::RampB[selection_rampindex] ], 4, 150 + (i * 9), ALLEGRO_ALIGN_LEFT, LogText[i].c_str() );
   }
 
-  switch( designermode )
-  {
-    case DesignerMode::BackgroundMode:
-      BackgroundRenderStatus();
-      break;
-    case DesignerMode::ObjectMode:
-      ObjectRenderStatus();
-      break;
-    case DesignerMode::PanelMode:
-      PanelRenderStatus();
-      break;
-    case DesignerMode::ZoneMode:
-      ZoneRenderStatus();
-      break;
-    case DesignerMode::EnemyMode:
-      EnemyRenderStatus();
-      break;
-  }
+  designermodes[designermode]->RenderOverlay();
 }
 
 bool RoomDesigner::IsTransition()
@@ -211,33 +167,7 @@ void RoomDesigner::AddLogText(std::string Text)
   LogText[4] = Text;
 }
 
-void RoomDesigner::BackgroundEvent(Event *e)
+int RoomDesigner::GetRampIndex()
 {
-  if( e->Type != EVENT_KEY_DOWN )
-  {
-    return;
-  }
-
-  if( e->Data.Keyboard.KeyCode == ALLEGRO_KEY_PGUP )
-  {
-    workingroom->BackgroundColour = (workingroom->BackgroundColour + 15) % 16;
-  }
-  if( e->Data.Keyboard.KeyCode == ALLEGRO_KEY_PGDN )
-  {
-    workingroom->BackgroundColour = (workingroom->BackgroundColour + 1) % 16;
-  }
-}
-
-void RoomDesigner::BackgroundUpdate()
-{
-}
-
-void RoomDesigner::BackgroundRender()
-{
-}
-
-void RoomDesigner::BackgroundRenderStatus()
-{
-  al_draw_text( textfont, Palette::ColourPalette[8], 250, 16, ALLEGRO_ALIGN_LEFT, "PgUp: Prev" );
-  al_draw_text( textfont, Palette::ColourPalette[8], 250, 25, ALLEGRO_ALIGN_LEFT, "PgUp: Next" );
+	return selection_rampindex;
 }

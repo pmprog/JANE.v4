@@ -1,8 +1,19 @@
 
+#include "roomdesigner_panel.h"
 #include "roomdesigner.h"
 #include "../Framework/Primitives/strings.h"
 
-void RoomDesigner::PanelEvent(Event *e)
+RoomDesignerPanel::RoomDesignerPanel()
+{
+  panel_repeatdelay = 0;
+  panel_graphicchangedelay = 0;
+  panel_graphicchange = 0;
+  panel_xchange = 0;
+  panel_ychange = 0;
+  panel_fgychange = 0;
+}
+
+void RoomDesignerPanel::OnEvent(Event *e)
 {
   Panel* p;
   Panel* copypanel;
@@ -141,7 +152,7 @@ void RoomDesigner::PanelEvent(Event *e)
   }
 }
 
-void RoomDesigner::PanelUpdate()
+void RoomDesignerPanel::Update()
 {
   Panel* p;
 
@@ -193,7 +204,7 @@ void RoomDesigner::PanelUpdate()
   }
 }
 
-void RoomDesigner::PanelRender()
+void RoomDesignerPanel::RenderRoom()
 {
   Panel* p;
 
@@ -201,12 +212,12 @@ void RoomDesigner::PanelRender()
   {
     p = workingroom->Panels.at( panel_activeindex );
     PalettedBitmap* b = GameResources::ObjectGraphics->GetPanel( p->ObjectGraphicIndex );
-    al_draw_rectangle( p->ScreenX - 3, p->ScreenY - 4, p->ScreenX + b->GetWidth() + 4, p->ScreenY + b->GetHeight() + 3, Palette::ColourPalette[ Palette::RampB[selection_rampindex] ], 1 );
-    al_draw_line( 0, p->BackgroundAtY, 320, p->BackgroundAtY, Palette::ColourPalette[ Palette::RampB[selection_rampindex] ], 3 );
+    al_draw_rectangle( p->ScreenX - 3, p->ScreenY - 4, p->ScreenX + b->GetWidth() + 4, p->ScreenY + b->GetHeight() + 3, Palette::ColourPalette[ Palette::RampB[designer->GetRampIndex()] ], 1 );
+    al_draw_line( 0, p->BackgroundAtY, 320, p->BackgroundAtY, Palette::ColourPalette[ Palette::RampB[designer->GetRampIndex()] ], 3 );
   }
 }
 
-void RoomDesigner::PanelRenderStatus()
+void RoomDesignerPanel::RenderOverlay()
 {
 
 }
