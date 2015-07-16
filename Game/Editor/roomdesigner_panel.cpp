@@ -2,6 +2,7 @@
 #include "roomdesigner_panel.h"
 #include "roomdesigner.h"
 #include "panelselector.h"
+#include "paletteselector.h"
 
 RoomDesignerPanel::RoomDesignerPanel()
 {
@@ -132,6 +133,13 @@ void RoomDesignerPanel::OnEvent(Event *e)
           FRAMEWORK->ProgramStages->Push( new PanelSelector( p ) );
         }
 				break;
+			case ALLEGRO_KEY_P:
+        if( panel_activeindex < workingroom->Panels.size() && panel_activeindex >= 0 )
+        {
+          p = workingroom->Panels.at( panel_activeindex );
+          FRAMEWORK->ProgramStages->Push( new PaletteSelector( p->ColourRemap ) );
+        }
+				break;
     }
   }
 
@@ -219,8 +227,8 @@ void RoomDesignerPanel::RenderRoom()
   {
     p = workingroom->Panels.at( panel_activeindex );
     PalettedBitmap* b = GameResources::ObjectGraphics->GetPanel( p->ObjectGraphicIndex );
-    al_draw_rectangle( p->ScreenX - 3, p->ScreenY - 4, p->ScreenX + b->GetWidth() + 4, p->ScreenY + b->GetHeight() + 3, Palette::ColourPalette[ Palette::RampB[designer->GetRampIndex()] ], 1 );
-    al_draw_line( 0, p->BackgroundAtY, 320, p->BackgroundAtY, Palette::ColourPalette[ Palette::RampB[designer->GetRampIndex()] ], 3 );
+    al_draw_rectangle( p->ScreenX - 3, p->ScreenY - 4, p->ScreenX + b->GetWidth() + 4, p->ScreenY + b->GetHeight() + 3, Palette::ColourPalette[ Palette::RampRed[designer->GetRampIndex()] ], 1 );
+    al_draw_line( 0, p->BackgroundAtY, 320, p->BackgroundAtY, Palette::ColourPalette[ Palette::RampRed[designer->GetRampIndex()] ], 3 );
   }
 }
 
@@ -235,4 +243,5 @@ void RoomDesignerPanel::RenderOverlay()
 	al_draw_text( textfont, Palette::ColourPalette[8], 250, 70, ALLEGRO_ALIGN_LEFT, "A/Z: BkgY" );
 	al_draw_text( textfont, Palette::ColourPalette[8], 250, 79, ALLEGRO_ALIGN_LEFT, "R: Draw" );
 	al_draw_text( textfont, Palette::ColourPalette[8], 250, 88, ALLEGRO_ALIGN_LEFT, "G: Graphic" );
+	al_draw_text( textfont, Palette::ColourPalette[8], 250, 88, ALLEGRO_ALIGN_LEFT, "P: Palette" );
 }

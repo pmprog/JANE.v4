@@ -178,6 +178,8 @@
 		<Unit filename="Game/recordbuffer.h" />
 		<Unit filename="Game/resources.cpp" />
 		<Unit filename="Game/resources.h" />
+		<Unit filename="Game/Editor/paletteselector.cpp" />
+		<Unit filename="Game/Editor/paletteselector.h" />
 		<Unit filename="Game/Editor/panelselector.cpp" />
 		<Unit filename="Game/Editor/panelselector.h" />
 		<Unit filename="Game/Editor/roomdesigner.cpp" />

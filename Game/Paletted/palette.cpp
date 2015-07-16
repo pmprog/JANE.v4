@@ -7,10 +7,12 @@ ALLEGRO_COLOR Palette::SourceColourPalette[16] = { COLOUR_BLACK, COLOUR_WHITE, C
 ALLEGRO_COLOR Palette::ColourPalette[16] = { COLOUR_BLACK, COLOUR_WHITE, COLOUR_RED, COLOUR_CYAN, COLOUR_PURPLE, COLOUR_GREEN, COLOUR_BLUE, COLOUR_YELLOW,
         COLOUR_ORANGE, COLOUR_BROWN, COLOUR_PINK, COLOUR_DARK_GRAY, COLOUR_MID_GRAY, COLOUR_LIGHT_GREEN, COLOUR_LIGHT_BLUE, COLOUR_LIGHT_GRAY };
 
-const int Palette::RampA[8] = { 6, 4, 14, 3, 13, 3, 14, 4 };
-const int Palette::RampADark[8] = { 0, 6, 4, 14, 3, 14, 4, 6 };
-const int Palette::RampB[8] = { 9, 2, 8, 10, 7, 10, 8, 2 };
-const int Palette::RampBDark[8] = { 0, 9, 2, 8, 10, 8, 2, 9 };
+const int Palette::RampRedlue[8] = { 6, 4, 14, 3, 13, 3, 14, 4 };
+const int Palette::RampRedlueDark[8] = { 0, 6, 4, 14, 3, 14, 4, 6 };
+const int Palette::RampRed[8] = { 9, 2, 8, 10, 7, 10, 8, 2 };
+const int Palette::RampRedDark[8] = { 0, 9, 2, 8, 10, 8, 2, 9 };
+const int Palette::RampGray[8] = { 0, 11, 12, 15, 1, 15, 12, 11 };
+const int Palette::RampGrayDark[8] = { 0, 0, 11, 12, 15, 12, 11, 0 };
 
 
 void Palette::InitPalette()

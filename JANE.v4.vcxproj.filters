@@ -207,6 +207,9 @@
     <ClCompile Include="Game\Editor\panelselector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Editor\paletteselector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\framework.h">
@@ -420,6 +423,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\Editor\panelselector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Editor\paletteselector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -123,6 +123,7 @@
     <ClCompile Include="Framework\Transitions\strips.cpp" />
     <ClCompile Include="Framework\Transitions\tiled.cpp" />
     <ClCompile Include="Game\boot.cpp" />
+    <ClCompile Include="Game\Editor\paletteselector.cpp" />
     <ClCompile Include="Game\Editor\panelselector.cpp" />
     <ClCompile Include="Game\Entities\combatant.cpp" />
     <ClCompile Include="Game\Entities\panel.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="Framework\Transitions\tiled.h" />
     <ClInclude Include="Framework\Transitions\transitions.h" />
     <ClInclude Include="Game\boot.h" />
+    <ClInclude Include="Game\Editor\paletteselector.h" />
     <ClInclude Include="Game\Editor\panelselector.h" />
     <ClInclude Include="Game\Entities\combatant.h" />
     <ClInclude Include="Game\Entities\panel.h" />

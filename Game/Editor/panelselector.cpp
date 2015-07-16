@@ -108,7 +108,7 @@ void PanelSelector::Render()
 				float pscale = Maths::Min( 46.0f / (float)p->GetWidth(), 46.0f / (float)p->GetHeight() );
 				if( curitem == working->ObjectGraphicIndex )
 				{
-					al_draw_filled_rectangle( x * 48, y * 48, (x+1) * 48, (y+1) * 48, Palette::ColourPalette[ Palette::RampB[selection_rampindex] ]);
+					al_draw_filled_rectangle( x * 48, y * 48, (x+1) * 48, (y+1) * 48, Palette::ColourPalette[ Palette::RampRed[selection_rampindex] ]);
 				}
 				p->Draw( (x * 48) + 1, (y * 48) + 1, p->GetWidth() * pscale, p->GetHeight() * pscale, 0 );
 			}

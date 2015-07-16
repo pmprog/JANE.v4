@@ -58,8 +58,8 @@ void Menu::Update()
 
   if( CheatActive )
   {
-    GameResources::GameOverlay->SetOverride( 6, Palette::RampADark[(menutime / 4) % 8] );
-    GameResources::GameOverlay->SetOverride( 14, Palette::RampA[(menutime / 4) % 8] );
+    GameResources::GameOverlay->SetOverride( 6, Palette::RampRedlueDark[(menutime / 4) % 8] );
+    GameResources::GameOverlay->SetOverride( 14, Palette::RampRedlue[(menutime / 4) % 8] );
   }
 }
 
