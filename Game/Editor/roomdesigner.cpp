@@ -19,7 +19,13 @@ RoomDesigner::RoomDesigner()
 	designermodes[DesignerMode::ObjectMode] = new RoomDesignerObject();
 	designermodes[DesignerMode::EnemyMode] = new RoomDesignerEnemy();
 
-  workingroom = new Room();
+  if( GameResources::GameWorld->Rooms.size() == 0 )
+  {
+    GameResources::GameWorld->Rooms.push_back( new Room() );
+  }
+
+  workingroomindex = 0;
+  workingroom = GameResources::GameWorld->Rooms.front();
   for( int i = 0; i < FRAMEWORK->GetFramesPerSecond() * 2; i++ )
   {
     workingroom->Update();
@@ -32,6 +38,9 @@ RoomDesigner::RoomDesigner()
 	designermode = DesignerMode::PanelMode;
 
 	AddLogText("Welcome to the designer");
+
+
+
 }
 
 RoomDesigner::~RoomDesigner()
@@ -88,8 +97,47 @@ void RoomDesigner::EventOccurred(Event *e)
         }
 				designermodes[designermode]->Init( this, workingroom, textfont );
         return;
+      case ALLEGRO_KEY_F5:
+        GameResources::GameWorld->Save();
+        AddLogText("Map Saved");
+        break;
       case ALLEGRO_KEY_R:
         workingroom->OnEnter();
+        break;
+      case ALLEGRO_KEY_F2:
+        workingroomindex = GameResources::GameWorld->Rooms.size() - 1;
+        GameResources::GameWorld->Rooms.push_back( new Room() );
+      case ALLEGRO_KEY_PGDN:
+        if( workingroomindex < GameResources::GameWorld->Rooms.size() - 1 )
+        {
+          workingroomindex++;
+          workingroom = GameResources::GameWorld->Rooms.at( workingroomindex );
+          for( int i = 0; i < FRAMEWORK->GetFramesPerSecond() * 2; i++ )
+          {
+            workingroom->Update();
+          }
+          for(int i = 0; i < DesignerMode::ModeCount; i++ )
+          {
+            designermodes[i]->Init( this, workingroom, textfont );
+          }
+          AddLogText( "Room " + Strings::FromNumber( workingroomindex ) );
+        }
+        break;
+      case ALLEGRO_KEY_PGUP:
+        if( workingroomindex > 0 )
+        {
+          workingroomindex--;
+          workingroom = GameResources::GameWorld->Rooms.at( workingroomindex );
+          for( int i = 0; i < FRAMEWORK->GetFramesPerSecond() * 2; i++ )
+          {
+            workingroom->Update();
+          }
+          for(int i = 0; i < DesignerMode::ModeCount; i++ )
+          {
+            designermodes[i]->Init( this, workingroom, textfont );
+          }
+          AddLogText( "Room " + Strings::FromNumber( workingroomindex ) );
+        }
         break;
 		}
 	}

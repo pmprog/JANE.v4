@@ -7,8 +7,6 @@
 RoomDesignerPanel::RoomDesignerPanel()
 {
   panel_repeatdelay = 0;
-  panel_graphicchangedelay = 0;
-  panel_graphicchange = 0;
   panel_xchange = 0;
   panel_ychange = 0;
   panel_fgychange = 0;
@@ -61,41 +59,24 @@ void RoomDesignerPanel::OnEvent(Event *e)
           }
         }
         break;
-      case ALLEGRO_KEY_PGUP:
-        panel_repeatdelay = 0;
-        panel_graphicchange = GameResources::ObjectGraphics->GetCount() - 1;
-        if( panel_activeindex < workingroom->Panels.size() && panel_activeindex >= 0 )
-        {
-          p = workingroom->Panels.at( panel_activeindex );
-          p->ObjectGraphicIndex = (p->ObjectGraphicIndex + panel_graphicchange) % GameResources::ObjectGraphics->GetCount();
-        }
-        break;
-      case ALLEGRO_KEY_PGDN:
-        panel_repeatdelay = 0;
-        panel_graphicchange = 1;
-        if( panel_activeindex < workingroom->Panels.size() && panel_activeindex >= 0 )
-        {
-          p = workingroom->Panels.at( panel_activeindex );
-          p->ObjectGraphicIndex = (p->ObjectGraphicIndex + panel_graphicchange) % GameResources::ObjectGraphics->GetCount();
-        }
-        break;
-      case ALLEGRO_KEY_HOME:
+      case ALLEGRO_KEY_TAB:
+      case ALLEGRO_KEY_OPENBRACE:
         if( workingroom->Panels.size() > 0 )
         {
           panel_activeindex = (panel_activeindex + 1) % workingroom->Panels.size();
         }
         break;
-      case ALLEGRO_KEY_END:
+      case ALLEGRO_KEY_CLOSEBRACE:
         if( workingroom->Panels.size() > 0 )
         {
           panel_activeindex = (panel_activeindex + (workingroom->Panels.size() - 1)) % workingroom->Panels.size();
         }
         break;
       case ALLEGRO_KEY_LEFT:
-        panel_xchange = -2;
+        panel_xchange = -4;
         break;
       case ALLEGRO_KEY_RIGHT:
-        panel_xchange = 2;
+        panel_xchange = 4;
         break;
       case ALLEGRO_KEY_UP:
         panel_ychange = -1;
@@ -123,8 +104,13 @@ void RoomDesignerPanel::OnEvent(Event *e)
       case ALLEGRO_KEY_Z:
         panel_fgychange = 1;
         break;
-      case ALLEGRO_KEY_R:
-        panel_activeindex = workingroom->SortPanels( panel_activeindex );
+      case ALLEGRO_KEY_S:
+        if( panel_activeindex < workingroom->Panels.size() && panel_activeindex >= 0 )
+        {
+          panel_activeindex = workingroom->SortPanels( panel_activeindex );
+        } else {
+          workingroom->SortPanels();
+        }
         break;
 			case ALLEGRO_KEY_G:
         if( panel_activeindex < workingroom->Panels.size() && panel_activeindex >= 0 )
@@ -147,10 +133,6 @@ void RoomDesignerPanel::OnEvent(Event *e)
   {
     switch( e->Data.Keyboard.KeyCode )
     {
-      case ALLEGRO_KEY_PGUP:
-      case ALLEGRO_KEY_PGDN:
-        panel_graphicchange = 0;
-        break;
       case ALLEGRO_KEY_LEFT:
       case ALLEGRO_KEY_RIGHT:
         panel_xchange = 0;
@@ -177,18 +159,6 @@ void RoomDesignerPanel::Update()
     return;
   }
 
-  if( panel_graphicchange > 0 )
-  {
-    panel_graphicchangedelay = (panel_graphicchangedelay + 1) % 6;
-    if( panel_graphicchangedelay == 0 )
-    {
-      if( panel_activeindex < workingroom->Panels.size() && panel_activeindex >= 0 )
-      {
-        p = workingroom->Panels.at( panel_activeindex );
-        p->ObjectGraphicIndex = (p->ObjectGraphicIndex + panel_graphicchange) % GameResources::ObjectGraphics->GetCount();
-      }
-    }
-  }
   if( panel_xchange != 0 )
   {
     if( panel_activeindex < workingroom->Panels.size() && panel_activeindex >= 0 )
@@ -214,6 +184,14 @@ void RoomDesignerPanel::Update()
     {
       p = workingroom->Panels.at( panel_activeindex );
       p->BackgroundAtY += panel_fgychange;
+      if( p->BackgroundAtY < 0 )
+      {
+        p->BackgroundAtY = 0;
+      }
+      if( p->BackgroundAtY > 200 )
+      {
+        p->BackgroundAtY = 200;
+      }
       panel_activeindex = workingroom->SortPanels( panel_activeindex );
     }
   }
@@ -237,11 +215,18 @@ void RoomDesignerPanel::RenderOverlay()
 	al_draw_text( textfont, Palette::ColourPalette[8], 250, 16, ALLEGRO_ALIGN_LEFT, "INS: New" );
 	al_draw_text( textfont, Palette::ColourPalette[8], 250, 25, ALLEGRO_ALIGN_LEFT, "DEL: Delete" );
 	al_draw_text( textfont, Palette::ColourPalette[8], 250, 34, ALLEGRO_ALIGN_LEFT, "C: Copy" );
-	al_draw_text( textfont, Palette::ColourPalette[8], 250, 43, ALLEGRO_ALIGN_LEFT, "HOM: Prev" );
-	al_draw_text( textfont, Palette::ColourPalette[8], 250, 52, ALLEGRO_ALIGN_LEFT, "END: Next" );
+	al_draw_text( textfont, Palette::ColourPalette[8], 250, 43, ALLEGRO_ALIGN_LEFT, "[: Prev" );
+	al_draw_text( textfont, Palette::ColourPalette[8], 250, 52, ALLEGRO_ALIGN_LEFT, "]: Next" );
 	al_draw_text( textfont, Palette::ColourPalette[8], 250, 61, ALLEGRO_ALIGN_LEFT, "H/V: Flip" );
 	al_draw_text( textfont, Palette::ColourPalette[8], 250, 70, ALLEGRO_ALIGN_LEFT, "A/Z: BkgY" );
-	al_draw_text( textfont, Palette::ColourPalette[8], 250, 79, ALLEGRO_ALIGN_LEFT, "R: Draw" );
+	al_draw_text( textfont, Palette::ColourPalette[8], 250, 79, ALLEGRO_ALIGN_LEFT, "S: Sort" );
 	al_draw_text( textfont, Palette::ColourPalette[8], 250, 88, ALLEGRO_ALIGN_LEFT, "G: Graphic" );
-	al_draw_text( textfont, Palette::ColourPalette[8], 250, 88, ALLEGRO_ALIGN_LEFT, "P: Palette" );
+	al_draw_text( textfont, Palette::ColourPalette[8], 250, 97, ALLEGRO_ALIGN_LEFT, "P: Palette" );
+
+	Panel* p;
+  if( panel_activeindex < workingroom->Panels.size() && panel_activeindex >= 0 )
+  {
+    p = workingroom->Panels.at( panel_activeindex );
+    GameResources::ObjectGraphics->GetPanel( p->ObjectGraphicIndex )->Draw( 160, 150, 48, 45, 0 );
+  }
 }

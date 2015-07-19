@@ -8,8 +8,6 @@ class RoomDesignerPanel : public RoomDesignerModule
 
 	private:
     int panel_repeatdelay;
-    int panel_graphicchangedelay;
-    int panel_graphicchange;
 		int panel_activeindex;
     int panel_xchange;
     int panel_ychange;

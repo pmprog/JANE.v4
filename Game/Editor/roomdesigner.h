@@ -4,12 +4,14 @@
 #include "../includes.h"
 #include "../resources.h"
 #include "../Entities/room.h"
+#include "../Entities/world.h"
 #include "roomdesigner_mode.h"
 #include "../../Framework/Primitives/strings.h"
 
 class RoomDesigner : public Stage
 {
 	private:
+	  int workingroomindex;
 		Room* workingroom;
 		ALLEGRO_FONT* textfont;
 		RoomDesignerModule* designermodes[5];

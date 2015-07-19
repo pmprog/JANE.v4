@@ -1,6 +1,8 @@
 
 #pragma once
 
+#include "../../Framework/configfile.h"
+
 class Panel
 {
 
@@ -16,4 +18,8 @@ class Panel
     Panel();
 
     static bool SortingPredicate(const Panel* A, const Panel* B);
+
+    void Load(ConfigFile* DataFile, std::string KeyPrefix);
+    void Save(ConfigFile* DataFile, std::string KeyPrefix);
+
 };

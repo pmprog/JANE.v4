@@ -22,5 +22,7 @@ class RoomZone
     RoomZone( Room* Owner );
     ~RoomZone();
 
+    void Load(ConfigFile* DataFile, std::string KeyPrefix);
+    void Save(ConfigFile* DataFile, std::string KeyPrefix);
 
 };

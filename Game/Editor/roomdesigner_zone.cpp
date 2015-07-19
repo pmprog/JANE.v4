@@ -13,12 +13,6 @@ void RoomDesignerZone::OnEvent(Event *e)
   {
     switch( e->Data.Keyboard.KeyCode )
     {
-      case ALLEGRO_KEY_PGUP:
-				workingroom->BackgroundColour = (workingroom->BackgroundColour + 15) % 16;
-        break;
-      case ALLEGRO_KEY_PGDN:
-				workingroom->BackgroundColour = (workingroom->BackgroundColour + 1) % 16;
-        break;
     }
   }
 }

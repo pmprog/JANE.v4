@@ -170,11 +170,7 @@ void* BootUp::ThreadedLoad( ALLEGRO_THREAD*, void* )
   GameResources::GameDataFile = new ConfigFile( "resources/jane.cfg" );
   GameResources::Scripting = new ScriptEngine();
 
-  // temp export all objects
-	//for( int i = 0; i < GameResources::ObjectGraphics->GetCount(); i++ )
-  //{
-  //  GameResources::ObjectGraphics->GetPanel( i )->Save( "xport" + Strings::FromNumber( i ) + ".png" );
-  //}
+  GameResources::GameWorld = new World( "resources/jane4.game" );
 
 	loadingComplete = true;
 	return nullptr;

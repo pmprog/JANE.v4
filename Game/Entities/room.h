@@ -11,6 +11,8 @@ class Room
   private:
     int RoomTime;
 
+    void SetDefaults();
+
   public:
     int BackgroundColour;
     std::vector<Panel*> Panels;
@@ -23,7 +25,6 @@ class Room
 
 
     Room();
-    Room( int RoomID );
     ~Room();
 
     void OnEnter();
@@ -33,5 +34,8 @@ class Room
 
     int SortPanels();
     int SortPanels(int Current);
+
+    void Load(ConfigFile* DataFile, std::string KeyPrefix);
+    void Save(ConfigFile* DataFile, std::string KeyPrefix);
 
 };

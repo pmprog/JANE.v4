@@ -13,10 +13,10 @@ void RoomDesignerBackground::OnEvent(Event *e)
   {
     switch( e->Data.Keyboard.KeyCode )
     {
-      case ALLEGRO_KEY_PGUP:
+      case ALLEGRO_KEY_OPENBRACE:
 				workingroom->BackgroundColour = (workingroom->BackgroundColour + 15) % 16;
         break;
-      case ALLEGRO_KEY_PGDN:
+      case ALLEGRO_KEY_CLOSEBRACE:
 				workingroom->BackgroundColour = (workingroom->BackgroundColour + 1) % 16;
         break;
     }
@@ -34,6 +34,6 @@ void RoomDesignerBackground::RenderRoom()
 
 void RoomDesignerBackground::RenderOverlay()
 {
-  al_draw_text( textfont, Palette::ColourPalette[8], 250, 16, ALLEGRO_ALIGN_LEFT, "PgUp: Prev" );
-  al_draw_text( textfont, Palette::ColourPalette[8], 250, 25, ALLEGRO_ALIGN_LEFT, "PgUp: Next" );
+  al_draw_text( textfont, Palette::ColourPalette[8], 250, 16, ALLEGRO_ALIGN_LEFT, "[: Prev" );
+  al_draw_text( textfont, Palette::ColourPalette[8], 250, 25, ALLEGRO_ALIGN_LEFT, "]: Next" );
 }

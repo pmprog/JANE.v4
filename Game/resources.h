@@ -3,6 +3,7 @@
 
 #include "includes.h"
 #include "../Scripting/scriptengine.h"
+#include "Entities/world.h"
 
 class GameResources
 {
@@ -13,4 +14,5 @@ class GameResources
     static std::vector<PalettedBitmap*> CombatantGraphics;
     static PanelSheet* ObjectGraphics;
     static ScriptEngine* Scripting;
+    static World* GameWorld;
 };
