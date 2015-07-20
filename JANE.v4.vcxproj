@@ -82,6 +82,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Data\sqlite3.c" />
+    <ClCompile Include="Data\sqlitedb.cpp" />
     <ClCompile Include="Framework\configfile.cpp" />
     <ClCompile Include="Framework\Display\animation.cpp" />
     <ClCompile Include="Framework\Display\bitmapcache.cpp" />
@@ -149,6 +151,8 @@
     <ClCompile Include="Scripting\scriptengine.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Data\sqlite3.h" />
+    <ClInclude Include="Data\sqlitedb.h" />
     <ClInclude Include="Framework\configfile.h" />
     <ClInclude Include="Framework\Display\animation.h" />
     <ClInclude Include="Framework\Display\bitmapcache.h" />

@@ -18,3 +18,5 @@
 #include "Paletted/palettedbitmapcache.h"
 
 #include "Entities/panelsheet.h"
+
+#include "../Data/sqlitedb.h"

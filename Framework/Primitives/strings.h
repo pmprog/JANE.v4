@@ -83,4 +83,26 @@ class Strings
 			return std::string(buffer);
 		}
 
+		static std::string Replace( const std::string &s, const std::string find, const std::string replace)
+		{
+			std::string output;
+
+			int index = 0;
+			while( index < s.length() )
+			{
+				std::size_t qidx = s.find(find, index);
+				if( qidx == std::string::npos )
+				{
+					output.append( s.substr( index, s.length() - index ) );
+					index = s.length();
+				} else {
+					output.append( s.substr( index, qidx - index ) );
+					output.append( replace );
+					index = qidx + find.length();
+				}
+			}
+
+			return output;
+		}
+
 };

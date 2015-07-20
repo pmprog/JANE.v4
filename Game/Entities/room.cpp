@@ -147,3 +147,14 @@ void Room::Save(ConfigFile* DataFile, std::string KeyPrefix)
     Enemy->Save( DataFile, KeyPrefix + ".Enemy" );
   }
 }
+
+void Room::Load(SQLiteDB* Database, int GameID, int RoomID)
+{
+}
+
+void Room::Save(SQLiteDB* Database, int GameID, int RoomID)
+{
+	Database->ExecuteStatement("DELETE FROM Rooms WHERE GameID = " + Strings::FromNumber( GameID ) + " AND RoomID = " + Strings::FromNumber( RoomID ) );
+	Database->ExecuteStatement("INSERT INTO Rooms ( GameID, RoomID, BackgroundColour, OnCombatantEnter, OnCombatantLeave, OnUpdate )" );
+
+}

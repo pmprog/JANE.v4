@@ -57,3 +57,11 @@ void Panel::Save(ConfigFile* DataFile, std::string KeyPrefix)
   DataFile->SetBooleanValue( KeyPrefix, 20, FlipVertical );
   DataFile->SetIntegerValue( KeyPrefix, 21, BackgroundAtY );
 }
+
+void Panel::Load(SQLiteDB* Database, int GameID, int RoomID, int PanelID)
+{
+}
+
+void Panel::Save(SQLiteDB* Database, int GameID, int RoomID, int PanelID)
+{
+}

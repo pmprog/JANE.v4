@@ -20,3 +20,11 @@ void Combatant::Save(ConfigFile* DataFile, std::string KeyPrefix)
 {
 
 }
+
+void Combatant::Load(SQLiteDB* Database, int GameID, int RoomID)
+{
+}
+
+void Combatant::Save(SQLiteDB* Database, int GameID, int RoomID)
+{
+}

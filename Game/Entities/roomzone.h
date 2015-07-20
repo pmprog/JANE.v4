@@ -25,4 +25,7 @@ class RoomZone
     void Load(ConfigFile* DataFile, std::string KeyPrefix);
     void Save(ConfigFile* DataFile, std::string KeyPrefix);
 
+    void Load(SQLiteDB* Database, int GameID, int RoomID, int ZoneID);
+    void Save(SQLiteDB* Database, int GameID, int RoomID, int ZoneID);
+
 };
