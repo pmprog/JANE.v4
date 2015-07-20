@@ -104,6 +104,7 @@ void PanelSelector::Render()
 			if( GameResources::ObjectGraphics->GetCount() > curitem )
 			{
 				PalettedBitmap* p = GameResources::ObjectGraphics->GetPanel( curitem );
+				p->ClearOverrides();
 				//float pscale = Maths::Min( (p->GetWidth() <= 46 ? 1.0f : p->GetWidth() / 46.0f), (p->GetHeight() <= 46 ? 1.0f : p->GetHeight() / 46.0f) );
 				float pscale = Maths::Min( 46.0f / (float)p->GetWidth(), 46.0f / (float)p->GetHeight() );
 				if( curitem == working->ObjectGraphicIndex )

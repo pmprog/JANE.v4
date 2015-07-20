@@ -20,6 +20,11 @@ Room::~Room()
 
 }
 
+void Room::ResetRoomTime()
+{
+	RoomTime = 0;
+}
+
 void Room::OnEnter()
 {
   RoomTime = 0;

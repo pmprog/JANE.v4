@@ -35,6 +35,8 @@ class Room
     int SortPanels();
     int SortPanels(int Current);
 
+		void ResetRoomTime();
+
     void Load(ConfigFile* DataFile, std::string KeyPrefix);
     void Save(ConfigFile* DataFile, std::string KeyPrefix);
 

@@ -112,10 +112,13 @@ void RoomDesigner::EventOccurred(Event *e)
         {
           workingroomindex++;
           workingroom = GameResources::GameWorld->Rooms.at( workingroomindex );
+					workingroom->ResetRoomTime();
+					/*
           for( int i = 0; i < FRAMEWORK->GetFramesPerSecond() * 2; i++ )
           {
             workingroom->Update();
           }
+					*/
           for(int i = 0; i < DesignerMode::ModeCount; i++ )
           {
             designermodes[i]->Init( this, workingroom, textfont );
@@ -128,10 +131,13 @@ void RoomDesigner::EventOccurred(Event *e)
         {
           workingroomindex--;
           workingroom = GameResources::GameWorld->Rooms.at( workingroomindex );
+					workingroom->ResetRoomTime();
+					/*
           for( int i = 0; i < FRAMEWORK->GetFramesPerSecond() * 2; i++ )
           {
             workingroom->Update();
           }
+					*/
           for(int i = 0; i < DesignerMode::ModeCount; i++ )
           {
             designermodes[i]->Init( this, workingroom, textfont );
