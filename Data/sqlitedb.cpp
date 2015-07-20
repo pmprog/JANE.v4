@@ -39,7 +39,7 @@ int SQLiteDB::QueryIntegerValue( std::string Statement )
 		return -1;
 	}
 
-	int returnval;
+	int returnval = 0;
 	sqlite3_stmt *cmd;
 	const char *tail;
 

@@ -14,6 +14,7 @@ class Panel
     bool FlipHorizontal;
     bool FlipVertical;
     int BackgroundAtY;
+		bool Visible;
 
     Panel();
 

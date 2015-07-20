@@ -170,7 +170,7 @@ void* BootUp::ThreadedLoad( ALLEGRO_THREAD*, void* )
   GameResources::GameDataFile = new ConfigFile( "resources/jane.cfg" );
   GameResources::Scripting = new ScriptEngine();
 
-  GameResources::GameWorld = new World( "resources/jane4.game", 1 );
+  GameResources::GameWorld = new World( "resources/jane4.db", 1 );
 
 	loadingComplete = true;
 	return nullptr;

@@ -316,7 +316,7 @@ bool ConfigFile::GetBooleanValue( std::string Key, int ArrayIndex, bool* Value )
 		return false;
 	if( Value == 0 )
 		return false;
-	if( ArrayIndex < 0 || (int)cd->Contents->size() < ArrayIndex )
+	if( ArrayIndex < 0 || (int)cd->Contents->size() <= ArrayIndex )
 		return false;
 
 	switch( ((std::string*)cd->Contents->at( ArrayIndex ))->at( 0 ) )
@@ -351,7 +351,7 @@ bool ConfigFile::GetIntegerValue( std::string Key, int ArrayIndex, int* Value )
 		return false;
 	if( Value == 0 )
 		return false;
-	if( ArrayIndex < 0 || (int)cd->Contents->size() < ArrayIndex )
+	if( ArrayIndex < 0 || (int)cd->Contents->size() <= ArrayIndex )
 		return false;
 
 	*Value = atoi( cd->Contents->at( ArrayIndex )->c_str() );
@@ -369,7 +369,7 @@ bool ConfigFile::GetInteger64Value( std::string Key, int ArrayIndex, long* Value
 		return false;
 	if( Value == 0 )
 		return false;
-	if( ArrayIndex < 0 || (int)cd->Contents->size() < ArrayIndex )
+	if( ArrayIndex < 0 || (int)cd->Contents->size() <= ArrayIndex )
 		return false;
 
 	*Value = atol( cd->Contents->at( ArrayIndex )->c_str() );
@@ -388,7 +388,7 @@ bool ConfigFile::GetFloatValue( std::string Key, int ArrayIndex, float* Value )
 		return false;
 	if( Value == 0 )
 		return false;
-	if( ArrayIndex < 0 || (int)cd->Contents->size() < ArrayIndex )
+	if( ArrayIndex < 0 || (int)cd->Contents->size() <= ArrayIndex )
 		return false;
 
 	*Value = (float)atof( cd->Contents->at( ArrayIndex )->c_str() );
@@ -407,7 +407,7 @@ bool ConfigFile::GetStringValue( std::string Key, int ArrayIndex, std::string* V
 		return false;
 	if( Value == 0 )
 		return false;
-	if( ArrayIndex < 0 || (int)cd->Contents->size() < ArrayIndex )
+	if( ArrayIndex < 0 || (int)cd->Contents->size() <= ArrayIndex )
 		return false;
 
 	Value->clear();

@@ -17,6 +17,7 @@ class World
 		int gameid;
 
   public:
+		int TotalRooms;
     std::vector<Room*> Rooms;
     std::string Script_OnUpdate;
 
