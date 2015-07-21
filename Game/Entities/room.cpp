@@ -152,11 +152,7 @@ void Room::Load(SQLiteDB* Database, int GameID, int RoomID)
 {
 	int counter;
 
-	BackgroundColour = Database->QueryIntegerValue( "SELECT BackgroundColour FROM `Rooms` WHERE GameID = " + Strings::FromNumber( GameID ) + " AND RoomID = " + Strings::FromNumber( RoomID ) + ";" );
-
-	Script_OnCombatantEnter = Database->QueryStringValue( "SELECT OnCombatantEnter FROM `Rooms` WHERE GameID = " + Strings::FromNumber( GameID ) + " AND RoomID = " + Strings::FromNumber( RoomID ) + ";" );
-	Script_OnCombatantLeave = Database->QueryStringValue( "SELECT OnCombatantLeave FROM `Rooms` WHERE GameID = " + Strings::FromNumber( GameID ) + " AND RoomID = " + Strings::FromNumber( RoomID ) + ";" );
-	Script_OnUpdate = Database->QueryStringValue( "SELECT OnUpdate FROM `Rooms` WHERE GameID = " + Strings::FromNumber( GameID ) + " AND RoomID = " + Strings::FromNumber( RoomID ) + ";" );
+	Database->LoadRoom( GameID, RoomID, this );
 
 	counter = Database->QueryIntegerValue( "SELECT COUNT(*) FROM `Panels` WHERE GameID = " + Strings::FromNumber( GameID ) + " AND RoomID = " + Strings::FromNumber( RoomID ) + ";" );
   for( int i = 0; i < counter; i++ )
@@ -183,12 +179,21 @@ void Room::Save(SQLiteDB* Database, int GameID, int RoomID)
 {
 	std::string Query;
 
-	Database->ExecuteStatement("DELETE FROM Rooms WHERE GameID = " + Strings::FromNumber( GameID ) + " AND RoomID = " + Strings::FromNumber( RoomID ) + ";" );
-
-	Query = "INSERT INTO Rooms ( GameID, RoomID, BackgroundColour, OnCombatantEnter, OnCombatantLeave, OnUpdate ) ";
-	Query += "SELECT " + Strings::FromNumber( GameID ) + ", " + Strings::FromNumber( RoomID ) + ", " + Strings::FromNumber( BackgroundColour ) + ", ";
-	Query += "'" + Strings::Replace( Script_OnCombatantEnter, "'", "''" ) + "', '" + Strings::Replace( Script_OnCombatantLeave, "'", "''" ) + "', '" + Strings::Replace( Script_OnUpdate, "'", "''" ) + "';";
+	if( !Database->RowExists("SELECT * FROM Rooms WHERE GameID = " + Strings::FromNumber( GameID ) + " AND RoomID = " + Strings::FromNumber( RoomID ) + ";" ) )
+	{
+		Query = "INSERT INTO Rooms ( GameID, RoomID, BackgroundColour, OnCombatantEnter, OnCombatantLeave, OnUpdate ) ";
+		Query += "SELECT " + Strings::FromNumber( GameID ) + ", " + Strings::FromNumber( RoomID ) + ", " + Strings::FromNumber( BackgroundColour ) + ", ";
+		Query += "'" + Strings::Replace( Script_OnCombatantEnter, "'", "''" ) + "', '" + Strings::Replace( Script_OnCombatantLeave, "'", "''" ) + "', '" + Strings::Replace( Script_OnUpdate, "'", "''" ) + "';";
+	} else {
+		Query = "UPDATE Rooms ";
+		Query += "SET BackgroundColour = " + Strings::FromNumber( BackgroundColour ) + ", ";
+		Query += " OnCombatantEnter = '" + Strings::Replace( Script_OnCombatantEnter, "'", "''" ) + "', ";
+		Query += " OnCombatantLeave = '" + Strings::Replace( Script_OnCombatantLeave, "'", "''" ) + "', ";
+		Query += " OnUpdate = '" + Strings::Replace( Script_OnUpdate, "'", "''" ) + "' ";
+		Query += "WHERE GameID = " + Strings::FromNumber( GameID ) + " AND RoomID = " + Strings::FromNumber( RoomID ) + ";";
+	}
 	Database->ExecuteStatement( Query );
+
 
   for(int i = 0; i < Panels.size(); i++ )
   {

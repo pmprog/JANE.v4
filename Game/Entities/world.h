@@ -25,5 +25,6 @@ class World
     ~World();
 
     void Save();
+		void SaveRoom( int RoomID );
 
 };

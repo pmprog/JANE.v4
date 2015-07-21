@@ -4,6 +4,13 @@
 #include "sqlite3.h"
 #include "../Framework/includes.h"
 
+#ifndef Room
+class Room;
+#endif
+#ifndef Panel
+class Panel;
+#endif
+
 class SQLiteDB
 {
 
@@ -23,6 +30,11 @@ class SQLiteDB
 		int QueryIntegerValue( std::string Statement );
 		std::string QueryStringValue( std::string Statement );
 		bool RowExists( std::string Statement );
+
+
+
+		void LoadRoom(int GameID, int RoomID, Room* EditRoom);
+		void LoadPanel(int GameID, int RoomID, int PanelID, Panel* EditPanel);
 
 };
 

@@ -34,8 +34,6 @@ void World::Save()
 {
 	int roomid;
 
-	gamedb = new SQLiteDB( DataFilename );
-
 	gamedb->ExecuteStatement("DELETE FROM `World` WHERE GameID = " + Strings::FromNumber( gameid ) + ";");
 	gamedb->ExecuteStatement("INSERT INTO `World` ( GameID, GameName, OnUpdate ) SELECT " + Strings::FromNumber( gameid ) + ", 'JANE v4', '" + Strings::Replace( Script_OnUpdate, "'", "''" ) + "';");
 	
@@ -46,5 +44,9 @@ void World::Save()
     room->Save( gamedb, gameid, roomid );
     roomid++;
   }
-	delete gamedb;
+}
+
+void World::SaveRoom( int RoomID )
+{
+	Rooms.at( RoomID )->Save( gamedb, gameid, RoomID );
 }

@@ -101,6 +101,10 @@ void RoomDesigner::EventOccurred(Event *e)
         GameResources::GameWorld->Save();
         AddLogText("Map Saved");
         break;
+      case ALLEGRO_KEY_F6:
+        GameResources::GameWorld->SaveRoom( workingroomindex );
+        AddLogText("Room Saved");
+        break;
       case ALLEGRO_KEY_R:
         workingroom->OnEnter();
         break;
