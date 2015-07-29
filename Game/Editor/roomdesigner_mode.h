@@ -20,7 +20,7 @@ class RoomDesignerModule
 		ALLEGRO_FONT* textfont;
 
 	public:
-		void Init(RoomDesigner* Designer, Room* Working, ALLEGRO_FONT* Font);
+		virtual void Init(RoomDesigner* Designer, Room* Working, ALLEGRO_FONT* Font);
 		void AddLogText(std::string Text);
 
 		virtual void OnEvent(Event* e) = 0;
