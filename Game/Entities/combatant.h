@@ -2,6 +2,7 @@
 #pragma once
 
 #include "../includes.h"
+#include "../resources.h"
 
 class CombatantState
 {
@@ -27,6 +28,15 @@ class CombatantState
 		};
 };
 
+class CombatantRenderStyle
+{
+	public:
+		enum RenderStyles
+		{
+			HUMAN,
+			HUMAN_OVERSIZED
+		};
+};
 
 class Combatant
 {
@@ -35,12 +45,18 @@ class Combatant
     std::string SkinFilename;
 		PalettedBitmap* SkinGraphic;
 		int ColourRemap[16];
+		CombatantRenderStyle::RenderStyles SkinRenderStyle;
 
 		int CurrentPower;
 		int CollectedMagic;
 		int CollectedMagicRemaining;
 		int ScreenX;
 		int ScreenY;
+		GameDirection::Direction CurrentDirection;
+
+		CombatantState::States CurrentState;
+		int CurrentStateTime;
+
 
     Combatant();
     ~Combatant();

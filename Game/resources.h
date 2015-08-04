@@ -5,6 +5,18 @@
 #include "../Scripting/scriptengine.h"
 #include "Entities/world.h"
 
+class GameDirection
+{
+	public:
+		enum Direction
+		{
+			NORTH,
+			EAST,
+			SOUTH,
+			WEST
+		};
+};
+
 class GameResources
 {
 
