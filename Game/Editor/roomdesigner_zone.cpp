@@ -51,6 +51,26 @@ void RoomDesignerZone::OnEvent(Event *e)
 			case ALLEGRO_KEY_ENTER:
 				Mode = 1 - Mode;
 				break;
+			case ALLEGRO_KEY_INSERT:
+
+				switch( Mode )
+				{
+					case ZONEMODE_ZONESELECT:
+						workingroom->Zones.push_back( new RoomZone( workingroom ) );
+						zone_activeindex = workingroom->Zones.size() - 1;
+						Mode = ZONEMODE_POINTSELECT;
+						break;
+
+					case ZONEMODE_POINTSELECT:
+						if( workingroom->Zones.size() > 0 && workingroom->Zones.size() > zone_activeindex && zone_activeindex >= 0 )
+						{
+							workingroom->Zones.at( zone_activeindex )->Area->Points->AddToEnd( new Vector2( CursorX, CursorY ) );
+						}
+						break;
+				}
+
+
+				break;
     }
   }
 
@@ -76,47 +96,48 @@ void RoomDesignerZone::OnEvent(Event *e)
 
 void RoomDesignerZone::Update()
 {
-/* Only apply movement when editing a point
-	if( CursorFineMove )
+	if( Mode == ZONEMODE_POINTSELECT )
 	{
-		// Fine position control
-		if( (CursorMove & 1) != 0 )
+		if( CursorFineMove )
 		{
-			CursorY--;
-		}
-		if( (CursorMove & 2) != 0 )
-		{
-			CursorX++;
-		}
-		if( (CursorMove & 4) != 0 )
-		{
-			CursorY++;
-		}
-		if( (CursorMove & 8) != 0 )
-		{
-			CursorX--;
-		}
+			// Fine position control
+			if( (CursorMove & 1) != 0 )
+			{
+				CursorY--;
+			}
+			if( (CursorMove & 2) != 0 )
+			{
+				CursorX++;
+			}
+			if( (CursorMove & 4) != 0 )
+			{
+				CursorY++;
+			}
+			if( (CursorMove & 8) != 0 )
+			{
+				CursorX--;
+			}
 
-	} else {
-		// Move as ninja
-		if( (CursorMove & 3) != 0 )
-		{
-			CursorX += 4;
-		}
-		if( (CursorMove & 12) != 0 )
-		{
-			CursorX -= 4;
-		}
-		if( (CursorMove & 9) != 0 )
-		{
-			CursorY--;
-		}
-		if( (CursorMove & 6) != 0 )
-		{
-			CursorY++;
+		} else {
+			// Move as ninja
+			if( (CursorMove & 3) != 0 )
+			{
+				CursorX += 4;
+			}
+			if( (CursorMove & 12) != 0 )
+			{
+				CursorX -= 4;
+			}
+			if( (CursorMove & 9) != 0 )
+			{
+				CursorY--;
+			}
+			if( (CursorMove & 6) != 0 )
+			{
+				CursorY++;
+			}
 		}
 	}
-*/
 }
 
 void RoomDesignerZone::RenderRoom()
@@ -142,7 +163,12 @@ void RoomDesignerZone::RenderRoom()
 			writeindex += 2;
 		}
 
-		al_draw_polygon( verts, vertcount, ALLEGRO_LINE_JOIN_MITER, Palette::ColourPalette[ Palette::RampGrayDark[designer->GetRampIndex()] ], 1, 1.0f );
+		if( vertcount == 1 )
+		{
+			al_draw_filled_ellipse( verts[0], verts[1], 8, 2, Palette::ColourPalette[ Palette::RampGrayDark[designer->GetRampIndex()] ] );
+		} else if( vertcount > 1 ) {
+			al_draw_polygon( verts, vertcount, ALLEGRO_LINE_JOIN_MITER, Palette::ColourPalette[ Palette::RampGrayDark[designer->GetRampIndex()] ], 1, 1.0f );
+		}
 
 		if( zoneindex == zone_activeindex )
 		{

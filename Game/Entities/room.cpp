@@ -53,6 +53,11 @@ void Room::Update()
 
 void Room::Render(int FromY, int ToY)
 {
+	Render( 0, 0, FromY, ToY );
+}
+
+void Room::Render(int RenderOffsetX, int RenderOffsetY, int FromY, int ToY)
+{
   int panelstodraw = Panels.size();
 
   // Always 2 seconds to render a room
@@ -70,7 +75,7 @@ void Room::Render(int FromY, int ToY)
     {
       PalettedBitmap* b = GameResources::ObjectGraphics->GetPanel( p->ObjectGraphicIndex );
       b->SetOverrides( p->ColourRemap );
-      b->Draw( p->ScreenX, p->ScreenY, (p->FlipHorizontal ? ALLEGRO_FLIP_HORIZONTAL : 0) | (p->FlipVertical ? ALLEGRO_FLIP_VERTICAL : 0) );
+      b->Draw( RenderOffsetX + p->ScreenX, RenderOffsetY + p->ScreenY, (p->FlipHorizontal ? ALLEGRO_FLIP_HORIZONTAL : 0) | (p->FlipVertical ? ALLEGRO_FLIP_VERTICAL : 0) );
     }
   }
 

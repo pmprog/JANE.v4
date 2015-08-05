@@ -33,8 +33,8 @@ class Palette
 
     static ALLEGRO_COLOR ColourPalette[16];
 
-    static const int RampRedlue[8];
-    static const int RampRedlueDark[8];
+    static const int RampBlue[8];
+    static const int RampBlueDark[8];
     static const int RampRed[8];
     static const int RampRedDark[8];
     static const int RampGray[8];

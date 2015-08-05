@@ -17,6 +17,7 @@ class RoomDesigner : public Stage
 		RoomDesignerModule* designermodes[5];
 		int designermode;
 		std::string LogText[5];
+		bool showtools;
 
     int selection_rampdelay;
 		int selection_rampindex;

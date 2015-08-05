@@ -11,6 +11,7 @@ class Menu : public Stage
 		int menutime;
 		PalettedBitmap* janelogo;
 		PalettedBitmap* theeyes;
+		ALLEGRO_FONT* textfont;
 
 		void SetLogoColours();
 

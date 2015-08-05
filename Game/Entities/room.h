@@ -23,7 +23,6 @@ class Room
 
     Combatant* Enemy;
 
-
     Room();
     ~Room();
 
@@ -31,6 +30,7 @@ class Room
     void OnLeave();
     void Update();
     void Render(int FromY, int ToY);
+		void Render(int RenderOffsetX, int RenderOffsetY, int FromY, int ToY);
 
     int SortPanels();
     int SortPanels(int Current);

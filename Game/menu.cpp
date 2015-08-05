@@ -10,6 +10,7 @@ void Menu::Begin()
   janelogo = new PalettedBitmap( "resources/jane4.png" );
   theeyes = new PalettedBitmap( "resources/theeyes.png" );
   SetLogoColours();
+	textfont = al_load_ttf_font( "resources/silkscreen.ttf", 8, ALLEGRO_TTF_MONOCHROME );
 }
 
 void Menu::Pause()
@@ -25,6 +26,7 @@ void Menu::Finish()
 {
   delete janelogo;
   delete theeyes;
+	al_destroy_font( textfont );
 }
 
 void Menu::EventOccurred(Event *e)
@@ -58,8 +60,8 @@ void Menu::Update()
 
   if( CheatActive )
   {
-    GameResources::GameOverlay->SetOverride( 6, Palette::RampRedlueDark[(menutime / 4) % 8] );
-    GameResources::GameOverlay->SetOverride( 14, Palette::RampRedlue[(menutime / 4) % 8] );
+    GameResources::GameOverlay->SetOverride( 6, Palette::RampBlueDark[(menutime / 4) % 8] );
+    GameResources::GameOverlay->SetOverride( 14, Palette::RampBlue[(menutime / 4) % 8] );
   }
 }
 
@@ -70,8 +72,12 @@ void Menu::Render()
   theeyes->Draw( 0, 4, 0 );
   janelogo->Draw( (240 - janelogo->GetWidth()) / 2, 90, 0 );
 
-
 	GameResources::GameOverlay->Draw( 0, 0, 0 );
+
+	al_draw_text( textfont, Palette::ColourPalette[7], 6, 150, ALLEGRO_ALIGN_LEFT, "By Marq Watkin" );
+	al_draw_text( textfont, Palette::ColourPalette[7], 6, 159, ALLEGRO_ALIGN_LEFT, "   Polymath Programming" );
+	al_draw_text( textfont, Palette::ColourPalette[7], 6, 168, ALLEGRO_ALIGN_LEFT, "http://www.pmprog.co.uk" );
+	al_draw_text( textfont, Palette::ColourPalette[7], 6, 186, ALLEGRO_ALIGN_LEFT, "Version 0.1" );
 
 }
 

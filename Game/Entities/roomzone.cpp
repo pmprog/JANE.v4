@@ -3,6 +3,7 @@
 
 RoomZone::RoomZone( Room* Owner )
 {
+	Area = new Polyhedron();
 
 }
 

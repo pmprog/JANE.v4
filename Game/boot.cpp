@@ -153,10 +153,10 @@ bool BootUp::IsTransition()
 void* BootUp::ThreadedLoad( ALLEGRO_THREAD*, void* )
 {
 	// Load all resources for caching
-	ALLEGRO_BITMAP* bkg = BitmapCache::LoadBitmap("resources/background.png");
+	ALLEGRO_BITMAP* bkg = BitmapCache::LoadBitmap("resources/ui_background.png");
 	Palette::ApplyColourOverrides( bkg );
 	GameResources::GameOverlay = new PalettedBitmap( bkg );
-	BitmapCache::UnloadBitmap("resources/background.png");
+	BitmapCache::UnloadBitmap("resources/ui_background.png");
 	Palette::ApplyColourOverrides( BitmapCache::LoadBitmap("resources/ninja.png") );
 	Palette::ApplyColourOverrides( BitmapCache::LoadBitmap("resources/ln1_1.png") );
 	GameResources::ObjectGraphics = new PanelSheet( "resources/ln1_1.png" );
