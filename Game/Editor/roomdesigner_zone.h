@@ -5,18 +5,22 @@
 
 #define ZONEMODE_ZONESELECT 0
 #define ZONEMODE_POINTSELECT 1
+#define ZONEMODE_POINTMOVE 2
 
 class RoomDesignerZone : public RoomDesignerModule
 {
 
 	private:
 		int zone_activeindex;
+		int zonepoint_activeindex;
 
 	public:
 		int CursorX;
 		int CursorY;
 		int CursorMove;
 		bool CursorFineMove;
+		bool CursorSlow;
+		int CursorSlowDelay;
 
 		int Mode;
 		int ActiveZoneIndex;
