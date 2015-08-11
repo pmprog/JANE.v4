@@ -41,6 +41,12 @@ class CombatantRenderStyle
 class Combatant
 {
 
+	private:
+		int magicrampindex;
+		int magicrampdelay;
+
+		void OnUpdateMagic();
+
   public:
     std::string SkinFilename;
 		PalettedBitmap* SkinGraphic;

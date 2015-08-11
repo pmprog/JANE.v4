@@ -13,6 +13,7 @@ const int Palette::RampRed[8] = { 9, 2, 8, 10, 7, 10, 8, 2 };
 const int Palette::RampRedDark[8] = { 0, 9, 2, 8, 10, 8, 2, 9 };
 const int Palette::RampGray[8] = { 0, 11, 12, 15, 1, 15, 12, 11 };
 const int Palette::RampGrayDark[8] = { 0, 0, 11, 12, 15, 12, 11, 0 };
+const int Palette::RampGreen[8] = { 0, 11, 5, 13, 7, 13, 5, 11 };
 
 
 void Palette::InitPalette()

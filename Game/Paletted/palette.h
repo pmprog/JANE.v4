@@ -39,6 +39,7 @@ class Palette
     static const int RampRedDark[8];
     static const int RampGray[8];
     static const int RampGrayDark[8];
+		static const int RampGreen[8];
 
     static void InitPalette();
     static void ApplyColourOverrides(ALLEGRO_BITMAP* Image);
