@@ -128,6 +128,7 @@
     <ClCompile Include="Game\Editor\paletteselector.cpp" />
     <ClCompile Include="Game\Editor\panelselector.cpp" />
     <ClCompile Include="Game\Entities\combatant.cpp" />
+    <ClCompile Include="Game\Entities\combatantstate.cpp" />
     <ClCompile Include="Game\Entities\panel.cpp" />
     <ClCompile Include="Game\Entities\panelsheet.cpp" />
     <ClCompile Include="Game\Entities\room.cpp" />
@@ -200,9 +201,13 @@
     <ClInclude Include="Framework\Transitions\tiled.h" />
     <ClInclude Include="Framework\Transitions\transitions.h" />
     <ClInclude Include="Game\boot.h" />
+    <ClInclude Include="Game\Controllers\controller.h" />
+    <ClInclude Include="Game\Controllers\joystick.h" />
+    <ClInclude Include="Game\Controllers\keyboard.h" />
     <ClInclude Include="Game\Editor\paletteselector.h" />
     <ClInclude Include="Game\Editor\panelselector.h" />
     <ClInclude Include="Game\Entities\combatant.h" />
+    <ClInclude Include="Game\Entities\combatantstate.h" />
     <ClInclude Include="Game\Entities\panel.h" />
     <ClInclude Include="Game\Entities\panelsheet.h" />
     <ClInclude Include="Game\Entities\room.h" />

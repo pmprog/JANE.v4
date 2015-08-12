@@ -216,6 +216,9 @@
     <ClCompile Include="Data\sqlitedb.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Entities\combatantstate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\framework.h">
@@ -438,6 +441,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Data\sqlitedb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Controllers\controller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Controllers\keyboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Controllers\joystick.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Entities\combatantstate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

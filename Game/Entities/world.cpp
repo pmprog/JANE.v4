@@ -14,6 +14,24 @@ World::World( std::string Filename, int GameID )
 
 	int counter;
 
+	// Load Combatant Skins
+	counter = gamedb->QueryIntegerValue( "SELECT COUNT(*) FROM `CombatantSkins`;" );
+  for( int i = 1; i <= counter; i++ )
+  {
+		std::string filename = gamedb->QueryStringValue( "SELECT Filename FROM `CombatantSkins` WHERE SkinID = " + Strings::FromNumber( i ) + ";" );
+		Palette::ApplyColourOverrides( BitmapCache::LoadBitmap(filename) );
+  }
+
+	// Load Panel Sheets
+	GameResources::ObjectGraphics = new PanelSheet();
+	counter = gamedb->QueryIntegerValue( "SELECT COUNT(*) FROM `PanelSheets`;" );
+  for( int i = 1; i <= counter; i++ )
+  {
+		std::string filename = gamedb->QueryStringValue( "SELECT Filename FROM `PanelSheets` WHERE SheetID = " + Strings::FromNumber( i ) + ";" );
+		Palette::ApplyColourOverrides( BitmapCache::LoadBitmap(filename) );
+		GameResources::ObjectGraphics->AddFromFile( filename );
+  }
+
 	Script_OnUpdate = gamedb->QueryStringValue( "SELECT OnUpdate FROM `World` WHERE GameID = " + Strings::FromNumber( GameID ) + ";" );
 
 	TotalRooms = gamedb->QueryIntegerValue( "SELECT COUNT(*) FROM `Rooms` WHERE GameID = " + Strings::FromNumber( GameID ) + ";" );

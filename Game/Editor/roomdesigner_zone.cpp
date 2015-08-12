@@ -321,7 +321,7 @@ void RoomDesignerZone::RenderRoom()
 			verts[writeindex] = ((Vector2*)workingzone->Area->Points->ItemAt( vertindex ))->X;
 			verts[writeindex + 1] = ((Vector2*)workingzone->Area->Points->ItemAt( vertindex ))->Y;
 
-			if( vertindex == zonepoint_activeindex && Mode == ZONEMODE_POINTMOVE )
+			if( zoneindex == zone_activeindex && vertindex == zonepoint_activeindex && Mode == ZONEMODE_POINTMOVE )
 			{
 				al_draw_ellipse( verts[writeindex], verts[writeindex + 1], 8, 2, Palette::ColourPalette[ Palette::RampGrayDark[designer->GetRampIndex()] ], 1 );
 			}

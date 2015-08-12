@@ -3,6 +3,7 @@
 #include "resources.h"
 #include "menu.h"
 #include "../Framework/Primitives/strings.h"
+#include "./Entities/combatantstate.h"
 
 bool BootUp::loadingComplete = false;
 
@@ -157,6 +158,8 @@ void* BootUp::ThreadedLoad( ALLEGRO_THREAD*, void* )
 	Palette::ApplyColourOverrides( bkg );
 	GameResources::GameOverlay = new PalettedBitmap( bkg );
 	BitmapCache::UnloadBitmap("resources/ui_background.png");
+
+	/*
 	Palette::ApplyColourOverrides( BitmapCache::LoadBitmap("resources/ninja.png") );
 	Palette::ApplyColourOverrides( BitmapCache::LoadBitmap("resources/ln1_1.png") );
 	GameResources::ObjectGraphics = new PanelSheet( "resources/ln1_1.png" );
@@ -166,11 +169,14 @@ void* BootUp::ThreadedLoad( ALLEGRO_THREAD*, void* )
 	GameResources::ObjectGraphics->AddFromFile( "resources/ln1_3.png" );
 	Palette::ApplyColourOverrides( BitmapCache::LoadBitmap("resources/ln1_4.png") );
 	GameResources::ObjectGraphics->AddFromFile( "resources/ln1_4.png" );
+	*/
 
   GameResources::GameDataFile = new ConfigFile( "resources/jane.cfg" );
   GameResources::Scripting = new ScriptEngine();
 
   GameResources::GameWorld = new World( "resources/jane4.db", 1 );
+
+	CombatantState::InitialiseCombatantStates();
 
 	loadingComplete = true;
 	return nullptr;

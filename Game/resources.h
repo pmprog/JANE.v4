@@ -4,6 +4,8 @@
 #include "includes.h"
 #include "../Scripting/scriptengine.h"
 #include "Entities/world.h"
+#include "Controllers/keyboard.h"
+#include "Controllers/joystick.h"
 
 class GameDirection
 {
