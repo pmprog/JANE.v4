@@ -4,6 +4,7 @@
 #include "../includes.h"
 #include "../resources.h"
 #include "combatantstate.h"
+#include "../Controllers/controller.h"
 
 class CombatantRenderStyle
 {
@@ -19,17 +20,22 @@ class Combatant
 {
 
 	private:
+		int speed_delay;
+
 		int magicrampindex;
 		int magicrampdelay;
 
 		void OnUpdateMagic();
 
   public:
+		Controller* Controls;
+
     std::string SkinFilename;
 		PalettedBitmap* SkinGraphic;
 		int ColourRemap[16];
 		CombatantRenderStyle::RenderStyles SkinRenderStyle;
 
+		int Speed;
 		int CurrentPower;
 		int CollectedMagic;
 		int CollectedMagicRemaining;
@@ -39,9 +45,10 @@ class Combatant
 
 		CombatantState::States CurrentState;
 		int CurrentStateTime;
+		
 
 
-    Combatant();
+    Combatant(Controller* Controls);
     ~Combatant();
 
     void Load(ConfigFile* DataFile, std::string KeyPrefix);
@@ -54,4 +61,5 @@ class Combatant
 		void OnUpdate();
 		void OnRender();
 
+		void SetNewState(CombatantState::States NewState);
 };

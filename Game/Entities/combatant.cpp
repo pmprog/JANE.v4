@@ -1,9 +1,11 @@
 
 #include "combatant.h"
 
-Combatant::Combatant()
+Combatant::Combatant(Controller* Controls)
 {
-	SkinFilename = "resources/ninja.png";
+	this->Controls = Controls;
+
+	SkinFilename = "resources/skin_ninja.png";
 	SkinGraphic = new PalettedBitmap( SkinFilename );
 	SkinRenderStyle = CombatantRenderStyle::HUMAN;
 	for( int c = 0; c < 16; c++ )
@@ -16,6 +18,9 @@ Combatant::Combatant()
 
 	magicrampindex = 0;
 	magicrampdelay = 0;
+
+	speed_delay = 0;
+	Speed = 6;
 }
 
 Combatant::~Combatant()
@@ -43,52 +48,109 @@ void Combatant::Save(SQLiteDB* Database, int GameID, int RoomID)
 
 void Combatant::OnUpdate()
 {
+	CombatantState* curState;
+
 	OnUpdateMagic();
+
+	speed_delay = (speed_delay + 1) % Speed;
+	if( speed_delay == 0 )
+	{
+		curState = CombatantState::StateList[CurrentState];
+
+		CurrentStateTime = (CurrentStateTime + 1) % curState->FrameNumbers.size();
+		if( !curState->Loops )
+		{
+			SetNewState( curState->NextState );
+		}
+
+		if( !curState->LockControls )
+		{
+			int directionheld = (Controls->GetState() & Controller::MASK_DIRECTIONS);
+			int buttonsheld = (Controls->GetState() & Controller::MASK_BUTTONS);
+
+			if( (Controls->GetState() & Controller::NORTH) == Controller::NORTH && ( CurrentDirection == GameDirection::EAST || CurrentDirection == GameDirection::WEST ) )
+			{
+				CurrentDirection = GameDirection::NORTH;
+			}
+			if( (Controls->GetState() & Controller::EAST) == Controller::EAST && ( CurrentDirection == GameDirection::NORTH || CurrentDirection == GameDirection::SOUTH ) )
+			{
+				CurrentDirection = GameDirection::EAST;
+			}
+			if( (Controls->GetState() & Controller::SOUTH) == Controller::SOUTH && ( CurrentDirection == GameDirection::EAST || CurrentDirection == GameDirection::WEST ) )
+			{
+				CurrentDirection = GameDirection::SOUTH;
+			}
+			if( (Controls->GetState() & Controller::WEST) == Controller::WEST && ( CurrentDirection == GameDirection::NORTH || CurrentDirection == GameDirection::SOUTH ) )
+			{
+				CurrentDirection = GameDirection::WEST;
+			}
+
+			if( directionheld != 0 && buttonsheld == 0 )
+			{
+				// Directions Only
+				if( CurrentState == CombatantState::STANDING || CurrentState == CombatantState::WALKING || CurrentState == CombatantState::WALKINGBACKWARDS )
+				{
+					CombatantState::States newstate = CombatantState::WALKING;
+					if( (CurrentDirection == GameDirection::NORTH && (directionheld & Controller::SOUTH) == Controller::SOUTH)
+						|| (CurrentDirection == GameDirection::EAST && (directionheld & Controller::WEST) == Controller::WEST)
+						|| (CurrentDirection == GameDirection::SOUTH && (directionheld & Controller::NORTH) == Controller::NORTH)
+						|| (CurrentDirection == GameDirection::WEST && (directionheld & Controller::EAST) == Controller::EAST) )
+					{
+						newstate = CombatantState::WALKINGBACKWARDS;
+					}
+					SetNewState( newstate );
+				}
+			} else if( directionheld != 0 && buttonsheld != 0 ) {
+			} else if( buttonsheld != 0 ) {
+			} else {
+				if( CurrentState == CombatantState::BLOCK )
+				{
+					SetNewState( CombatantState::BLOCK_OUT );
+				}
+				if( CurrentState == CombatantState::WALKING || CurrentState == CombatantState::WALKINGBACKWARDS )
+				{
+					SetNewState( CombatantState::STANDING );
+				}
+			}
+
+
+			// TODO: Check if controller changes state
+			if( curState->FrameNumbers.at(CurrentStateTime).MoveCombatant )
+			{
+				if( directionheld == Controller::NORTH )
+				{
+					ScreenX += 4;
+					ScreenY -= 1;
+				} else if( directionheld == Controller::SOUTH ) {
+					ScreenX -= 4;
+					ScreenY += 1;
+				} else if( directionheld == Controller::EAST ) {
+					ScreenX += 4;
+					ScreenY += 1;
+				} else if( directionheld == Controller::WEST ) {
+					ScreenX -= 4;
+					ScreenY -= 1;
+				}
+			}
+
+		}
+
+
+	}
+
 }
 
 void Combatant::OnRender()
 {
 	int framenumber = 0;
+	int zpos = 0;
+	bool shadowed = false;
 	int flipflag = 0;
 
 	// TODO: Get frame number
-	switch( CurrentState )
-	{
-		case CombatantState::STANDING:
-			break;
-		case CombatantState::WALKING:
-			break;
-		case CombatantState::SHORTJUMP:
-			break;
-		case CombatantState::LONGJUMP:
-			break;
-		case CombatantState::CLIMBINGUP:
-			break;
-		case CombatantState::CLIMBINGDOWN:
-			break;
-		case CombatantState::JAB:
-			break;
-		case CombatantState::SLASH:
-			break;
-		case CombatantState::LUNGE:
-			break;
-		case CombatantState::KICK:
-			break;
-		case CombatantState::BLOCK:
-			break;
-		case CombatantState::PICKUP:
-			break;
-		case CombatantState::WEAPONCHANGE_IN:
-			break;
-		case CombatantState::WEAPONCHANGE_OUT:
-			break;
-		case CombatantState::KNEELING:
-			break;
-		case CombatantState::SINKING:
-			break;
-		default:
-			break;
-	}
+	framenumber = CombatantState::StateList[CurrentState]->FrameNumbers.at(CurrentStateTime).FrameNumber;
+	zpos = CombatantState::StateList[CurrentState]->FrameNumbers.at(CurrentStateTime).Z;
+	shadowed = CombatantState::StateList[CurrentState]->FrameNumbers.at(CurrentStateTime).AddShadow;
 
 	// Flip
 	if( CurrentDirection == GameDirection::EAST || CurrentDirection == GameDirection::WEST )
@@ -97,13 +159,18 @@ void Combatant::OnRender()
 	}
 
 	// Point to other direction
-	if( framenumber < 26 && (CurrentDirection == GameDirection::EAST || CurrentDirection == GameDirection::SOUTH) )
+	if( framenumber < 26 && (CurrentDirection == GameDirection::WEST || CurrentDirection == GameDirection::NORTH) )
 	{
 		framenumber += 26;
 	}
 
 	// Render
-	SkinGraphic->DrawPartial( (framenumber % 13) * 32, (framenumber / 13) * 42, 32, 42, ScreenX, ScreenY, flipflag );
+	if( shadowed )
+	{
+		SkinGraphic->DrawPartial( 0, 168, 32, 42, ScreenX - 16, ScreenY - 40, 0 );
+	}
+
+	SkinGraphic->DrawPartial( (framenumber % 13) * 32, (framenumber / 13) * 42, 32, 42, ScreenX - 16, ScreenY - 40 - zpos, flipflag );
 }
 
 void Combatant::OnUpdateMagic()
@@ -136,4 +203,15 @@ void Combatant::OnUpdateMagic()
 			}
 		}
 	}
+}
+
+void Combatant::SetNewState(CombatantState::States NewState)
+{
+	if( CurrentState == NewState )
+	{
+		return;
+	}
+
+	CurrentState = NewState;
+	CurrentStateTime = 0;
 }

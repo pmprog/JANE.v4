@@ -1,6 +1,7 @@
 
 #include "menu.h"
 #include "Editor/roomdesigner.h"
+#include "debugstage.h"
 
 bool Menu::CheatActive = false;
 
@@ -40,6 +41,11 @@ void Menu::EventOccurred(Event *e)
 			FRAMEWORK->ShutdownFramework();
 			return;
 		}
+		if( e->Data.Keyboard.KeyCode == ALLEGRO_KEY_F9 )
+    {
+      FRAMEWORK->ProgramStages->Push( new DebugStage() );
+      return;
+    }
 		if( e->Data.Keyboard.KeyCode == ALLEGRO_KEY_F10 )
     {
       FRAMEWORK->ProgramStages->Push( new RoomDesigner() );

@@ -125,6 +125,7 @@
     <ClCompile Include="Framework\Transitions\strips.cpp" />
     <ClCompile Include="Framework\Transitions\tiled.cpp" />
     <ClCompile Include="Game\boot.cpp" />
+    <ClCompile Include="Game\debugstage.cpp" />
     <ClCompile Include="Game\Editor\paletteselector.cpp" />
     <ClCompile Include="Game\Editor\panelselector.cpp" />
     <ClCompile Include="Game\Entities\combatant.cpp" />
@@ -204,6 +205,7 @@
     <ClInclude Include="Game\Controllers\controller.h" />
     <ClInclude Include="Game\Controllers\joystick.h" />
     <ClInclude Include="Game\Controllers\keyboard.h" />
+    <ClInclude Include="Game\debugstage.h" />
     <ClInclude Include="Game\Editor\paletteselector.h" />
     <ClInclude Include="Game\Editor\panelselector.h" />
     <ClInclude Include="Game\Entities\combatant.h" />

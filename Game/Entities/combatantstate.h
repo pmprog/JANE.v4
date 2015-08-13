@@ -15,12 +15,14 @@ class CombatantState
 			bool AddShadow;
 			int Z;
 			bool InflictDamage;
+			bool Pickup;
 		};
 
 		enum States
 		{
 			STANDING,
 			WALKING,
+			WALKINGBACKWARDS,
 			SHORTJUMP,				// Whilst walking - Fire + UDLR
 			LONGJUMP,					// Whilst walking - Fire + Diagonal
 			CLIMBINGUP,
@@ -32,11 +34,15 @@ class CombatantState
 			SLASH,						// Fire + Right
 			LUNGE,						// Fire + Left
 			KICK,							// Fire + Down
+			BLOCK_IN,					// Fire + Diagonal Away (ie, if fighting facing north (top right), block is south (down left))
 			BLOCK,						// Fire + Diagonal Away (ie, if fighting facing north (top right), block is south (down left))
+			BLOCK_OUT,				// Fire + Diagonal Away (ie, if fighting facing north (top right), block is south (down left))
 			PICKUP,						// Fire + Diagonal Towards
 			WEAPONCHANGE_IN,
 			WEAPONCHANGE_OUT,
+			KNEELING_IN,
 			KNEELING,
+			KNEELING_OUT,
 			SINKING,
 			HITHIGH,
 			HITLOW,

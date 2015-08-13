@@ -126,7 +126,7 @@ void Room::Load(ConfigFile* DataFile, std::string KeyPrefix)
   Script_OnUpdate.append( *DataFile->GetQuickStringValue( KeyPrefix + ".OnUpdate", "" ) );
   if( DataFile->KeyExists( KeyPrefix + ".Enemy" ) )
   {
-    Enemy = new Combatant();
+    Enemy = new Combatant( nullptr );
     Enemy->Load( DataFile, KeyPrefix + ".Enemy" );
   }
 }

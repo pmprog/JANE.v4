@@ -15,9 +15,11 @@ class Controller
 			EAST = 2,
 			SOUTH = 4,
 			WEST = 8,
+			MASK_DIRECTIONS = 15,
 			FIRE = 16,
 			WEAPON = 32,
-			ITEM = 64
+			ITEM = 64,
+			MASK_BUTTONS = 112
 		};
 
 	private:
@@ -38,6 +40,10 @@ class Controller
 
 		void LockControls()
 		{
+			if( Locked )
+			{
+				return;
+			}
 			Locked = true;
 			LockedState = CurrentState;
 		};
