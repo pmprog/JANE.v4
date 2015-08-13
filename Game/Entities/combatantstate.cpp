@@ -12,7 +12,7 @@ void CombatantState::InitialiseCombatantStates()
 	s->Loops = true;
 	s->LockControls = false;
 	s->NextState = States::STANDING;
-	s->FrameNumbers.push_back( 0 );
+	s->FrameNumbers.push_back( { 0, false, false, 0, false } );
 	StateList.push_back(s);
 
 	// States::WALKING
@@ -20,14 +20,14 @@ void CombatantState::InitialiseCombatantStates()
 	s->Loops = true;
 	s->LockControls = false;
 	s->NextState = States::WALKING;
-	s->FrameNumbers.push_back( 1 );
-	s->FrameNumbers.push_back( 2 );
-	s->FrameNumbers.push_back( 3 );
-	s->FrameNumbers.push_back( 4 );
-	s->FrameNumbers.push_back( 5 );
-	s->FrameNumbers.push_back( 6 );
-	s->FrameNumbers.push_back( 7 );
-	s->FrameNumbers.push_back( 8 );
+	s->FrameNumbers.push_back( { 1, false, false, 0, false } );
+	s->FrameNumbers.push_back( { 2, false, false, 0, false } );
+	s->FrameNumbers.push_back( { 3, false, false, 0, false } );
+	s->FrameNumbers.push_back( { 4, false, false, 0, false } );
+	s->FrameNumbers.push_back( { 5, false, false, 0, false } );
+	s->FrameNumbers.push_back( { 6, false, false, 0, false } );
+	s->FrameNumbers.push_back( { 7, false, false, 0, false } );
+	s->FrameNumbers.push_back( { 8, false, false, 0, false } );
 	StateList.push_back(s);
 
 	// States::SHORTJUMP
@@ -35,12 +35,12 @@ void CombatantState::InitialiseCombatantStates()
 	s->Loops = false;
 	s->LockControls = true;
 	s->NextState = States::STANDING;
-	s->FrameNumbers.push_back( 16 );
-	s->FrameNumbers.push_back( 17 );
-	s->FrameNumbers.push_back( 18 );
-	s->FrameNumbers.push_back( 19 );
-	s->FrameNumbers.push_back( 16 );
-	s->FrameNumbers.push_back( 14 );
+	s->FrameNumbers.push_back( { 16, true, true, 2, false } );
+	s->FrameNumbers.push_back( { 17, true, true, 4, false } );
+	s->FrameNumbers.push_back( { 18, true, true, 6, false } );
+	s->FrameNumbers.push_back( { 19, true, true, 4, false } );
+	s->FrameNumbers.push_back( { 16, true, true, 2, false } );
+	s->FrameNumbers.push_back( { 14, false, false, 0, false } );
 	StateList.push_back(s);
 
 	// States::LONGJUMP
@@ -48,15 +48,15 @@ void CombatantState::InitialiseCombatantStates()
 	s->Loops = false;
 	s->LockControls = true;
 	s->NextState = States::STANDING;
-	s->FrameNumbers.push_back( 16 );
-	s->FrameNumbers.push_back( 17 );
-	s->FrameNumbers.push_back( 17 );
-	s->FrameNumbers.push_back( 18 );
-	s->FrameNumbers.push_back( 18 );
-	s->FrameNumbers.push_back( 19 );
-	s->FrameNumbers.push_back( 19 );
-	s->FrameNumbers.push_back( 16 );
-	s->FrameNumbers.push_back( 14 );
+	s->FrameNumbers.push_back( { 16, true, true, 2, false } );
+	s->FrameNumbers.push_back( { 17, true, true, 4, false } );
+	s->FrameNumbers.push_back( { 18, true, true, 6, false } );
+	s->FrameNumbers.push_back( { 19, true, true, 6, false } );
+	s->FrameNumbers.push_back( { 17, true, true, 6, false } );
+	s->FrameNumbers.push_back( { 18, true, true, 6, false } );
+	s->FrameNumbers.push_back( { 19, true, true, 4, false } );
+	s->FrameNumbers.push_back( { 16, true, true, 2, false } );
+	s->FrameNumbers.push_back( { 14, false, false, 0, false } );
 	StateList.push_back(s);
 
 	// States::CLIMBINGUP
@@ -64,7 +64,7 @@ void CombatantState::InitialiseCombatantStates()
 	s->Loops = true;
 	s->LockControls = true;
 	s->NextState = States::CLIMBINGTOP;
-	s->FrameNumbers.push_back( 0 );
+	s->FrameNumbers.push_back( { 1, false, false, 0, false } );
 	StateList.push_back(s);
 
 	// States::CLIMBINGTOP
@@ -72,7 +72,7 @@ void CombatantState::InitialiseCombatantStates()
 	s->Loops = false;
 	s->LockControls = true;
 	s->NextState = States::STANDING;
-	s->FrameNumbers.push_back( 0 );
+	s->FrameNumbers.push_back( { 1, false, false, 0, false } );
 	StateList.push_back(s);
 
 	// States::CLIMBINGDOWN
@@ -80,7 +80,7 @@ void CombatantState::InitialiseCombatantStates()
 	s->Loops = true;
 	s->LockControls = true;
 	s->NextState = States::STANDING;
-	s->FrameNumbers.push_back( 0 );
+	s->FrameNumbers.push_back( { 1, false, false, 0, false } );
 	StateList.push_back(s);
 
 	// States::CLIMBINGBOTTOM
@@ -88,7 +88,23 @@ void CombatantState::InitialiseCombatantStates()
 	s->Loops = false;
 	s->LockControls = true;
 	s->NextState = States::STANDING;
-	s->FrameNumbers.push_back( 0 );
+	s->FrameNumbers.push_back( { 1, false, false, 0, false } );
+	StateList.push_back(s);
+
+	// States::ROLLING
+	s = new CombatantState();
+	s->Loops = false;
+	s->LockControls = true;
+	s->NextState = States::STANDING;
+	s->FrameNumbers.push_back( { 14, false, false, 0, false } );
+	s->FrameNumbers.push_back( { 15, false, false, 0, false } );
+	s->FrameNumbers.push_back( { 18, true, true, 0, false } );
+	s->FrameNumbers.push_back( { 19, true, true, 0, false } );
+	s->FrameNumbers.push_back( { 17, true, true, 0, false } );
+	s->FrameNumbers.push_back( { 18, true, true, 0, false } );
+	s->FrameNumbers.push_back( { 19, true, true, 0, false } );
+	s->FrameNumbers.push_back( { 15, false, false, 0, false } );
+	s->FrameNumbers.push_back( { 14, false, false, 0, false } );
 	StateList.push_back(s);
 
 	// States::JAB
@@ -96,7 +112,9 @@ void CombatantState::InitialiseCombatantStates()
 	s->Loops = false;
 	s->LockControls = true;
 	s->NextState = States::STANDING;
-	s->FrameNumbers.push_back( 0 );
+	s->FrameNumbers.push_back( { 11, false, false, 0, false } );
+	s->FrameNumbers.push_back( { 12, false, false, 0, true } );
+	s->FrameNumbers.push_back( { 11, false, false, 0, false } );
 	StateList.push_back(s);
 
 	// States::SLASH
@@ -104,7 +122,7 @@ void CombatantState::InitialiseCombatantStates()
 	s->Loops = false;
 	s->LockControls = true;
 	s->NextState = States::STANDING;
-	s->FrameNumbers.push_back( 0 );
+	s->FrameNumbers.push_back( { 1, false, false, 0, false } );
 	StateList.push_back(s);
 
 	// States::LUNGE
@@ -112,7 +130,10 @@ void CombatantState::InitialiseCombatantStates()
 	s->Loops = false;
 	s->LockControls = true;
 	s->NextState = States::STANDING;
-	s->FrameNumbers.push_back( 0 );
+	s->FrameNumbers.push_back( { 24, false, false, 0, false } );
+	s->FrameNumbers.push_back( { 14, false, false, 0, true } );
+	s->FrameNumbers.push_back( { 14, false, false, 0, true } );
+	s->FrameNumbers.push_back( { 24, false, false, 0, false } );
 	StateList.push_back(s);
 
 	// States::KICK
@@ -120,7 +141,10 @@ void CombatantState::InitialiseCombatantStates()
 	s->Loops = false;
 	s->LockControls = true;
 	s->NextState = States::STANDING;
-	s->FrameNumbers.push_back( 0 );
+	s->FrameNumbers.push_back( { 9, false, false, 0, false } );
+	s->FrameNumbers.push_back( { 10, false, false, 0, true } );
+	s->FrameNumbers.push_back( { 10, false, false, 0, true } );
+	s->FrameNumbers.push_back( { 9, false, false, 0, false } );
 	StateList.push_back(s);
 
 	// States::BLOCK
@@ -128,7 +152,7 @@ void CombatantState::InitialiseCombatantStates()
 	s->Loops = true;
 	s->LockControls = false;
 	s->NextState = States::STANDING;
-	s->FrameNumbers.push_back( 0 );
+	s->FrameNumbers.push_back( { 1, false, false, 0, false } );
 	StateList.push_back(s);
 
 	// States::PICKUP
@@ -136,7 +160,7 @@ void CombatantState::InitialiseCombatantStates()
 	s->Loops = false;
 	s->LockControls = true;
 	s->NextState = States::STANDING;
-	s->FrameNumbers.push_back( 0 );
+	s->FrameNumbers.push_back( { 1, false, false, 0, false } );
 	StateList.push_back(s);
 
 	// States::WEAPONCHANGE_IN
@@ -144,7 +168,7 @@ void CombatantState::InitialiseCombatantStates()
 	s->Loops = true;
 	s->LockControls = false;
 	s->NextState = States::STANDING;
-	s->FrameNumbers.push_back( 0 );
+	s->FrameNumbers.push_back( { 1, false, false, 0, false } );
 	StateList.push_back(s);
 
 	// States::WEAPONCHANGE_OUT
@@ -152,7 +176,7 @@ void CombatantState::InitialiseCombatantStates()
 	s->Loops = true;
 	s->LockControls = false;
 	s->NextState = States::STANDING;
-	s->FrameNumbers.push_back( 0 );
+	s->FrameNumbers.push_back( { 1, false, false, 0, false } );
 	StateList.push_back(s);
 
 	// States::KNEELING
@@ -160,7 +184,7 @@ void CombatantState::InitialiseCombatantStates()
 	s->Loops = true;
 	s->LockControls = false;
 	s->NextState = States::STANDING;
-	s->FrameNumbers.push_back( 0 );
+	s->FrameNumbers.push_back( { 1, false, false, 0, false } );
 	StateList.push_back(s);
 
 	// States::SINKING
@@ -168,7 +192,7 @@ void CombatantState::InitialiseCombatantStates()
 	s->Loops = false;
 	s->LockControls = true;
 	s->NextState = States::STANDING;
-	s->FrameNumbers.push_back( 0 );
+	s->FrameNumbers.push_back( { 1, false, false, 0, false } );
 	StateList.push_back(s);
 
 	// States::HITHIGH
@@ -176,7 +200,7 @@ void CombatantState::InitialiseCombatantStates()
 	s->Loops = false;
 	s->LockControls = true;
 	s->NextState = States::STANDING;
-	s->FrameNumbers.push_back( 0 );
+	s->FrameNumbers.push_back( { 23, false, false, 0, false } );
 	StateList.push_back(s);
 
 	// States::HITLOW
@@ -184,7 +208,7 @@ void CombatantState::InitialiseCombatantStates()
 	s->Loops = false;
 	s->LockControls = true;
 	s->NextState = States::STANDING;
-	s->FrameNumbers.push_back( 54 );
+	s->FrameNumbers.push_back( { 54, false, false, 0, false } );
 	StateList.push_back(s);
 
 	// States::DYING
@@ -192,7 +216,8 @@ void CombatantState::InitialiseCombatantStates()
 	s->Loops = false;
 	s->LockControls = true;
 	s->NextState = States::DEAD;
-	s->FrameNumbers.push_back( 55 );
+	s->FrameNumbers.push_back( { 55, false, false, 0, false } );
+	s->FrameNumbers.push_back( { 55, false, false, 0, false } );
 	StateList.push_back(s);
 
 	// States::DEAD
@@ -200,7 +225,7 @@ void CombatantState::InitialiseCombatantStates()
 	s->Loops = true;
 	s->LockControls = true;
 	s->NextState = States::DEAD;
-	s->FrameNumbers.push_back( 56 );
+	s->FrameNumbers.push_back( { 56, false, false, 0, false } );
 	StateList.push_back(s);
 
 }

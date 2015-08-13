@@ -7,6 +7,16 @@
 class CombatantState
 {
 	public:
+
+		struct StateFrameData
+		{
+			int FrameNumber;
+			bool MoveCombatant;
+			bool AddShadow;
+			int Z;
+			bool InflictDamage;
+		};
+
 		enum States
 		{
 			STANDING,
@@ -17,6 +27,7 @@ class CombatantState
 			CLIMBINGTOP,
 			CLIMBINGDOWN,
 			CLIMBINGBOTTOM,
+			ROLLING,
 			JAB,							// Fire + Up
 			SLASH,						// Fire + Right
 			LUNGE,						// Fire + Left
@@ -36,7 +47,7 @@ class CombatantState
 		bool Loops;
 		States NextState;
 		bool LockControls;
-		std::vector<int> FrameNumbers;
+		std::vector<StateFrameData> FrameNumbers;
 
 		static std::vector<CombatantState*> StateList;
 		static void InitialiseCombatantStates();
