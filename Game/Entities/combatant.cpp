@@ -24,7 +24,7 @@ Combatant::Combatant(Controller* Controls)
 	magicrampdelay = 0;
 
 	speed_delay = 0;
-	Speed = 6;
+	Speed = 2;
 }
 
 Combatant::~Combatant()
@@ -53,6 +53,7 @@ void Combatant::Save(SQLiteDB* Database, int GameID, int RoomID)
 void Combatant::OnUpdate()
 {
 	CombatantState* curState;
+	int directionheld;
 
 	OnUpdateMagic();
 
@@ -60,9 +61,10 @@ void Combatant::OnUpdate()
 	if( speed_delay == 0 )
 	{
 		curState = CombatantState::StateList[CurrentState];
+		directionheld = (Controls->GetState() & Controller::MASK_DIRECTIONS);
 
 		CurrentStateTime = (CurrentStateTime + 1) % curState->FrameNumbers.size();
-		if( !curState->Loops )
+		if( CurrentStateTime == 0 && !curState->Loops )
 		{
 			if( curState->NextState == CombatantState::WEAPONCHANGE_OUT )
       {
@@ -74,25 +76,24 @@ void Combatant::OnUpdate()
 
 		if( !curState->LockControls )
 		{
-			int directionheld = (Controls->GetState() & Controller::MASK_DIRECTIONS);
 			int buttonsheld = (Controls->GetState() & Controller::MASK_BUTTONS);
 
-			if( (Controls->GetState() & Controller::NORTH) == Controller::NORTH && ( CurrentDirection == GameDirection::EAST || CurrentDirection == GameDirection::WEST ) )
-			{
-				CurrentDirection = GameDirection::NORTH;
-			}
-			if( (Controls->GetState() & Controller::EAST) == Controller::EAST && ( CurrentDirection == GameDirection::NORTH || CurrentDirection == GameDirection::SOUTH ) )
-			{
-				CurrentDirection = GameDirection::EAST;
-			}
-			if( (Controls->GetState() & Controller::SOUTH) == Controller::SOUTH && ( CurrentDirection == GameDirection::EAST || CurrentDirection == GameDirection::WEST ) )
-			{
-				CurrentDirection = GameDirection::SOUTH;
-			}
-			if( (Controls->GetState() & Controller::WEST) == Controller::WEST && ( CurrentDirection == GameDirection::NORTH || CurrentDirection == GameDirection::SOUTH ) )
-			{
-				CurrentDirection = GameDirection::WEST;
-			}
+      if( (Controls->GetState() & Controller::NORTH) == Controller::NORTH && ( CurrentDirection == GameDirection::EAST || CurrentDirection == GameDirection::WEST ) )
+      {
+        CurrentDirection = GameDirection::NORTH;
+      }
+      if( (Controls->GetState() & Controller::EAST) == Controller::EAST && ( CurrentDirection == GameDirection::NORTH || CurrentDirection == GameDirection::SOUTH ) )
+      {
+        CurrentDirection = GameDirection::EAST;
+      }
+      if( (Controls->GetState() & Controller::SOUTH) == Controller::SOUTH && ( CurrentDirection == GameDirection::EAST || CurrentDirection == GameDirection::WEST ) )
+      {
+        CurrentDirection = GameDirection::SOUTH;
+      }
+      if( (Controls->GetState() & Controller::WEST) == Controller::WEST && ( CurrentDirection == GameDirection::NORTH || CurrentDirection == GameDirection::SOUTH ) )
+      {
+        CurrentDirection = GameDirection::WEST;
+      }
 
 			if( (Controls->GetState() & Controller::WEAPON) == Controller::WEAPON )
       {
@@ -103,8 +104,8 @@ void Combatant::OnUpdate()
 			if( directionheld != 0 && buttonsheld == 0 )
 			{
 				// Directions Only
-				if( CurrentState == CombatantState::STANDING || CurrentState == CombatantState::WALKING || CurrentState == CombatantState::WALKINGBACKWARDS )
-				{
+				//if( CurrentState == CombatantState::STANDING || CurrentState == CombatantState::WALKING || CurrentState == CombatantState::WALKINGBACKWARDS )
+				//{
 					CombatantState::States newstate = CombatantState::WALKING;
 					if( (CurrentDirection == GameDirection::NORTH && (directionheld & Controller::SOUTH) == Controller::SOUTH)
 						|| (CurrentDirection == GameDirection::EAST && (directionheld & Controller::WEST) == Controller::WEST)
@@ -114,8 +115,15 @@ void Combatant::OnUpdate()
 						newstate = CombatantState::WALKINGBACKWARDS;
 					}
 					SetNewState( newstate );
-				}
+				//}
 			} else if( directionheld != 0 && buttonsheld != 0 ) {
+
+			  if( CurrentState == CombatantState::WALKING )
+        {
+          SetNewState( CombatantState::LONGJUMP );
+        }
+
+
 			} else if( buttonsheld != 0 ) {
 			} else {
 				if( CurrentState == CombatantState::BLOCK )
@@ -132,27 +140,27 @@ void Combatant::OnUpdate()
       {
         SetNewState( CombatantState::WEAPONCHANGE_IN );
       }
-
-			// TODO: Check if controller changes state
-			if( curState->FrameNumbers.at(CurrentStateTime).MoveCombatant )
-			{
-				if( directionheld == Controller::NORTH )
-				{
-					ScreenX += 4;
-					ScreenY -= 1;
-				} else if( directionheld == Controller::SOUTH ) {
-					ScreenX -= 4;
-					ScreenY += 1;
-				} else if( directionheld == Controller::EAST ) {
-					ScreenX += 4;
-					ScreenY += 1;
-				} else if( directionheld == Controller::WEST ) {
-					ScreenX -= 4;
-					ScreenY -= 1;
-				}
-			}
-
 		}
+
+    curState = CombatantState::StateList[CurrentState];
+    if( curState->FrameNumbers.at(CurrentStateTime).MoveCombatant )
+    {
+      if( directionheld == Controller::NORTH )
+      {
+        ScreenX += 4;
+        ScreenY -= 1;
+      } else if( directionheld == Controller::SOUTH ) {
+        ScreenX -= 4;
+        ScreenY += 1;
+      } else if( directionheld == Controller::EAST ) {
+        ScreenX += 4;
+        ScreenY += 1;
+      } else if( directionheld == Controller::WEST ) {
+        ScreenX -= 4;
+        ScreenY -= 1;
+      }
+    }
+
 
 
 	}
@@ -233,4 +241,11 @@ void Combatant::SetNewState(CombatantState::States NewState)
 
 	CurrentState = NewState;
 	CurrentStateTime = 0;
+
+	if( CombatantState::StateList[CurrentState]->LockControls )
+  {
+    Controls->LockControls();
+  } else {
+    Controls->UnlockControls();
+  }
 }

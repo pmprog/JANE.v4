@@ -10,6 +10,7 @@ class DebugStage : public Stage
 
 	private:
 		Combatant* ninja;
+		int curroom;
 
   public:
     // Stage control
