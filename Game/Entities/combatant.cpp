@@ -16,6 +16,10 @@ Combatant::Combatant(Controller* Controls)
 	CurrentState = CombatantState::STANDING;
 	CurrentStateTime = 0;
 
+  weapon_change_on_stand = false;
+  weapon_current_index = 0;
+  weapon_change_index = 0;
+
 	magicrampindex = 0;
 	magicrampdelay = 0;
 
@@ -60,7 +64,12 @@ void Combatant::OnUpdate()
 		CurrentStateTime = (CurrentStateTime + 1) % curState->FrameNumbers.size();
 		if( !curState->Loops )
 		{
-			SetNewState( curState->NextState );
+			if( curState->NextState == CombatantState::WEAPONCHANGE_OUT )
+      {
+        weapon_current_index = weapon_change_index;
+        weapon_change_on_stand = false;
+      }
+      SetNewState( curState->NextState );
 		}
 
 		if( !curState->LockControls )
@@ -84,6 +93,12 @@ void Combatant::OnUpdate()
 			{
 				CurrentDirection = GameDirection::WEST;
 			}
+
+			if( (Controls->GetState() & Controller::WEAPON) == Controller::WEAPON )
+      {
+        weapon_change_on_stand = true;
+        // TODO: Change weapon_change_index to next weapon available after weapon_change_index
+      }
 
 			if( directionheld != 0 && buttonsheld == 0 )
 			{
@@ -113,6 +128,10 @@ void Combatant::OnUpdate()
 				}
 			}
 
+      if( weapon_change_on_stand && CurrentState == CombatantState::STANDING )
+      {
+        SetNewState( CombatantState::WEAPONCHANGE_IN );
+      }
 
 			// TODO: Check if controller changes state
 			if( curState->FrameNumbers.at(CurrentStateTime).MoveCombatant )

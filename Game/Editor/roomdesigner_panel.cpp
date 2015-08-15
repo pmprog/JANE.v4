@@ -205,8 +205,12 @@ void RoomDesignerPanel::RenderRoom()
   {
     p = workingroom->Panels.at( panel_activeindex );
     PalettedBitmap* b = GameResources::ObjectGraphics->GetPanel( p->ObjectGraphicIndex );
-    al_draw_rectangle( p->ScreenX - 3, p->ScreenY - 4, p->ScreenX + b->GetWidth() + 4, p->ScreenY + b->GetHeight() + 3, Palette::ColourPalette[ Palette::RampRed[designer->GetRampIndex()] ], 1 );
-    al_draw_line( 0, p->BackgroundAtY, 320, p->BackgroundAtY, Palette::ColourPalette[ Palette::RampRed[designer->GetRampIndex()] ], 3 );
+    al_draw_rectangle( p->ScreenX + 40 - 3, p->ScreenY + 28 - 4, p->ScreenX + 40 + b->GetWidth() + 4, p->ScreenY + 28 + b->GetHeight() + 3, Palette::ColourPalette[ Palette::RampRed[designer->GetRampIndex()] ], 1 );
+    al_draw_line( 0, p->BackgroundAtY + 28, 320, p->BackgroundAtY + 28, Palette::ColourPalette[ Palette::RampRed[designer->GetRampIndex()] ], 1 );
+
+    al_draw_filled_rectangle( 280, 160, 320, 200, Palette::ColourPalette[0] );
+    b->Draw( 280, 160, 40, 40, 0 );
+
   }
 }
 

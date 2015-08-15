@@ -159,6 +159,9 @@
 		<Unit filename="Framework/maths.h" />
 		<Unit filename="Framework/memory.cpp" />
 		<Unit filename="Framework/memory.h" />
+		<Unit filename="Game/Controllers/controller.h" />
+		<Unit filename="Game/Controllers/joystick.h" />
+		<Unit filename="Game/Controllers/keyboard.h" />
 		<Unit filename="Game/Editor/paletteselector.cpp" />
 		<Unit filename="Game/Editor/paletteselector.h" />
 		<Unit filename="Game/Editor/panelselector.cpp" />
@@ -179,6 +182,8 @@
 		<Unit filename="Game/Editor/roomdesigner_zone.h" />
 		<Unit filename="Game/Entities/combatant.cpp" />
 		<Unit filename="Game/Entities/combatant.h" />
+		<Unit filename="Game/Entities/combatantstate.cpp" />
+		<Unit filename="Game/Entities/combatantstate.h" />
 		<Unit filename="Game/Entities/panel.cpp" />
 		<Unit filename="Game/Entities/panel.h" />
 		<Unit filename="Game/Entities/panelsheet.cpp" />
@@ -197,6 +202,8 @@
 		<Unit filename="Game/Paletted/palettedbitmapcache.h" />
 		<Unit filename="Game/boot.cpp" />
 		<Unit filename="Game/boot.h" />
+		<Unit filename="Game/debugstage.cpp" />
+		<Unit filename="Game/debugstage.h" />
 		<Unit filename="Game/includes.h" />
 		<Unit filename="Game/menu.cpp" />
 		<Unit filename="Game/menu.h" />

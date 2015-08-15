@@ -212,18 +212,28 @@ void CombatantState::InitialiseCombatantStates()
 
 	// States::WEAPONCHANGE_IN
 	s = new CombatantState();
-	s->Loops = true;
+	s->Loops = false;
 	s->LockControls = false;
-	s->NextState = States::STANDING;
-	s->FrameNumbers.push_back( { 1, false, false, 0, false, false } );
+	s->NextState = States::WEAPONCHANGE_OUT;
+	s->FrameNumbers.push_back( { 20, false, false, 0, false, false } );
+	s->FrameNumbers.push_back( { 20, false, false, 0, false, false } );
+	s->FrameNumbers.push_back( { 21, false, false, 0, false, false } );
+	s->FrameNumbers.push_back( { 21, false, false, 0, false, false } );
+	s->FrameNumbers.push_back( { 22, false, false, 0, false, false } );
+	s->FrameNumbers.push_back( { 22, false, false, 0, false, false } );
 	StateList.push_back(s);
 
 	// States::WEAPONCHANGE_OUT
 	s = new CombatantState();
-	s->Loops = true;
-	s->LockControls = false;
+	s->Loops = false;
+	s->LockControls = true;
 	s->NextState = States::STANDING;
-	s->FrameNumbers.push_back( { 1, false, false, 0, false, false } );
+	s->FrameNumbers.push_back( { 22, false, false, 0, false, false } );
+	s->FrameNumbers.push_back( { 22, false, false, 0, false, false } );
+	s->FrameNumbers.push_back( { 21, false, false, 0, false, false } );
+	s->FrameNumbers.push_back( { 21, false, false, 0, false, false } );
+	s->FrameNumbers.push_back( { 20, false, false, 0, false, false } );
+	s->FrameNumbers.push_back( { 20, false, false, 0, false, false } );
 	StateList.push_back(s);
 
 	// States::KNEELING_IN
