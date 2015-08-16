@@ -31,6 +31,9 @@ class Combatant
 
 		void OnUpdateMagic();
 
+		Controller::ControllerStateFlags GetPrimaryControllerState();
+		Controller::ControllerStateFlags GetSecondaryControllerState();
+
   public:
 		Controller* Controls;
 

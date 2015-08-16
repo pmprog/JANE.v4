@@ -19,7 +19,9 @@ World::World( std::string Filename, int GameID )
   for( int i = 1; i <= counter; i++ )
   {
 		std::string filename = gamedb->QueryStringValue( "SELECT Filename FROM `CombatantSkins` WHERE SkinID = " + Strings::FromNumber( i ) + ";" );
-		Palette::ApplyColourOverrides( BitmapCache::LoadBitmap(filename) );
+		ALLEGRO_BITMAP* skin = BitmapCache::LoadBitmap(filename);
+		Palette::ApplyColourOverrides( skin );
+		GameResources::CombatantGraphics.push_back( new PalettedBitmap( skin ) );
   }
 
 	// Load Panel Sheets
@@ -54,7 +56,7 @@ void World::Save()
 
 	gamedb->ExecuteStatement("DELETE FROM `World` WHERE GameID = " + Strings::FromNumber( gameid ) + ";");
 	gamedb->ExecuteStatement("INSERT INTO `World` ( GameID, GameName, OnUpdate ) SELECT " + Strings::FromNumber( gameid ) + ", 'JANE v4', '" + Strings::Replace( Script_OnUpdate, "'", "''" ) + "';");
-	
+
   roomid = 0;
   for( std::vector<Room*>::const_iterator roomptr = Rooms.begin(); roomptr != Rooms.end(); roomptr++ )
   {

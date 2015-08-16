@@ -5,8 +5,7 @@ Combatant::Combatant(Controller* Controls)
 {
 	this->Controls = Controls;
 
-	SkinFilename = "resources/skin_ninja.png";
-	SkinGraphic = new PalettedBitmap( SkinFilename );
+	SkinGraphic = GameResources::CombatantGraphics.at(0);
 	SkinRenderStyle = CombatantRenderStyle::HUMAN;
 	for( int c = 0; c < 16; c++ )
 	{
@@ -74,53 +73,55 @@ void Combatant::OnUpdate()
       SetNewState( curState->NextState );
 		}
 
+    if( (Controls->GetState() & Controller::WEAPON) == Controller::WEAPON )
+    {
+      weapon_change_on_stand = true;
+      // TODO: Change weapon_change_index to next weapon available after weapon_change_index
+    }
+
 		if( !curState->LockControls )
 		{
-			int buttonsheld = (Controls->GetState() & Controller::MASK_BUTTONS);
-
-      if( (Controls->GetState() & Controller::NORTH) == Controller::NORTH && ( CurrentDirection == GameDirection::EAST || CurrentDirection == GameDirection::WEST ) )
-      {
-        CurrentDirection = GameDirection::NORTH;
-      }
-      if( (Controls->GetState() & Controller::EAST) == Controller::EAST && ( CurrentDirection == GameDirection::NORTH || CurrentDirection == GameDirection::SOUTH ) )
-      {
-        CurrentDirection = GameDirection::EAST;
-      }
-      if( (Controls->GetState() & Controller::SOUTH) == Controller::SOUTH && ( CurrentDirection == GameDirection::EAST || CurrentDirection == GameDirection::WEST ) )
-      {
-        CurrentDirection = GameDirection::SOUTH;
-      }
-      if( (Controls->GetState() & Controller::WEST) == Controller::WEST && ( CurrentDirection == GameDirection::NORTH || CurrentDirection == GameDirection::SOUTH ) )
-      {
-        CurrentDirection = GameDirection::WEST;
-      }
-
-			if( (Controls->GetState() & Controller::WEAPON) == Controller::WEAPON )
-      {
-        weapon_change_on_stand = true;
-        // TODO: Change weapon_change_index to next weapon available after weapon_change_index
-      }
+			int buttonsheld = (Controls->GetState() & Controller::FIRE);
 
 			if( directionheld != 0 && buttonsheld == 0 )
 			{
-				// Directions Only
-				//if( CurrentState == CombatantState::STANDING || CurrentState == CombatantState::WALKING || CurrentState == CombatantState::WALKINGBACKWARDS )
-				//{
-					CombatantState::States newstate = CombatantState::WALKING;
-					if( (CurrentDirection == GameDirection::NORTH && (directionheld & Controller::SOUTH) == Controller::SOUTH)
-						|| (CurrentDirection == GameDirection::EAST && (directionheld & Controller::WEST) == Controller::WEST)
-						|| (CurrentDirection == GameDirection::SOUTH && (directionheld & Controller::NORTH) == Controller::NORTH)
-						|| (CurrentDirection == GameDirection::WEST && (directionheld & Controller::EAST) == Controller::EAST) )
-					{
-						newstate = CombatantState::WALKINGBACKWARDS;
-					}
-					SetNewState( newstate );
-				//}
+        if( Controls->GetState() == Controller::NORTH && ( CurrentDirection == GameDirection::EAST || CurrentDirection == GameDirection::WEST ) )
+        {
+          CurrentDirection = GameDirection::NORTH;
+        }
+        if( Controls->GetState() == Controller::EAST && ( CurrentDirection == GameDirection::NORTH || CurrentDirection == GameDirection::SOUTH ) )
+        {
+          CurrentDirection = GameDirection::EAST;
+        }
+        if( Controls->GetState() == Controller::SOUTH && ( CurrentDirection == GameDirection::EAST || CurrentDirection == GameDirection::WEST ) )
+        {
+          CurrentDirection = GameDirection::SOUTH;
+        }
+        if( Controls->GetState() == Controller::WEST && ( CurrentDirection == GameDirection::NORTH || CurrentDirection == GameDirection::SOUTH ) )
+        {
+          CurrentDirection = GameDirection::WEST;
+        }
+
+        CombatantState::States newstate = CombatantState::WALKING;
+        if( (CurrentDirection == GameDirection::NORTH && (directionheld & Controller::SOUTH) == Controller::SOUTH)
+          || (CurrentDirection == GameDirection::EAST && (directionheld & Controller::WEST) == Controller::WEST)
+          || (CurrentDirection == GameDirection::SOUTH && (directionheld & Controller::NORTH) == Controller::NORTH)
+          || (CurrentDirection == GameDirection::WEST && (directionheld & Controller::EAST) == Controller::EAST) )
+        {
+          newstate = CombatantState::WALKINGBACKWARDS;
+        }
+        SetNewState( newstate );
+
 			} else if( directionheld != 0 && buttonsheld != 0 ) {
 
 			  if( CurrentState == CombatantState::WALKING )
         {
-          SetNewState( CombatantState::LONGJUMP );
+          if( GetSecondaryControllerState() == Controller::NONE )
+          {
+            SetNewState( CombatantState::LONGJUMP );
+          } else {
+            SetNewState( CombatantState::SHORTJUMP );
+          }
         }
 
 
@@ -145,20 +146,77 @@ void Combatant::OnUpdate()
     curState = CombatantState::StateList[CurrentState];
     if( curState->FrameNumbers.at(CurrentStateTime).MoveCombatant )
     {
-      if( directionheld == Controller::NORTH )
+      switch( GetPrimaryControllerState() )
       {
-        ScreenX += 4;
-        ScreenY -= 1;
-      } else if( directionheld == Controller::SOUTH ) {
-        ScreenX -= 4;
-        ScreenY += 1;
-      } else if( directionheld == Controller::EAST ) {
-        ScreenX += 4;
-        ScreenY += 1;
-      } else if( directionheld == Controller::WEST ) {
-        ScreenX -= 4;
-        ScreenY -= 1;
+      case Controller::NORTH:
+          switch( GetSecondaryControllerState() )
+          {
+            case Controller::EAST:
+              ScreenX += 4;
+              break;
+            case Controller::WEST:
+              ScreenX += 2;
+              ScreenY -= 2;
+              break;
+            default:
+              ScreenX += 4;
+              ScreenY -= 1;
+              break;
+          }
+          break;
+
+        case Controller::EAST:
+          switch( GetSecondaryControllerState() )
+          {
+            case Controller::NORTH:
+              ScreenX += 4;
+              break;
+            case Controller::SOUTH:
+              ScreenX += 2;
+              ScreenY += 2;
+              break;
+            default:
+              ScreenX += 4;
+              ScreenY += 1;
+              break;
+          }
+          break;
+
+        case Controller::SOUTH:
+          switch( GetSecondaryControllerState() )
+          {
+            case Controller::EAST:
+              ScreenX -= 2;
+              ScreenY += 2;
+              break;
+            case Controller::WEST:
+              ScreenX -= 4;
+              break;
+            default:
+              ScreenX -= 4;
+              ScreenY += 1;
+              break;
+          }
+          break;
+
+        case Controller::WEST:
+          switch( GetSecondaryControllerState() )
+          {
+            case Controller::NORTH:
+              ScreenX -= 2;
+              ScreenY -= 2;
+              break;
+            case Controller::SOUTH:
+              ScreenX -= 4;
+              break;
+            default:
+              ScreenX -= 4;
+              ScreenY -= 1;
+              break;
+          }
+          break;
       }
+
     }
 
 
@@ -248,4 +306,30 @@ void Combatant::SetNewState(CombatantState::States NewState)
   } else {
     Controls->UnlockControls();
   }
+}
+
+Controller::ControllerStateFlags Combatant::GetPrimaryControllerState()
+{
+  if( (CurrentDirection == GameDirection::NORTH || CurrentDirection == GameDirection::SOUTH) && (Controls->GetState() & (Controller::NORTH | Controller::SOUTH)) != Controller::NONE )
+  {
+    return (Controller::ControllerStateFlags)(Controls->GetState() & (Controller::NORTH | Controller::SOUTH));
+  }
+  if( (CurrentDirection == GameDirection::EAST || CurrentDirection == GameDirection::WEST) && (Controls->GetState() & (Controller::EAST | Controller::WEST)) != Controller::NONE )
+  {
+    return (Controller::ControllerStateFlags)(Controls->GetState() & (Controller::EAST | Controller::WEST));
+  }
+  return Controller::NONE;
+}
+
+Controller::ControllerStateFlags Combatant::GetSecondaryControllerState()
+{
+  if( (CurrentDirection == GameDirection::NORTH || CurrentDirection == GameDirection::SOUTH) && (Controls->GetState() & (Controller::EAST | Controller::WEST)) != Controller::NONE )
+  {
+    return (Controller::ControllerStateFlags)(Controls->GetState() & (Controller::EAST | Controller::WEST));
+  }
+  if( (CurrentDirection == GameDirection::EAST || CurrentDirection == GameDirection::WEST) && (Controls->GetState() & (Controller::NORTH | Controller::SOUTH)) != Controller::NONE )
+  {
+    return (Controller::ControllerStateFlags)(Controls->GetState() & (Controller::NORTH | Controller::SOUTH));
+  }
+  return Controller::NONE;
 }
