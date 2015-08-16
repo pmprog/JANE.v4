@@ -6,7 +6,6 @@
 
 void DebugStage::Begin()
 {
-  FRAMEWORK->SetSlowMode( true );
 	ninja = new Combatant( new KeyboardController() );
 	ninja->ScreenX = 100;
 	ninja->ScreenY = 100;
