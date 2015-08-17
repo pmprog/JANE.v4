@@ -217,7 +217,10 @@ void CombatantState::InitialiseCombatantStates()
 	s->NextState = States::STANDING;
 	s->FrameNumbers.push_back( { 13, false, false, 0, false, false } );
 	s->FrameNumbers.push_back( { 14, false, false, 0, false, true } );
+	s->FrameNumbers.push_back( { 14, false, false, 0, false, false } );
 	s->FrameNumbers.push_back( { 15, false, false, 0, false, true } );
+	s->FrameNumbers.push_back( { 15, false, false, 0, false, false } );
+	s->FrameNumbers.push_back( { 14, false, false, 0, false, false } );
 	s->FrameNumbers.push_back( { 14, false, false, 0, false, false } );
 	StateList.push_back(s);
 

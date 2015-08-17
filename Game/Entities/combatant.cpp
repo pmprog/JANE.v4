@@ -23,7 +23,7 @@ Combatant::Combatant(Controller* Controls)
 	magicrampdelay = 0;
 
 	speed_delay = 0;
-	Speed = 2;
+	Speed = 5;
 }
 
 Combatant::~Combatant()
@@ -124,8 +124,50 @@ void Combatant::OnUpdate()
           }
         }
 
+				if( CurrentState == CombatantState::STANDING )
+				{
+					// Only one direction pressed
+					if( GetPrimaryControllerState() == Controller::NONE || GetSecondaryControllerState() == Controller::NONE )
+					{
+						if( (directionheld & Controller::NORTH) == Controller::NORTH )
+						{
+							SetNewState( CombatantState::JAB );
+						}
+						if( (directionheld & Controller::EAST) == Controller::EAST )
+						{
+							SetNewState( CombatantState::LUNGE );
+						}
+						if( (directionheld & Controller::SOUTH) == Controller::SOUTH )
+						{
+							SetNewState( CombatantState::KICK );
+						}
+						if( (directionheld & Controller::WEST) == Controller::WEST )
+						{
+							SetNewState( CombatantState::SLASH );
+						}
+					} else {
+
+						if( (CurrentDirection == GameDirection::NORTH && (directionheld & Controller::NORTH) == Controller::NORTH)
+							|| (CurrentDirection == GameDirection::EAST && (directionheld & Controller::EAST) == Controller::EAST)
+							|| (CurrentDirection == GameDirection::SOUTH && (directionheld & Controller::SOUTH) == Controller::SOUTH)
+							|| (CurrentDirection == GameDirection::WEST && (directionheld & Controller::WEST) == Controller::WEST) )
+						{
+							SetNewState( CombatantState::PICKUP );
+						} else {
+							SetNewState( CombatantState::BLOCK_IN );
+						}
+
+					}
+				}
+
 
 			} else if( buttonsheld != 0 ) {
+
+				if( CurrentState != CombatantState::BLOCK )
+				{
+					SetNewState( CombatantState::STANDING );
+				}
+
 			} else {
 				if( CurrentState == CombatantState::BLOCK )
 				{
