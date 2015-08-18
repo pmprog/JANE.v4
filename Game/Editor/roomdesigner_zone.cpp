@@ -1,7 +1,7 @@
 
 #include "roomdesigner_zone.h"
 #include "roomdesigner.h"
-
+#include "zoneflags.h"
 
 RoomDesignerZone::RoomDesignerZone()
 {
@@ -56,6 +56,13 @@ void RoomDesignerZone::OnEvent(Event *e)
 			case ALLEGRO_KEY_M:
 				CursorFineMove = !CursorFineMove;
 				AddLogText( (CursorFineMove ? "Movement: Fine" : "Movement : Ninja") );
+				break;
+
+			case ALLEGRO_KEY_F:
+				if( workingroom->Zones.size() > 0 && workingroom->Zones.size() > zone_activeindex && zone_activeindex > 0 )
+				{
+					FRAMEWORK->ProgramStages->Push( new ZoneFlagEditor( workingroom->Zones.at( zone_activeindex ) ) );
+				}
 				break;
 
 			case ALLEGRO_KEY_OPENBRACE:
@@ -362,22 +369,21 @@ void RoomDesignerZone::RenderRoom()
 
 void RoomDesignerZone::RenderOverlay()
 {
-	al_draw_text( textfont, Palette::ColourPalette[8], 160, 34, ALLEGRO_ALIGN_LEFT, "[: Prev" );
-	al_draw_text( textfont, Palette::ColourPalette[8], 160, 43, ALLEGRO_ALIGN_LEFT, "]: Next" );
+	al_draw_text( textfont, Palette::ColourPalette[8], 140, 34, ALLEGRO_ALIGN_LEFT, "[: Prev" );
+	al_draw_text( textfont, Palette::ColourPalette[8], 140, 43, ALLEGRO_ALIGN_LEFT, "]: Next" );
 
 	if( Mode == ZONEMODE_ZONESELECT )
 	{
-		al_draw_text( textfont, Palette::ColourPalette[8], 160, 16, ALLEGRO_ALIGN_LEFT, "INS: New Zone" );
-		al_draw_text( textfont, Palette::ColourPalette[8], 160, 25, ALLEGRO_ALIGN_LEFT, "DEL: Delete Zone" );
+		al_draw_text( textfont, Palette::ColourPalette[8], 140, 16, ALLEGRO_ALIGN_LEFT, "INS: New Zone" );
+		al_draw_text( textfont, Palette::ColourPalette[8], 140, 25, ALLEGRO_ALIGN_LEFT, "DEL: Delete Zone" );
 
-		al_draw_text( textfont, Palette::ColourPalette[8], 160, 43, ALLEGRO_ALIGN_LEFT, "ENT: Edit" );
+		al_draw_text( textfont, Palette::ColourPalette[8], 140, 43, ALLEGRO_ALIGN_LEFT, "ENT: Edit" );
 	} else {
-		al_draw_text( textfont, Palette::ColourPalette[8], 160, 16, ALLEGRO_ALIGN_LEFT, "INS: New Pnt" );
-		al_draw_text( textfont, Palette::ColourPalette[8], 160, 25, ALLEGRO_ALIGN_LEFT, "DEL: Del Pnt" );
+		al_draw_text( textfont, Palette::ColourPalette[8], 140, 16, ALLEGRO_ALIGN_LEFT, "INS: New Pnt" );
+		al_draw_text( textfont, Palette::ColourPalette[8], 140, 25, ALLEGRO_ALIGN_LEFT, "DEL: Del Pnt" );
 
-		al_draw_text( textfont, Palette::ColourPalette[8], 160, 43, ALLEGRO_ALIGN_LEFT, "ENT: Commit" );
-		al_draw_text( textfont, Palette::ColourPalette[8], 160, 52, ALLEGRO_ALIGN_LEFT, "M: MoveMode" );
-		al_draw_text( textfont, Palette::ColourPalette[8], 160, 61, ALLEGRO_ALIGN_LEFT, "F: Flags" );
+		al_draw_text( textfont, Palette::ColourPalette[8], 140, 43, ALLEGRO_ALIGN_LEFT, "ENT: Commit" );
+		al_draw_text( textfont, Palette::ColourPalette[8], 140, 52, ALLEGRO_ALIGN_LEFT, "M: Move Mode" );
+		al_draw_text( textfont, Palette::ColourPalette[8], 140, 61, ALLEGRO_ALIGN_LEFT, "F: Set Flags" );
 	}
-
 }

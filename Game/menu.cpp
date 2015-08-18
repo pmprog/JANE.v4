@@ -12,6 +12,7 @@ void Menu::Begin()
   theeyes = new PalettedBitmap( "resources/theeyes.png" );
   SetLogoColours();
 	textfont = al_load_ttf_font( "resources/silkscreen.ttf", 8, ALLEGRO_TTF_MONOCHROME );
+	AUDIO->PlayMusic( "resources/Paul Hannay (Feekzoid) - Last_Ninja_4_intro [1].ogg", true );
 }
 
 void Menu::Pause()
@@ -21,6 +22,7 @@ void Menu::Pause()
 
 void Menu::Resume()
 {
+	AUDIO->PlayMusic( "resources/Paul Hannay (Feekzoid) - Last_Ninja_4_intro [1].ogg", true );
 }
 
 void Menu::Finish()

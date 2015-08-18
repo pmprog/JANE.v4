@@ -222,6 +222,9 @@
     <ClCompile Include="Game\debugstage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Editor\zoneflags.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\framework.h">
@@ -459,6 +462,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\debugstage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Editor\zoneflags.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

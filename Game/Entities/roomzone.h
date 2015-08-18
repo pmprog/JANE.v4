@@ -39,7 +39,7 @@ class RoomZone
 		bool ClimbingZone;
 		int ClimbingUpperZ;
 		int ClimbingRequiresItemHeld;
-		GameDirection ClimbingFace;
+		GameDirection::Direction ClimbingFace;
 
 		bool DrowningZone;
 
@@ -48,7 +48,7 @@ class RoomZone
 		int TransportingRoomID;
 		int TransportingScreenX;
 		int TransportingScreenY;
-		GameDirection TransportingFacing;
+		GameDirection::Direction TransportingFacing;
 		bool TransportingClearInput;
 
 		bool RollingZone;	// Can only enter via rolling

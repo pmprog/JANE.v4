@@ -216,21 +216,14 @@ void RoomDesignerPanel::RenderRoom()
 
 void RoomDesignerPanel::RenderOverlay()
 {
-	al_draw_text( textfont, Palette::ColourPalette[8], 250, 16, ALLEGRO_ALIGN_LEFT, "INS: New" );
-	al_draw_text( textfont, Palette::ColourPalette[8], 250, 25, ALLEGRO_ALIGN_LEFT, "DEL: Delete" );
-	al_draw_text( textfont, Palette::ColourPalette[8], 250, 34, ALLEGRO_ALIGN_LEFT, "C: Copy" );
-	al_draw_text( textfont, Palette::ColourPalette[8], 250, 43, ALLEGRO_ALIGN_LEFT, "[: Prev" );
-	al_draw_text( textfont, Palette::ColourPalette[8], 250, 52, ALLEGRO_ALIGN_LEFT, "]: Next" );
-	al_draw_text( textfont, Palette::ColourPalette[8], 250, 61, ALLEGRO_ALIGN_LEFT, "H/V: Flip" );
-	al_draw_text( textfont, Palette::ColourPalette[8], 250, 70, ALLEGRO_ALIGN_LEFT, "A/Z: BkgY" );
-	al_draw_text( textfont, Palette::ColourPalette[8], 250, 79, ALLEGRO_ALIGN_LEFT, "S: Sort" );
-	al_draw_text( textfont, Palette::ColourPalette[8], 250, 88, ALLEGRO_ALIGN_LEFT, "G: Graphic" );
-	al_draw_text( textfont, Palette::ColourPalette[8], 250, 97, ALLEGRO_ALIGN_LEFT, "P: Palette" );
-
-	Panel* p;
-  if( panel_activeindex < workingroom->Panels.size() && panel_activeindex >= 0 )
-  {
-    p = workingroom->Panels.at( panel_activeindex );
-    GameResources::ObjectGraphics->GetPanel( p->ObjectGraphicIndex )->Draw( 160, 150, 48, 45, 0 );
-  }
+	al_draw_text( textfont, Palette::ColourPalette[8], 140, 16, ALLEGRO_ALIGN_LEFT, "INS: New" );
+	al_draw_text( textfont, Palette::ColourPalette[8], 140, 25, ALLEGRO_ALIGN_LEFT, "DEL: Delete" );
+	al_draw_text( textfont, Palette::ColourPalette[8], 140, 34, ALLEGRO_ALIGN_LEFT, "C: Copy" );
+	al_draw_text( textfont, Palette::ColourPalette[8], 140, 43, ALLEGRO_ALIGN_LEFT, "[: Prev" );
+	al_draw_text( textfont, Palette::ColourPalette[8], 140, 52, ALLEGRO_ALIGN_LEFT, "]: Next" );
+	al_draw_text( textfont, Palette::ColourPalette[8], 140, 61, ALLEGRO_ALIGN_LEFT, "H/V: Flip" );
+	al_draw_text( textfont, Palette::ColourPalette[8], 140, 70, ALLEGRO_ALIGN_LEFT, "A/Z: BkgY" );
+	al_draw_text( textfont, Palette::ColourPalette[8], 140, 79, ALLEGRO_ALIGN_LEFT, "S: Sort" );
+	al_draw_text( textfont, Palette::ColourPalette[8], 140, 88, ALLEGRO_ALIGN_LEFT, "G: Graphic" );
+	al_draw_text( textfont, Palette::ColourPalette[8], 140, 97, ALLEGRO_ALIGN_LEFT, "P: Palette" );
 }

@@ -8,7 +8,7 @@
 
 RoomDesigner::RoomDesigner()
 {
-  textfont = al_load_ttf_font( "resources/lastninja.ttf", 8, ALLEGRO_TTF_MONOCHROME );
+  textfont = al_load_ttf_font( "resources/silkscreen.ttf", 8, ALLEGRO_TTF_MONOCHROME );
 
   selection_rampdelay = 0;
   selection_rampindex = 0;
@@ -40,6 +40,7 @@ RoomDesigner::RoomDesigner()
 	AddLogText("Welcome to the designer");
 
 	showtools = false;
+	AUDIO->PlayMusic( "resources/Paul Hannay (Feekzoid) - Last_Ninja_4_loader [3].ogg", true );
 }
 
 RoomDesigner::~RoomDesigner()
@@ -215,22 +216,22 @@ void RoomDesigner::Render()
 			//al_draw_text( textfont, Palette::ColourPalette[ Palette::RampRed[selection_rampindex] ], 4, 150 + (i * 9), ALLEGRO_ALIGN_LEFT, LogText[i].c_str() );
 		}
 
-		al_draw_filled_rectangle( 20, 16, 300, 120, Palette::ColourPalette[0] );
-		al_draw_line( 20, 16, 300, 16, Palette::ColourPalette[15], 1 );
+		al_draw_filled_rectangle( 10, 16, 310, 120, Palette::ColourPalette[0] );
+		al_draw_line( 10, 16, 310, 16, Palette::ColourPalette[15], 1 );
 		int ypos = 18;
-		al_draw_text( textfont, Palette::ColourPalette[ 8 ], 24, ypos, ALLEGRO_ALIGN_LEFT, "F2: Mode" );
+		al_draw_text( textfont, Palette::ColourPalette[ 8 ], 14, ypos, ALLEGRO_ALIGN_LEFT, "F2: Mode" );
 		ypos += 9;
-		al_draw_text( textfont, Palette::ColourPalette[ 9 ], 24, ypos, ALLEGRO_ALIGN_LEFT, "F4: Add Room" );
+		al_draw_text( textfont, Palette::ColourPalette[ 9 ], 14, ypos, ALLEGRO_ALIGN_LEFT, "F4: Add Room" );
 		ypos += 9;
-		al_draw_text( textfont, Palette::ColourPalette[ 8 ], 24, ypos, ALLEGRO_ALIGN_LEFT, "F5: Save World" );
+		al_draw_text( textfont, Palette::ColourPalette[ 8 ], 14, ypos, ALLEGRO_ALIGN_LEFT, "F5: Save World" );
 		ypos += 9;
-		al_draw_text( textfont, Palette::ColourPalette[ 9 ], 24, ypos, ALLEGRO_ALIGN_LEFT, "F6: Save Room" );
+		al_draw_text( textfont, Palette::ColourPalette[ 9 ], 14, ypos, ALLEGRO_ALIGN_LEFT, "F6: Save Room" );
 		ypos += 9;
-		al_draw_text( textfont, Palette::ColourPalette[ 8 ], 24, ypos, ALLEGRO_ALIGN_LEFT, "R: Re-render" );
+		al_draw_text( textfont, Palette::ColourPalette[ 8 ], 14, ypos, ALLEGRO_ALIGN_LEFT, "R: Re-render" );
 		ypos += 9;
-		al_draw_text( textfont, Palette::ColourPalette[ 9 ], 24, ypos, ALLEGRO_ALIGN_LEFT, "PgUp: Prev Room" );
+		al_draw_text( textfont, Palette::ColourPalette[ 9 ], 14, ypos, ALLEGRO_ALIGN_LEFT, "PgUp: Prev Room" );
 		ypos += 9;
-		al_draw_text( textfont, Palette::ColourPalette[ 8 ], 24, ypos, ALLEGRO_ALIGN_LEFT, "PgDn: Next Room" );
+		al_draw_text( textfont, Palette::ColourPalette[ 8 ], 14, ypos, ALLEGRO_ALIGN_LEFT, "PgDn: Next Room" );
 
 		designermodes[designermode]->RenderOverlay();
 	}
