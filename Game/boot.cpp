@@ -27,6 +27,8 @@ void BootUp::Begin()
 
 	loadingthread = al_create_thread( ThreadedLoad, nullptr );
 	al_start_thread( loadingthread );
+
+	AUDIO->PlayMusic( "resources/Paul Hannay (Feekzoid) - Last_Ninja_4_intro [1].ogg", true );
 }
 
 void BootUp::Pause()

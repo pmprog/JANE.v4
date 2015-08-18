@@ -14,6 +14,8 @@ void DebugStage::Begin()
 
   curroom = 0;
 	GameResources::GameWorld->Rooms.at( curroom )->OnEnter();
+
+	AUDIO->PlayMusic( "resources/Paul Hannay (Feekzoid) - Last_Ninja_4_loader [1].ogg", true );
 }
 
 void DebugStage::Pause()
