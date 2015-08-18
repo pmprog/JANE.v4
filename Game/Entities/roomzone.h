@@ -43,13 +43,14 @@ class RoomZone
 
 		bool DrowningZone;
 
-		bool TransportingZone;
-		RoomZoneTeleportMode::TeleportModes TransportingMode;
-		int TransportingRoomID;
-		int TransportingScreenX;
-		int TransportingScreenY;
-		GameDirection::Direction TransportingFacing;
-		bool TransportingClearInput;
+		bool TransportZone;
+		RoomZoneTeleportMode::TeleportModes TransportMode;
+		int TransportRoomID;
+		int TransportScreenX;
+		int TransportScreenY;
+		GameDirection::Direction TransportFacing;
+		bool TransportClearInput;
+		int TransportRequiresItemHeld;
 
 		bool RollingZone;	// Can only enter via rolling
 

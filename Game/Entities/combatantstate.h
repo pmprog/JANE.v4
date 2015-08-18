@@ -44,6 +44,8 @@ class CombatantState
 			KNEELING,
 			KNEELING_OUT,
 			SINKING,
+			FALLING,
+			FALLING_LANDED,
 			HITHIGH,
 			HITLOW,
 			DYING,

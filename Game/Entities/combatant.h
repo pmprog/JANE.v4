@@ -20,11 +20,14 @@ class Combatant
 {
 
 	private:
+		int world_z;
+
 	  bool weapon_change_on_stand;
 	  int weapon_current_index;
 	  int weapon_change_index;
 
 		int speed_delay;
+		
 
 		int magicrampindex;
 		int magicrampdelay;

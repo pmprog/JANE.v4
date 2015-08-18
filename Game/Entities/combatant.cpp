@@ -15,6 +15,8 @@ Combatant::Combatant(Controller* Controls)
 	CurrentState = CombatantState::STANDING;
 	CurrentStateTime = 0;
 
+	world_z = 0;
+
   weapon_change_on_stand = false;
   weapon_current_index = 0;
   weapon_change_index = 0;

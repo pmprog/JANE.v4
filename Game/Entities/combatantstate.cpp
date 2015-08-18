@@ -281,6 +281,22 @@ void CombatantState::InitialiseCombatantStates()
 	s->FrameNumbers.push_back( { 16, false, false, 0, false, false } );
 	StateList.push_back(s);
 
+	// States::FALLING
+	s = new CombatantState();
+	s->Loops = true;
+	s->LockControls = true;
+	s->NextState = States::FALLING_LANDED;
+	s->FrameNumbers.push_back( { 16, false, true, 0, false, false } );
+	StateList.push_back(s);
+
+	// States::FALLING_LANDED
+	s = new CombatantState();
+	s->Loops = true;
+	s->LockControls = true;
+	s->NextState = States::HITLOW;
+	s->FrameNumbers.push_back( { 54, false, true, 0, false, false } );
+	StateList.push_back(s);
+
 	// States::HITHIGH
 	s = new CombatantState();
 	s->Loops = false;
