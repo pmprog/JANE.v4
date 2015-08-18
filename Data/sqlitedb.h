@@ -10,6 +10,9 @@ class Room;
 #ifndef Panel
 class Panel;
 #endif
+#ifndef RoomZone
+class RoomZone;
+#endif
 
 class SQLiteDB
 {
@@ -35,6 +38,7 @@ class SQLiteDB
 
 		void LoadRoom(int GameID, int RoomID, Room* EditRoom);
 		void LoadPanel(int GameID, int RoomID, int PanelID, Panel* EditPanel);
+		void LoadZone(int GameID, int RoomID, int ZoneID, RoomZone* EditZone);
 
 };
 

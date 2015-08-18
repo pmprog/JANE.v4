@@ -38,6 +38,8 @@ class Controller
 			LockedState = ControllerStateFlags::NONE;
 		};
 
+		virtual ~Controller() {};
+
 		void LockControls()
 		{
 			if( Locked )
@@ -57,7 +59,7 @@ class Controller
 		{
 			Locked = false;
 			LockedState = CurrentState;
-		}
+		};
 
 		int GetState()
 		{
@@ -66,6 +68,11 @@ class Controller
 				return LockedState;
 			}
 			return CurrentState;
-		}
+		};
+
+		void ClearState()
+		{
+			CurrentState = 0;
+		};
 
 };

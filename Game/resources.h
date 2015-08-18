@@ -12,6 +12,7 @@ class GameDirection
 	public:
 		enum Direction
 		{
+			UNCHANGED = -1,
 			NORTH = 1,
 			EAST = 2,
 			SOUTH = 4,

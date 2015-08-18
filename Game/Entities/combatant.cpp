@@ -124,6 +124,11 @@ void Combatant::OnUpdate()
           }
         }
 
+				if( CurrentState == CombatantState::WALKINGBACKWARDS )
+				{
+					SetNewState( CombatantState::ROLLING );
+				}
+
 				if( CurrentState == CombatantState::STANDING )
 				{
 					// Only one direction pressed
@@ -146,11 +151,9 @@ void Combatant::OnUpdate()
 							SetNewState( CombatantState::SLASH );
 						}
 					} else {
+						// Diagonals
 
-						if( (CurrentDirection == GameDirection::NORTH && (directionheld & Controller::NORTH) == Controller::NORTH)
-							|| (CurrentDirection == GameDirection::EAST && (directionheld & Controller::EAST) == Controller::EAST)
-							|| (CurrentDirection == GameDirection::SOUTH && (directionheld & Controller::SOUTH) == Controller::SOUTH)
-							|| (CurrentDirection == GameDirection::WEST && (directionheld & Controller::WEST) == Controller::WEST) )
+						if( (directionheld & Controller::SOUTH) == Controller::SOUTH )
 						{
 							SetNewState( CombatantState::PICKUP );
 						} else {

@@ -3,6 +3,7 @@
 #include "../Framework/Primitives/strings.h"
 #include "../Game/Entities/room.h"
 #include "../Game/Entities/panel.h"
+#include "../Game/Entities/roomzone.h"
 
 SQLiteDB::SQLiteDB( std::string Filename )
 {
@@ -164,3 +165,27 @@ void SQLiteDB::LoadPanel(int GameID, int RoomID, int PanelID, Panel* EditPanel)
 
 	sqlite3_finalize( cmd );
 }
+
+void SQLiteDB::LoadZone(int GameID, int RoomID, int ZoneID, RoomZone* EditZone)
+{
+	if( !ValidDB )
+	{
+		return;
+	}
+	
+	std::string returnval;
+	sqlite3_stmt *cmd;
+	const char *tail;
+
+	std::string Statement = "SELECT * FROM `RoomZone` z WHERE GameID = " + Strings::FromNumber( GameID ) + " AND RoomID = " + Strings::FromNumber( RoomID ) + " AND ZoneID = " + Strings::FromNumber( ZoneID ) + ";";
+
+	sqlite3_prepare( database, Statement.c_str(), Statement.length(), &cmd, &tail );
+
+	if( sqlite3_step(cmd) == SQLITE_ROW )
+	{
+
+	}
+
+	sqlite3_finalize( cmd );
+}
+
