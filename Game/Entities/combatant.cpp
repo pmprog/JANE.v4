@@ -25,7 +25,7 @@ Combatant::Combatant(Controller* Controls)
 	magicrampdelay = 0;
 
 	speed_delay = 0;
-	Speed = 5;
+	Speed = 4;
 }
 
 Combatant::~Combatant()

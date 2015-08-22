@@ -167,15 +167,13 @@ void Room::Load(SQLiteDB* Database, int GameID, int RoomID)
     Panels.push_back( p );
   }
 
-	/* TODO: Load Zones
 	counter = Database->QueryIntegerValue( "SELECT COUNT(*) FROM `Zones` WHERE GameID = " + Strings::FromNumber( GameID ) + " AND RoomID = " + Strings::FromNumber( RoomID ) + ";" );
   for( int i = 0; i < counter; i++ )
   {
-    RoomZone* z = new RoomZone();
+    RoomZone* z = new RoomZone( this );
     z->Load( Database, GameID, RoomID, i );
     Zones.push_back( z );
   }
-	*/
 
 	// TODO: Load Enemy
 }

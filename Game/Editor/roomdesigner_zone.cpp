@@ -321,7 +321,7 @@ void RoomDesignerZone::RenderRoom()
 		int vertcount = workingzone->Area->Points->count;
 		int vertbuffersize = vertcount * 2 * sizeof(float);
 		float* verts = (float*)malloc( vertbuffersize );
-		
+
 		int writeindex = 0;
 		for( int vertindex = 0; vertindex < workingzone->Area->Points->count; vertindex++ )
 		{
@@ -377,13 +377,13 @@ void RoomDesignerZone::RenderOverlay()
 		al_draw_text( textfont, Palette::ColourPalette[8], 140, 16, ALLEGRO_ALIGN_LEFT, "INS: New Zone" );
 		al_draw_text( textfont, Palette::ColourPalette[8], 140, 25, ALLEGRO_ALIGN_LEFT, "DEL: Delete Zone" );
 
-		al_draw_text( textfont, Palette::ColourPalette[8], 140, 43, ALLEGRO_ALIGN_LEFT, "ENT: Edit" );
+		al_draw_text( textfont, Palette::ColourPalette[8], 140, 52, ALLEGRO_ALIGN_LEFT, "ENT: Edit" );
 	} else {
 		al_draw_text( textfont, Palette::ColourPalette[8], 140, 16, ALLEGRO_ALIGN_LEFT, "INS: New Pnt" );
 		al_draw_text( textfont, Palette::ColourPalette[8], 140, 25, ALLEGRO_ALIGN_LEFT, "DEL: Del Pnt" );
 
-		al_draw_text( textfont, Palette::ColourPalette[8], 140, 43, ALLEGRO_ALIGN_LEFT, "ENT: Commit" );
-		al_draw_text( textfont, Palette::ColourPalette[8], 140, 52, ALLEGRO_ALIGN_LEFT, "M: Move Mode" );
-		al_draw_text( textfont, Palette::ColourPalette[8], 140, 61, ALLEGRO_ALIGN_LEFT, "F: Set Flags" );
+		al_draw_text( textfont, Palette::ColourPalette[8], 140, 52, ALLEGRO_ALIGN_LEFT, "ENT: Commit" );
+		al_draw_text( textfont, Palette::ColourPalette[8], 140, 61, ALLEGRO_ALIGN_LEFT, "M: Move Mode" );
+		al_draw_text( textfont, Palette::ColourPalette[8], 140, 70, ALLEGRO_ALIGN_LEFT, "F: Set Flags" );
 	}
 }

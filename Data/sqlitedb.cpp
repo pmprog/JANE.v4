@@ -65,7 +65,7 @@ std::string SQLiteDB::QueryStringValue( std::string Statement )
 	{
 		return "";
 	}
-	
+
 	std::string returnval;
 	sqlite3_stmt *cmd;
 	const char *tail;
@@ -87,7 +87,7 @@ bool SQLiteDB::RowExists( std::string Statement )
 	{
 		return false;
 	}
-	
+
 	bool returnval = false;
 	sqlite3_stmt *cmd;
 	const char *tail;
@@ -109,7 +109,7 @@ void SQLiteDB::LoadRoom(int GameID, int RoomID, Room* EditRoom)
 	{
 		return;
 	}
-	
+
 	std::string returnval;
 	sqlite3_stmt *cmd;
 	const char *tail;
@@ -138,7 +138,7 @@ void SQLiteDB::LoadPanel(int GameID, int RoomID, int PanelID, Panel* EditPanel)
 	{
 		return;
 	}
-	
+
 	std::string returnval;
 	sqlite3_stmt *cmd;
 	const char *tail;
@@ -172,18 +172,49 @@ void SQLiteDB::LoadZone(int GameID, int RoomID, int ZoneID, RoomZone* EditZone)
 	{
 		return;
 	}
-	
+
 	std::string returnval;
 	sqlite3_stmt *cmd;
 	const char *tail;
 
-	std::string Statement = "SELECT * FROM `RoomZone` z WHERE GameID = " + Strings::FromNumber( GameID ) + " AND RoomID = " + Strings::FromNumber( RoomID ) + " AND ZoneID = " + Strings::FromNumber( ZoneID ) + ";";
+	std::string Statement = "SELECT * FROM `Zones` z WHERE GameID = " + Strings::FromNumber( GameID ) + " AND RoomID = " + Strings::FromNumber( RoomID ) + " AND ZoneID = " + Strings::FromNumber( ZoneID ) + ";";
 
 	sqlite3_prepare( database, Statement.c_str(), Statement.length(), &cmd, &tail );
 
 	if( sqlite3_step(cmd) == SQLITE_ROW )
 	{
+		EditZone->Script_OnCombatantEnter.clear();
+		EditZone->Script_OnCombatantEnter.append( (const char*)sqlite3_column_text( cmd, 3 ) );
+		EditZone->Script_OnCombatantLeave.clear();
+		EditZone->Script_OnCombatantLeave.append( (const char*)sqlite3_column_text( cmd, 4 ) );
 
+		EditZone->WorldZ = sqlite3_column_int( cmd, 5 );
+		EditZone->ClimbingZone = (sqlite3_column_int( cmd, 6 ) != 0);
+		EditZone->ClimbingUpperZ = sqlite3_column_int( cmd, 7 );
+		EditZone->ClimbingRequiresItemHeld = sqlite3_column_int( cmd, 8 );
+		EditZone->ClimbingFace = (GameDirection::Direction)sqlite3_column_int( cmd, 9 );
+		EditZone->DrowningZone = (sqlite3_column_int( cmd, 10 ) != 0);
+		EditZone->TransportZone = (sqlite3_column_int( cmd, 11 ) != 0);
+		EditZone->TransportMode = (RoomZoneTeleportMode::TeleportModes)sqlite3_column_int( cmd, 12 );
+		EditZone->TransportRoomID = sqlite3_column_int( cmd, 13 );
+		EditZone->TransportScreenX = sqlite3_column_int( cmd, 14 );
+		EditZone->TransportScreenY = sqlite3_column_int( cmd, 15 );
+		EditZone->TransportFacing = (GameDirection::Direction)sqlite3_column_int( cmd, 16 );
+		EditZone->TransportClearInput = sqlite3_column_int( cmd, 17 );
+		EditZone->TransportRequiresItemHeld = sqlite3_column_int( cmd, 18 );
+		EditZone->RollingZone = (sqlite3_column_int( cmd, 19 ) != 0);
+
+    sqlite3_finalize( cmd );
+
+    // Load area points
+    Statement = "SELECT * FROM `ZonePoints` z WHERE GameID = " + Strings::FromNumber( GameID ) + " AND RoomID = " + Strings::FromNumber( RoomID ) + " AND ZoneID = " + Strings::FromNumber( ZoneID ) + " ORDER BY PointID;";
+    sqlite3_prepare( database, Statement.c_str(), Statement.length(), &cmd, &tail );
+    while( sqlite3_step(cmd) == SQLITE_ROW )
+    {
+      Vector2* v = new Vector2( sqlite3_column_int( cmd, 4 ), sqlite3_column_int( cmd, 5 ) );
+
+      EditZone->Area->Points->AddToStart( v );
+    }
 	}
 
 	sqlite3_finalize( cmd );

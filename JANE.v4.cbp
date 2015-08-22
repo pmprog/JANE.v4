@@ -180,6 +180,8 @@
 		<Unit filename="Game/Editor/roomdesigner_panel.h" />
 		<Unit filename="Game/Editor/roomdesigner_zone.cpp" />
 		<Unit filename="Game/Editor/roomdesigner_zone.h" />
+		<Unit filename="Game/Editor/zoneflags.cpp" />
+		<Unit filename="Game/Editor/zoneflags.h" />
 		<Unit filename="Game/Entities/combatant.cpp" />
 		<Unit filename="Game/Entities/combatant.h" />
 		<Unit filename="Game/Entities/combatantstate.cpp" />
