@@ -36,6 +36,11 @@ World::World( std::string Filename, int GameID )
 
 	Script_OnUpdate = gamedb->QueryStringValue( "SELECT OnUpdate FROM `World` WHERE GameID = " + Strings::FromNumber( GameID ) + ";" );
 
+	Start_RoomID = gamedb->QueryIntegerValue( "SELECT StartRoomID FROM `World` WHERE GameID = " + Strings::FromNumber( GameID ) + ";" );
+	Start_ScreenX = gamedb->QueryIntegerValue( "SELECT StartX FROM `World` WHERE GameID = " + Strings::FromNumber( GameID ) + ";" );
+	Start_ScreenY = gamedb->QueryIntegerValue( "SELECT StartY FROM `World` WHERE GameID = " + Strings::FromNumber( GameID ) + ";" );
+	Start_Facing = gamedb->QueryIntegerValue( "SELECT StartFacing FROM `World` WHERE GameID = " + Strings::FromNumber( GameID ) + ";" );
+
 	TotalRooms = gamedb->QueryIntegerValue( "SELECT COUNT(*) FROM `Rooms` WHERE GameID = " + Strings::FromNumber( GameID ) + ";" );
   for( int i = 0; i < TotalRooms; i++ )
   {

@@ -6,6 +6,12 @@
 #include "combatantstate.h"
 #include "../Controllers/controller.h"
 
+#ifndef RoomZone
+class RoomZone;
+#endif
+
+#define COMBATANT_POWER		32
+
 class CombatantRenderStyle
 {
 	public:
@@ -20,6 +26,7 @@ class Combatant
 {
 
 	private:
+		RoomZone* world_zone;
 		int world_z;
 
 	  bool weapon_change_on_stand;
@@ -33,6 +40,8 @@ class Combatant
 		int magicrampdelay;
 
 		void OnUpdateMagic();
+
+		void ProposeMove( int ScreenX, int ScreenY );
 
 		Controller::ControllerStateFlags GetPrimaryControllerState();
 		Controller::ControllerStateFlags GetSecondaryControllerState();
@@ -56,7 +65,9 @@ class Combatant
 		CombatantState::States CurrentState;
 		int CurrentStateTime;
 
-
+		bool UnlimitedPower;
+		bool UnlimitedMagic;
+		bool ZoneClipping;
 
     Combatant(Controller* Controls);
     ~Combatant();
@@ -72,4 +83,8 @@ class Combatant
 		void OnRender();
 
 		void SetNewState(CombatantState::States NewState);
+
+
+		void SetRoomZone(RoomZone* CurrentZone, bool IsWarped);
+
 };

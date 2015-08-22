@@ -25,6 +25,9 @@ class GameResources
 
   public:
     static PalettedBitmap* GameOverlay;
+		static PalettedBitmap* NinjaPower;
+		static PalettedBitmap* EnemyPower;
+		static PalettedBitmap* MagicPower;
     static ConfigFile* GameDataFile;
     static std::vector<PalettedBitmap*> CombatantGraphics;
     static PanelSheet* ObjectGraphics;

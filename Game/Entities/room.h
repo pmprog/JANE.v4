@@ -43,4 +43,6 @@ class Room
     void Load(SQLiteDB* Database, int GameID, int RoomID);
     void Save(SQLiteDB* Database, int GameID, int RoomID);
 
+		RoomZone* FindZoneForPoint(int X, int Y);
+
 };

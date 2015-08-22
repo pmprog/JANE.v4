@@ -136,6 +136,7 @@
     <ClCompile Include="Game\Entities\room.cpp" />
     <ClCompile Include="Game\Entities\roomzone.cpp" />
     <ClCompile Include="Game\Entities\world.cpp" />
+    <ClCompile Include="Game\gamestage.cpp" />
     <ClCompile Include="Game\menu.cpp" />
     <ClCompile Include="Game\Paletted\palette.cpp" />
     <ClCompile Include="Game\Paletted\palettedbitmap.cpp" />
@@ -217,6 +218,7 @@
     <ClInclude Include="Game\Entities\room.h" />
     <ClInclude Include="Game\Entities\roomzone.h" />
     <ClInclude Include="Game\Entities\world.h" />
+    <ClInclude Include="Game\gamestage.h" />
     <ClInclude Include="Game\includes.h" />
     <ClInclude Include="Game\menu.h" />
     <ClInclude Include="Game\Paletted\palette.h" />

@@ -2,6 +2,7 @@
 #include "menu.h"
 #include "Editor/roomdesigner.h"
 #include "debugstage.h"
+#include "gamestage.h"
 
 bool Menu::CheatActive = false;
 
@@ -56,6 +57,12 @@ void Menu::EventOccurred(Event *e)
     if( e->Data.Keyboard.KeyCode == ALLEGRO_KEY_F12 )
     {
       CheatActive = true;
+    }
+
+		if( e->Data.Keyboard.KeyCode == ALLEGRO_KEY_SPACE )
+    {
+      FRAMEWORK->ProgramStages->Push( new GameStage() );
+      return;
     }
 	}
 

@@ -20,6 +20,10 @@ class World
 		int TotalRooms;
     std::vector<Room*> Rooms;
     std::string Script_OnUpdate;
+		int Start_RoomID;
+		int Start_ScreenX;
+		int Start_ScreenY;
+		int Start_Facing;
 
     World( std::string Filename, int GameID );
     ~World();

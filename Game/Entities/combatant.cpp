@@ -1,5 +1,7 @@
 
 #include "combatant.h"
+#include "roomzone.h"
+#include "room.h"
 
 Combatant::Combatant(Controller* Controls)
 {
@@ -26,11 +28,13 @@ Combatant::Combatant(Controller* Controls)
 
 	speed_delay = 0;
 	Speed = 4;
+
+	CurrentPower = COMBATANT_POWER;
+	world_zone = nullptr;
 }
 
 Combatant::~Combatant()
 {
-	delete SkinGraphic;
 }
 
 void Combatant::Load(ConfigFile* DataFile, std::string KeyPrefix)
@@ -199,15 +203,13 @@ void Combatant::OnUpdate()
           switch( GetSecondaryControllerState() )
           {
             case Controller::EAST:
-              ScreenX += 4;
+              ProposeMove( ScreenX + 4, ScreenY );
               break;
             case Controller::WEST:
-              ScreenX += 2;
-              ScreenY -= 2;
+							ProposeMove( ScreenX + 2, ScreenY - 2 );
               break;
             default:
-              ScreenX += 4;
-              ScreenY -= 1;
+							ProposeMove( ScreenX + 4, ScreenY - 1 );
               break;
           }
           break;
@@ -216,15 +218,13 @@ void Combatant::OnUpdate()
           switch( GetSecondaryControllerState() )
           {
             case Controller::NORTH:
-              ScreenX += 4;
+              ProposeMove( ScreenX + 4, ScreenY );
               break;
             case Controller::SOUTH:
-              ScreenX += 2;
-              ScreenY += 2;
+              ProposeMove( ScreenX + 2, ScreenY + 2 );
               break;
             default:
-              ScreenX += 4;
-              ScreenY += 1;
+              ProposeMove( ScreenX + 4, ScreenY + 1 );
               break;
           }
           break;
@@ -233,15 +233,13 @@ void Combatant::OnUpdate()
           switch( GetSecondaryControllerState() )
           {
             case Controller::EAST:
-              ScreenX -= 2;
-              ScreenY += 2;
+              ProposeMove( ScreenX - 2, ScreenY + 2 );
               break;
             case Controller::WEST:
-              ScreenX -= 4;
+              ProposeMove( ScreenX - 4, ScreenY );
               break;
             default:
-              ScreenX -= 4;
-              ScreenY += 1;
+              ProposeMove( ScreenX - 4, ScreenY + 1 );
               break;
           }
           break;
@@ -250,15 +248,13 @@ void Combatant::OnUpdate()
           switch( GetSecondaryControllerState() )
           {
             case Controller::NORTH:
-              ScreenX -= 2;
-              ScreenY -= 2;
+              ProposeMove( ScreenX - 2, ScreenY - 2 );
               break;
             case Controller::SOUTH:
-              ScreenX -= 4;
+              ProposeMove( ScreenX - 4, ScreenY );
               break;
             default:
-              ScreenX -= 4;
-              ScreenY -= 1;
+              ProposeMove( ScreenX - 4, ScreenY - 1 );
               break;
           }
           break;
@@ -309,7 +305,10 @@ void Combatant::OnUpdateMagic()
 {
 	if( CollectedMagicRemaining > 0 )
 	{
-		CollectedMagicRemaining--;
+		if( !UnlimitedMagic )
+		{
+			CollectedMagicRemaining--;
+		}
 		if( CollectedMagicRemaining == 0 )
 		{
 			CollectedMagic = 0;
@@ -379,4 +378,46 @@ Controller::ControllerStateFlags Combatant::GetSecondaryControllerState()
     return (Controller::ControllerStateFlags)(Controls->GetState() & (Controller::NORTH | Controller::SOUTH));
   }
   return Controller::NONE;
+}
+
+void Combatant::SetRoomZone(RoomZone* CurrentZone, bool IsWarped)
+{
+	world_zone = CurrentZone;
+	if( IsWarped )
+	{
+		world_z = CurrentZone->WorldZ;
+	}
+	// TODO: Run Enter Script
+}
+
+void Combatant::ProposeMove( int ScreenX, int ScreenY )
+{
+	// if( ZoneClipping )
+
+	if( world_zone == nullptr )
+	{
+		return;
+	}
+
+	RoomZone* z = world_zone->InRoom->FindZoneForPoint( ScreenX, ScreenY );
+	if( z != nullptr )
+	{
+		if( z == world_zone )
+		{
+			// Same zone
+			this->ScreenX = ScreenX;
+			this->ScreenY = ScreenY;
+		} else if( ZoneClipping ) {
+			// Clipping
+			this->ScreenX = ScreenX;
+			this->ScreenY = ScreenY;
+			SetRoomZone( z, true );
+		} else {
+
+			// TODO: Check valid to enter, then handle any conditions
+		
+		
+		
+		}
+	}
 }

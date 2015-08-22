@@ -11,6 +11,9 @@ void DebugStage::Begin()
 	ninja->ScreenY = 100;
 	ninja->CurrentDirection = GameDirection::EAST;
 	ninja->SetNewState( CombatantState::WALKING );
+	ninja->ZoneClipping = true;
+	ninja->UnlimitedPower = true;
+	ninja->UnlimitedMagic = true;
 
   curroom = 0;
 	GameResources::GameWorld->Rooms.at( curroom )->OnEnter();

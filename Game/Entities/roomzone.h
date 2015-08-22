@@ -27,9 +27,11 @@ class RoomZone
 {
 
   private:
-    Room* owner;
+    
 
   public:
+		Room* InRoom;
+
     Polyhedron* Area;
     std::string Script_OnCombatantEnter;
     std::string Script_OnCombatantLeave;

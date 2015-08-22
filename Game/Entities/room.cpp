@@ -211,3 +211,18 @@ void Room::Save(SQLiteDB* Database, int GameID, int RoomID)
     Enemy->Save( Database, GameID, RoomID );
   }
 }
+
+RoomZone* Room::FindZoneForPoint(int X, int Y)
+{
+	RoomZone* z;
+
+	for( int zidx = Zones.size() - 1; zidx >= 0; zidx-- )
+	{
+		z = Zones.at(zidx);
+		if( z->Area->HitTest( new Vector2( X, Y ) ) )
+		{
+			return z;
+		}
+	}
+	return nullptr;
+}

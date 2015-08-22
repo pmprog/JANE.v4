@@ -159,6 +159,21 @@ void* BootUp::ThreadedLoad( ALLEGRO_THREAD*, void* )
 	GameResources::GameOverlay = new PalettedBitmap( bkg );
 	BitmapCache::UnloadBitmap("resources/ui_background.png");
 
+	ALLEGRO_BITMAP* pwr = BitmapCache::LoadBitmap("resources/power_ninja.png");
+	Palette::ApplyColourOverrides( pwr );
+	GameResources::NinjaPower = new PalettedBitmap( pwr );
+	BitmapCache::UnloadBitmap("resources/power_ninja.png");
+
+	pwr = BitmapCache::LoadBitmap("resources/power_enemy.png");
+	Palette::ApplyColourOverrides( pwr );
+	GameResources::EnemyPower = new PalettedBitmap( pwr );
+	BitmapCache::UnloadBitmap("resources/power_enemy.png");
+
+	pwr = BitmapCache::LoadBitmap("resources/power_magic.png");
+	Palette::ApplyColourOverrides( pwr );
+	GameResources::MagicPower = new PalettedBitmap( pwr );
+	BitmapCache::UnloadBitmap("resources/power_magic.png");
+
 	/*
 	Palette::ApplyColourOverrides( BitmapCache::LoadBitmap("resources/ninja.png") );
 	Palette::ApplyColourOverrides( BitmapCache::LoadBitmap("resources/ln1_1.png") );

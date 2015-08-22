@@ -5,6 +5,7 @@
 
 RoomZone::RoomZone( Room* Owner )
 {
+	InRoom = Owner;
 	Area = new Polyhedron();
 	Script_OnCombatantEnter = "";
 	Script_OnCombatantLeave = "";
