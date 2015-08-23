@@ -18,9 +18,9 @@ RoomDesignerZone::RoomDesignerZone()
 	Mode = ZONEMODE_ZONESELECT;
 }
 
-void RoomDesignerZone::Init(RoomDesigner* Designer, Room* Working, ALLEGRO_FONT* Font)
+void RoomDesignerZone::Init(RoomDesigner* Designer, Room* Working, int WorkingRoomIndex, ALLEGRO_FONT* Font)
 {
-	RoomDesignerModule::Init( Designer, Working, Font );
+	RoomDesignerModule::Init( Designer, Working, WorkingRoomIndex, Font );
 	CursorX = 120;
 	CursorY = 72;
 	CursorMove = 0;
@@ -88,8 +88,8 @@ void RoomDesignerZone::OnEvent(Event *e)
 								zonepoint_activeindex = z->Area->Points->count - 1;
 							}
 							Vector2* v = (Vector2*)z->Area->Points->ItemAt( zonepoint_activeindex );
-							CursorX = v->X;
-							CursorY = v->Y;
+							CursorX = v->X + 40;
+							CursorY = v->Y + 28;
 						} else {
 							zonepoint_activeindex = 0;
 						}
@@ -119,8 +119,8 @@ void RoomDesignerZone::OnEvent(Event *e)
 								zonepoint_activeindex = 0;
 							}
 							Vector2* v = (Vector2*)z->Area->Points->ItemAt( zonepoint_activeindex );
-							CursorX = v->X;
-							CursorY = v->Y;
+							CursorX = v->X + 40;
+							CursorY = v->Y + 28;
 						} else {
 							zonepoint_activeindex = 0;
 						}
@@ -151,7 +151,7 @@ void RoomDesignerZone::OnEvent(Event *e)
 				switch( Mode )
 				{
 					case ZONEMODE_ZONESELECT:
-						workingroom->Zones.push_back( new RoomZone( workingroom ) );
+						workingroom->Zones.push_back( new RoomZone( workingroom, workingroomindex ) );
 						zone_activeindex = workingroom->Zones.size() - 1;
 						Mode = ZONEMODE_POINTSELECT;
 						break;
@@ -298,8 +298,8 @@ void RoomDesignerZone::Update()
 				if( z->Area->Points->count > 0 && z->Area->Points->count > zonepoint_activeindex && zonepoint_activeindex >= 0)
 				{
 					Vector2* v = (Vector2*)z->Area->Points->ItemAt( zonepoint_activeindex );
-					v->X = CursorX;
-					v->Y = CursorY;
+					v->X = CursorX - 40;
+					v->Y = CursorY - 28;
 				}
 			}
 		}
@@ -325,8 +325,8 @@ void RoomDesignerZone::RenderRoom()
 		int writeindex = 0;
 		for( int vertindex = 0; vertindex < workingzone->Area->Points->count; vertindex++ )
 		{
-			verts[writeindex] = ((Vector2*)workingzone->Area->Points->ItemAt( vertindex ))->X;
-			verts[writeindex + 1] = ((Vector2*)workingzone->Area->Points->ItemAt( vertindex ))->Y;
+			verts[writeindex] = ((Vector2*)workingzone->Area->Points->ItemAt( vertindex ))->X + 40;
+			verts[writeindex + 1] = ((Vector2*)workingzone->Area->Points->ItemAt( vertindex ))->Y + 28;
 
 			if( zoneindex == zone_activeindex && vertindex == zonepoint_activeindex && Mode == ZONEMODE_POINTMOVE )
 			{

@@ -14,6 +14,7 @@ class Room
     void SetDefaults();
 
   public:
+    int RoomID;
     int BackgroundColour;
     std::vector<Panel*> Panels;
     std::vector<RoomZone*> Zones;
@@ -36,9 +37,6 @@ class Room
     int SortPanels(int Current);
 
 		void ResetRoomTime();
-
-    void Load(ConfigFile* DataFile, std::string KeyPrefix);
-    void Save(ConfigFile* DataFile, std::string KeyPrefix);
 
     void Load(SQLiteDB* Database, int GameID, int RoomID);
     void Save(SQLiteDB* Database, int GameID, int RoomID);

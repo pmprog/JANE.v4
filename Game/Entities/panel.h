@@ -20,9 +20,6 @@ class Panel
 
     static bool SortingPredicate(const Panel* A, const Panel* B);
 
-    void Load(ConfigFile* DataFile, std::string KeyPrefix);
-    void Save(ConfigFile* DataFile, std::string KeyPrefix);
-
     void Load(SQLiteDB* Database, int GameID, int RoomID, int PanelID);
     void Save(SQLiteDB* Database, int GameID, int RoomID, int PanelID);
 

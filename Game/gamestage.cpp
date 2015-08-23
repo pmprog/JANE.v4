@@ -56,6 +56,14 @@ void GameStage::Update()
 {
   GameResources::GameWorld->Rooms.at( curroom )->Update();
 	ninja->OnUpdate();
+
+	if( ninja->CurrentRoomID != curroom )
+  {
+    GameResources::GameWorld->Rooms.at( curroom )->OnLeave();
+    curroom = ninja->CurrentRoomID;
+    GameResources::GameWorld->Rooms.at( curroom )->OnEnter();
+  }
+
 }
 
 void GameStage::Render()

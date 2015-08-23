@@ -27,7 +27,7 @@ class RoomDesignerZone : public RoomDesignerModule
 
 		RoomDesignerZone();
 
-		virtual void Init(RoomDesigner* Designer, Room* Working, ALLEGRO_FONT* Font);
+		virtual void Init(RoomDesigner* Designer, Room* Working, int WorkingRoomIndex, ALLEGRO_FONT* Font);
 
 		virtual void OnEvent(Event* e);
 		virtual void Update();

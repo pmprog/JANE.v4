@@ -33,8 +33,10 @@ class Combatant
 	  int weapon_current_index;
 	  int weapon_change_index;
 
+	  int item_held_index;
+
 		int speed_delay;
-		
+
 
 		int magicrampindex;
 		int magicrampdelay;
@@ -61,6 +63,7 @@ class Combatant
 		int ScreenX;
 		int ScreenY;
 		GameDirection::Direction CurrentDirection;
+		int CurrentRoomID;
 
 		CombatantState::States CurrentState;
 		int CurrentStateTime;
@@ -71,9 +74,6 @@ class Combatant
 
     Combatant(Controller* Controls);
     ~Combatant();
-
-    void Load(ConfigFile* DataFile, std::string KeyPrefix);
-    void Save(ConfigFile* DataFile, std::string KeyPrefix);
 
     void Load(SQLiteDB* Database, int GameID, int RoomID);
     void Save(SQLiteDB* Database, int GameID, int RoomID);

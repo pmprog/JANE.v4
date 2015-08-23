@@ -206,6 +206,8 @@
 		<Unit filename="Game/boot.h" />
 		<Unit filename="Game/debugstage.cpp" />
 		<Unit filename="Game/debugstage.h" />
+		<Unit filename="Game/gamestage.cpp" />
+		<Unit filename="Game/gamestage.h" />
 		<Unit filename="Game/includes.h" />
 		<Unit filename="Game/menu.cpp" />
 		<Unit filename="Game/menu.h" />

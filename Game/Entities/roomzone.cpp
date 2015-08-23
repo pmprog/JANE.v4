@@ -3,9 +3,10 @@
 #include "room.h"
 #include "../../Framework/Primitives/strings.h"
 
-RoomZone::RoomZone( Room* Owner )
+RoomZone::RoomZone( Room* Owner, int OwnerID )
 {
 	InRoom = Owner;
+	InRoomID = OwnerID;
 	Area = new Polyhedron();
 	Script_OnCombatantEnter = "";
 	Script_OnCombatantLeave = "";
@@ -28,16 +29,6 @@ RoomZone::RoomZone( Room* Owner )
 }
 
 RoomZone::~RoomZone()
-{
-
-}
-
-void RoomZone::Load(ConfigFile* DataFile, std::string KeyPrefix)
-{
-
-}
-
-void RoomZone::Save(ConfigFile* DataFile, std::string KeyPrefix)
 {
 
 }

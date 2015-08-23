@@ -23,28 +23,24 @@ Combatant::Combatant(Controller* Controls)
   weapon_current_index = 0;
   weapon_change_index = 0;
 
+  item_held_index = -1;
+
 	magicrampindex = 0;
 	magicrampdelay = 0;
 
 	speed_delay = 0;
-	Speed = 4;
+	Speed = 5;
 
 	CurrentPower = COMBATANT_POWER;
 	world_zone = nullptr;
+
+	ZoneClipping = false;
+	UnlimitedPower = false;
+	UnlimitedMagic = false;
 }
 
 Combatant::~Combatant()
 {
-}
-
-void Combatant::Load(ConfigFile* DataFile, std::string KeyPrefix)
-{
-
-}
-
-void Combatant::Save(ConfigFile* DataFile, std::string KeyPrefix)
-{
-
 }
 
 void Combatant::Load(SQLiteDB* Database, int GameID, int RoomID)
@@ -382,23 +378,34 @@ Controller::ControllerStateFlags Combatant::GetSecondaryControllerState()
 
 void Combatant::SetRoomZone(RoomZone* CurrentZone, bool IsWarped)
 {
+  CurrentRoomID = CurrentZone->InRoomID;
 	world_zone = CurrentZone;
 	if( IsWarped )
 	{
 		world_z = CurrentZone->WorldZ;
 	}
 	// TODO: Run Enter Script
+
+	// Check for falling
 }
 
 void Combatant::ProposeMove( int ScreenX, int ScreenY )
 {
-	// if( ZoneClipping )
+	if( ZoneClipping )
+  {
+    // Clipping
+    this->ScreenX = ScreenX;
+    this->ScreenY = ScreenY;
+    return;
+  }
 
+  // Check if we're in a valid place
 	if( world_zone == nullptr )
 	{
 		return;
 	}
 
+  // Can we locate the next zone?
 	RoomZone* z = world_zone->InRoom->FindZoneForPoint( ScreenX, ScreenY );
 	if( z != nullptr )
 	{
@@ -407,17 +414,67 @@ void Combatant::ProposeMove( int ScreenX, int ScreenY )
 			// Same zone
 			this->ScreenX = ScreenX;
 			this->ScreenY = ScreenY;
-		} else if( ZoneClipping ) {
-			// Clipping
-			this->ScreenX = ScreenX;
-			this->ScreenY = ScreenY;
-			SetRoomZone( z, true );
 		} else {
 
-			// TODO: Check valid to enter, then handle any conditions
-		
-		
-		
+      bool allowMove = true;
+
+      // Can't magically walk up cliffs
+      if( z->WorldZ > world_z )
+      {
+        allowMove = false;
+      }
+
+			// Got to roll into here
+			if( z->RollingZone && CurrentState != CombatantState::ROLLING )
+      {
+        allowMove = false;
+      }
+
+      // Drowning time
+      if( z->DrowningZone )
+      {
+        SetNewState( CombatantState::SINKING );
+      }
+
+      if( z->WorldZ < world_z )
+      {
+        if( z->ClimbingZone )
+        {
+          // TODO: Handle climbing down
+          allowMove = false;
+        }
+      }
+
+      if( z->TransportZone && (z->TransportRequiresItemHeld < 0 || z->TransportRequiresItemHeld == item_held_index) )
+      {
+        // TODO: Handle "animated" transports
+
+        Room* tr = GameResources::GameWorld->Rooms.at( z->TransportRoomID );
+        RoomZone* tz = tr->FindZoneForPoint( z->TransportScreenX, z->TransportScreenY );
+        this->ScreenX = z->TransportScreenX;
+        this->ScreenY = z->TransportScreenY;
+        if( z->TransportFacing != GameDirection::UNCHANGED )
+        {
+          CurrentDirection == z->TransportFacing;
+        }
+        if( z->TransportClearInput )
+        {
+          Controls->ClearState();
+        }
+        SetRoomZone( tz, true );
+        allowMove = false;
+
+      }
+
+      // TODO: Check valid to enter, then handle any conditions
+
+      if( allowMove )
+      {
+        this->ScreenX = ScreenX;
+        this->ScreenY = ScreenY;
+        SetRoomZone( z, false );
+      }
+
 		}
 	}
 }

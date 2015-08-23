@@ -100,62 +100,11 @@ int Room::SortPanels(int Current)
   return 0;
 }
 
-void Room::Load(ConfigFile* DataFile, std::string KeyPrefix)
-{
-  int counter;
-  BackgroundColour = DataFile->GetQuickIntegerValue( KeyPrefix + ".BackgroundColour", 13 );
-  counter = DataFile->GetQuickIntegerValue( KeyPrefix + ".PanelCount", 0 );
-  for( int i = 0; i < counter; i++ )
-  {
-    Panel* p = new Panel();
-    p->Load( DataFile, KeyPrefix + ".Panel" + Strings::FromNumber( i ) );
-    Panels.push_back( p );
-  }
-  counter = DataFile->GetQuickIntegerValue( KeyPrefix + ".ZoneCount", 0 );
-  for( int i = 0; i < counter; i++ )
-  {
-    RoomZone* z = new RoomZone( this );
-    z->Load( DataFile, KeyPrefix + ".Zone" + Strings::FromNumber( i ) );
-    Zones.push_back( z );
-  }
-  Script_OnCombatantEnter.clear();
-  Script_OnCombatantEnter.append( *DataFile->GetQuickStringValue( KeyPrefix + ".OnEnter", ""  ) );
-  Script_OnCombatantLeave.clear();
-  Script_OnCombatantLeave.append( *DataFile->GetQuickStringValue( KeyPrefix + ".OnLeave", ""  ) );
-  Script_OnUpdate.clear();
-  Script_OnUpdate.append( *DataFile->GetQuickStringValue( KeyPrefix + ".OnUpdate", "" ) );
-  if( DataFile->KeyExists( KeyPrefix + ".Enemy" ) )
-  {
-    Enemy = new Combatant( nullptr );
-    Enemy->Load( DataFile, KeyPrefix + ".Enemy" );
-  }
-}
-
-void Room::Save(ConfigFile* DataFile, std::string KeyPrefix)
-{
-  DataFile->SetIntegerValue( KeyPrefix + ".BackgroundColour", BackgroundColour );
-  DataFile->SetIntegerValue( KeyPrefix + ".PanelCount", Panels.size() );
-  for(int i = 0; i < Panels.size(); i++ )
-  {
-    Panels.at( i )->Save( DataFile, KeyPrefix + ".Panel" + Strings::FromNumber( i ) );
-  }
-  DataFile->SetIntegerValue( KeyPrefix + ".ZoneCount", Zones.size() );
-  for(int i = 0; i < Zones.size(); i++ )
-  {
-    Zones.at( i )->Save( DataFile, KeyPrefix + ".Zone" + Strings::FromNumber( i ) );
-  }
-  DataFile->SetStringValue( KeyPrefix + ".OnEnter", &Script_OnCombatantEnter );
-  DataFile->SetStringValue( KeyPrefix + ".OnLeave", &Script_OnCombatantLeave );
-  DataFile->SetStringValue( KeyPrefix + ".OnUpdate", &Script_OnUpdate );
-  if( Enemy != nullptr )
-  {
-    Enemy->Save( DataFile, KeyPrefix + ".Enemy" );
-  }
-}
-
 void Room::Load(SQLiteDB* Database, int GameID, int RoomID)
 {
 	int counter;
+
+	this->RoomID = RoomID;
 
 	Database->LoadRoom( GameID, RoomID, this );
 
@@ -170,7 +119,7 @@ void Room::Load(SQLiteDB* Database, int GameID, int RoomID)
 	counter = Database->QueryIntegerValue( "SELECT COUNT(*) FROM `Zones` WHERE GameID = " + Strings::FromNumber( GameID ) + " AND RoomID = " + Strings::FromNumber( RoomID ) + ";" );
   for( int i = 0; i < counter; i++ )
   {
-    RoomZone* z = new RoomZone( this );
+    RoomZone* z = new RoomZone( this, RoomID );
     z->Load( Database, GameID, RoomID, i );
     Zones.push_back( z );
   }

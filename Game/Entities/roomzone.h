@@ -27,10 +27,11 @@ class RoomZone
 {
 
   private:
-    
+
 
   public:
 		Room* InRoom;
+		int InRoomID;
 
     Polyhedron* Area;
     std::string Script_OnCombatantEnter;
@@ -56,11 +57,8 @@ class RoomZone
 
 		bool RollingZone;	// Can only enter via rolling
 
-    RoomZone( Room* Owner );
+    RoomZone( Room* Owner, int OwnerID );
     ~RoomZone();
-
-    void Load(ConfigFile* DataFile, std::string KeyPrefix);
-    void Save(ConfigFile* DataFile, std::string KeyPrefix);
 
     void Load(SQLiteDB* Database, int GameID, int RoomID, int ZoneID);
     void Save(SQLiteDB* Database, int GameID, int RoomID, int ZoneID);

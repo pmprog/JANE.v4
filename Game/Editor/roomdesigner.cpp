@@ -33,7 +33,7 @@ RoomDesigner::RoomDesigner()
 
 	for(int i = 0; i < DesignerMode::ModeCount; i++ )
 	{
-		designermodes[i]->Init( this, workingroom, textfont );
+		designermodes[i]->Init( this, workingroom, workingroomindex, textfont );
 	}
 	designermode = DesignerMode::PanelMode;
 
@@ -99,7 +99,7 @@ void RoomDesigner::EventOccurred(Event *e)
             AddLogText("Mode change to { Enemy }");
             break;
         }
-				designermodes[designermode]->Init( this, workingroom, textfont );
+				designermodes[designermode]->Init( this, workingroom, workingroomindex, textfont );
         return;
       case ALLEGRO_KEY_F4:
         workingroomindex = GameResources::GameWorld->Rooms.size() - 1;
@@ -129,7 +129,7 @@ void RoomDesigner::EventOccurred(Event *e)
 					*/
           for(int i = 0; i < DesignerMode::ModeCount; i++ )
           {
-            designermodes[i]->Init( this, workingroom, textfont );
+            designermodes[i]->Init( this, workingroom, workingroomindex, textfont );
           }
           AddLogText( "Room " + Strings::FromNumber( workingroomindex ) );
         }
@@ -142,7 +142,7 @@ void RoomDesigner::EventOccurred(Event *e)
 					workingroom->ResetRoomTime();
           for(int i = 0; i < DesignerMode::ModeCount; i++ )
           {
-            designermodes[i]->Init( this, workingroom, textfont );
+            designermodes[i]->Init( this, workingroom, workingroomindex, textfont );
           }
           AddLogText( "Room " + Strings::FromNumber( workingroomindex ) );
         }
