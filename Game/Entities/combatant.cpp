@@ -25,11 +25,13 @@ Combatant::Combatant(Controller* Controls)
 
   item_held_index = -1;
 
+  sinking_depth = 0;
+
 	magicrampindex = 0;
 	magicrampdelay = 0;
 
 	speed_delay = 0;
-	Speed = 5;
+	Speed = 4;
 
 	CurrentPower = COMBATANT_POWER;
 	world_zone = nullptr;
@@ -73,6 +75,7 @@ void Combatant::OnUpdate()
         weapon_change_on_stand = false;
       }
       SetNewState( curState->NextState );
+      ProposeMove( ScreenX, ScreenY );
 		}
 
     if( (Controls->GetState() & Controller::WEAPON) == Controller::WEAPON )
@@ -258,7 +261,30 @@ void Combatant::OnUpdate()
 
     }
 
+    if( CurrentState == CombatantState::FALLING )
+    {
+      if( world_z > world_zone->WorldZ )
+      {
+        world_z -= 4;
+        ScreenY += 4;
+      } else {
+        world_z = world_zone->WorldZ;
+        SetNewState( CombatantState::FALLING_LANDED );
+        ProposeMove( ScreenX, ScreenY );
+      }
+    }
 
+    if( CurrentState == CombatantState::SINKING )
+    {
+      sinking_depth += 4;
+      if( sinking_depth >= 42 )
+      {
+        // Check if transporting first
+        SetNewState( CombatantState::DEAD );
+        ScreenX = -60;
+        return;
+      }
+    }
 
 	}
 
@@ -291,10 +317,23 @@ void Combatant::OnRender()
 	// Render
 	if( shadowed )
 	{
-		SkinGraphic->DrawPartial( 0, 168, 32, 42, ScreenX - 16, ScreenY - 40, 0 );
+	  if( CurrentState == CombatantState::FALLING || CurrentState == CombatantState::LONGJUMP || CurrentState == CombatantState::SHORTJUMP )
+    {
+      SkinGraphic->DrawPartial( 0, 168, 32, 42, ScreenX - 16, ScreenY - 40 + world_z - world_zone->WorldZ, 0 );
+    } else {
+      SkinGraphic->DrawPartial( 0, 168, 32, 42, ScreenX - 16, ScreenY - 40, 0 );
+    }
 	}
 
-	SkinGraphic->DrawPartial( (framenumber % 13) * 32, (framenumber / 13) * 42, 32, 42, ScreenX - 16, ScreenY - 40 - zpos, flipflag );
+  if( CurrentState == CombatantState::SINKING )
+  {
+    if( sinking_depth < 42 )
+    {
+      SkinGraphic->DrawPartial( (framenumber % 13) * 32, (framenumber / 13) * 42, 32, 42 - sinking_depth, ScreenX - 16, ScreenY - 40 - zpos + sinking_depth, flipflag );
+    }
+  } else {
+    SkinGraphic->DrawPartial( (framenumber % 13) * 32, (framenumber / 13) * 42, 32, 42, ScreenX - 16, ScreenY - 40 - zpos, flipflag );
+  }
 }
 
 void Combatant::OnUpdateMagic()
@@ -341,6 +380,7 @@ void Combatant::SetNewState(CombatantState::States NewState)
 
 	CurrentState = NewState;
 	CurrentStateTime = 0;
+	sinking_depth = 0;
 
 	if( CombatantState::StateList[CurrentState]->LockControls )
   {
@@ -386,7 +426,11 @@ void Combatant::SetRoomZone(RoomZone* CurrentZone, bool IsWarped)
 	}
 	// TODO: Run Enter Script
 
-	// Check for falling
+  if( world_z > CurrentZone->WorldZ && CurrentState != CombatantState::LONGJUMP && CurrentState != CombatantState::SHORTJUMP )
+  {
+    SetNewState( CombatantState::FALLING );
+    return;
+  }
 }
 
 void Combatant::ProposeMove( int ScreenX, int ScreenY )
@@ -409,11 +453,25 @@ void Combatant::ProposeMove( int ScreenX, int ScreenY )
 	RoomZone* z = world_zone->InRoom->FindZoneForPoint( ScreenX, ScreenY );
 	if( z != nullptr )
 	{
+    // Drowning time
+    if( z->DrowningZone && CurrentState != CombatantState::LONGJUMP && CurrentState != CombatantState::SHORTJUMP && z->WorldZ == world_z )
+    {
+      SetNewState( CombatantState::SINKING );
+      return;
+    }
+
 		if( z == world_zone )
 		{
 			// Same zone
 			this->ScreenX = ScreenX;
 			this->ScreenY = ScreenY;
+
+      // Check for falling
+      if( world_z > z->WorldZ && CurrentState != CombatantState::LONGJUMP && CurrentState != CombatantState::SHORTJUMP )
+      {
+        SetNewState( CombatantState::FALLING );
+      }
+
 		} else {
 
       bool allowMove = true;
@@ -428,12 +486,6 @@ void Combatant::ProposeMove( int ScreenX, int ScreenY )
 			if( z->RollingZone && CurrentState != CombatantState::ROLLING )
       {
         allowMove = false;
-      }
-
-      // Drowning time
-      if( z->DrowningZone )
-      {
-        SetNewState( CombatantState::SINKING );
       }
 
       if( z->WorldZ < world_z )

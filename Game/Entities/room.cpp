@@ -13,6 +13,7 @@ void Room::SetDefaults()
   RoomTime = 0;
   BackgroundColour = 13;
   Enemy = nullptr;
+  FullyRendered = false;
 }
 
 Room::~Room()
@@ -23,11 +24,13 @@ Room::~Room()
 void Room::ResetRoomTime()
 {
 	RoomTime = 0;
+	FullyRendered = false;
 }
 
 void Room::OnEnter()
 {
   RoomTime = 0;
+  FullyRendered = false;
   if( Script_OnCombatantEnter != "" )
   {
     GameResources::Scripting->ExecuteAsync( Script_OnCombatantEnter );
@@ -45,6 +48,12 @@ void Room::OnLeave()
 void Room::Update()
 {
   RoomTime++;
+
+  if( RoomTime >= FRAMEWORK->GetFramesPerSecond() )
+  {
+    FullyRendered = true;
+  }
+
   if( Script_OnUpdate != "" )
   {
     GameResources::Scripting->ExecuteAsync( Script_OnUpdate );
@@ -61,7 +70,7 @@ void Room::Render(int RenderOffsetX, int RenderOffsetY, int FromY, int ToY)
   int panelstodraw = Panels.size();
 
   // Always 2 seconds to render a room
-  if( RoomTime < FRAMEWORK->GetFramesPerSecond() )
+  if( !FullyRendered )
   {
     float c = (float)RoomTime / (float)FRAMEWORK->GetFramesPerSecond(); // % through the build
     c *= Panels.size(); // Number of panels to draw at this percentage

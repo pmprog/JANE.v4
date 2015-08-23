@@ -22,6 +22,8 @@ class Room
     std::string Script_OnCombatantLeave;
     std::string Script_OnUpdate;
 
+    bool FullyRendered;
+
     Combatant* Enemy;
 
     Room();

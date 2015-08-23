@@ -37,6 +37,7 @@ class Combatant
 
 		int speed_delay;
 
+    int sinking_depth;
 
 		int magicrampindex;
 		int magicrampdelay;

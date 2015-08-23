@@ -173,8 +173,12 @@ void CombatantState::InitialiseCombatantStates()
 	s->LockControls = true;
 	s->NextState = States::STANDING;
 	s->FrameNumbers.push_back( { 24, false, false, 0, false, false } );
+	s->FrameNumbers.push_back( { 24, false, false, 0, false, false } );
 	s->FrameNumbers.push_back( { 14, false, false, 0, true, false } );
+	s->FrameNumbers.push_back( { 14, false, false, 0, false, false } );
 	s->FrameNumbers.push_back( { 14, false, false, 0, true, false } );
+	s->FrameNumbers.push_back( { 14, false, false, 0, false, false } );
+	s->FrameNumbers.push_back( { 24, false, false, 0, false, false } );
 	s->FrameNumbers.push_back( { 24, false, false, 0, false, false } );
 	StateList.push_back(s);
 
@@ -275,9 +279,9 @@ void CombatantState::InitialiseCombatantStates()
 
 	// States::SINKING
 	s = new CombatantState();
-	s->Loops = false;
+	s->Loops = true;
 	s->LockControls = true;
-	s->NextState = States::STANDING;
+	s->NextState = States::DEAD;  // Usually dead, though sometimes not
 	s->FrameNumbers.push_back( { 16, false, false, 0, false, false } );
 	StateList.push_back(s);
 
@@ -291,7 +295,7 @@ void CombatantState::InitialiseCombatantStates()
 
 	// States::FALLING_LANDED
 	s = new CombatantState();
-	s->Loops = true;
+	s->Loops = false;
 	s->LockControls = true;
 	s->NextState = States::HITLOW;
 	s->FrameNumbers.push_back( { 54, false, true, 0, false, false } );
@@ -303,6 +307,7 @@ void CombatantState::InitialiseCombatantStates()
 	s->LockControls = true;
 	s->NextState = States::STANDING;
 	s->FrameNumbers.push_back( { 23, false, false, 0, false, false } );
+	s->FrameNumbers.push_back( { 23, false, false, 0, false, false } );
 	StateList.push_back(s);
 
 	// States::HITLOW
@@ -310,6 +315,7 @@ void CombatantState::InitialiseCombatantStates()
 	s->Loops = false;
 	s->LockControls = true;
 	s->NextState = States::STANDING;
+	s->FrameNumbers.push_back( { 54, false, false, 0, false, false } );
 	s->FrameNumbers.push_back( { 54, false, false, 0, false, false } );
 	StateList.push_back(s);
 
