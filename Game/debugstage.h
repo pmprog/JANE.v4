@@ -11,6 +11,7 @@ class DebugStage : public Stage
 	private:
 		Combatant* ninja;
 		int curroom;
+		ALLEGRO_FONT* textfont;
 
   public:
     // Stage control

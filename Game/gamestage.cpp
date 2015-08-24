@@ -55,7 +55,11 @@ void GameStage::EventOccurred(Event *e)
 void GameStage::Update()
 {
   GameResources::GameWorld->Rooms.at( curroom )->Update();
-	ninja->OnUpdate();
+
+	if( GameResources::GameWorld->Rooms.at( curroom )->FullyRendered )
+	{
+		ninja->OnUpdate();
+	}
 
 	if( ninja->CurrentRoomID != curroom )
   {
@@ -69,9 +73,15 @@ void GameStage::Update()
 void GameStage::Render()
 {
 	al_clear_to_color( Palette::ColourPalette[ GameResources::GameWorld->Rooms.at( curroom )->BackgroundColour ] );
-	GameResources::GameWorld->Rooms.at( curroom )->Render( 0, ninja->ScreenY );
-	ninja->OnRender();
-	GameResources::GameWorld->Rooms.at( curroom )->Render( ninja->ScreenY, 200 );
+
+	if( GameResources::GameWorld->Rooms.at( curroom )->FullyRendered )
+	{
+		GameResources::GameWorld->Rooms.at( curroom )->Render( 0, ninja->ScreenY );
+		ninja->OnRender();
+		GameResources::GameWorld->Rooms.at( curroom )->Render( ninja->ScreenY, 200 );
+	} else {
+		GameResources::GameWorld->Rooms.at( curroom )->Render( 0, 200 );
+	}
 
 	GameResources::GameOverlay->Draw( 0, 0, 0 );
 

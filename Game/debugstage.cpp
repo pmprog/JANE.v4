@@ -18,6 +18,8 @@ void DebugStage::Begin()
   curroom = 0;
 	GameResources::GameWorld->Rooms.at( curroom )->OnEnter();
 
+	textfont = al_load_ttf_font( "resources/silkscreen.ttf", 8, ALLEGRO_TTF_MONOCHROME );
+
 	AUDIO->PlayMusic( "resources/Paul Hannay (Feekzoid) - Last_Ninja_4_loader [1].ogg", true );
 }
 
@@ -33,7 +35,7 @@ void DebugStage::Finish()
 {
 	delete ninja->Controls;
 	delete ninja;
-	FRAMEWORK->SetSlowMode( false );
+	al_destroy_font( textfont );
 }
 
 void DebugStage::EventOccurred(Event *e)
@@ -76,6 +78,9 @@ void DebugStage::Render()
 	GameResources::GameWorld->Rooms.at( curroom )->Render( ninja->ScreenY, 200 );
 
 	GameResources::GameOverlay->Draw( 0, 0, 0 );
+
+	al_draw_textf( textfont, Palette::ColourPalette[7], 6, 150, ALLEGRO_ALIGN_LEFT, "Ninja: %d, %d", ninja->ScreenX, ninja->ScreenY );
+
 }
 
 bool DebugStage::IsTransition()

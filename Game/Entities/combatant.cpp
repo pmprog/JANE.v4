@@ -17,7 +17,10 @@ Combatant::Combatant(Controller* Controls)
 	CurrentState = CombatantState::STANDING;
 	CurrentStateTime = 0;
 
-	world_z = 0;
+	CurrentRoomID = 0;
+
+	CollectedMagic = 0;
+	CollectedMagicRemaining = 0;
 
   weapon_change_on_stand = false;
   weapon_current_index = 0;
@@ -35,6 +38,7 @@ Combatant::Combatant(Controller* Controls)
 
 	CurrentPower = COMBATANT_POWER;
 	world_zone = nullptr;
+	world_z = 0;
 
 	ZoneClipping = false;
 	UnlimitedPower = false;
@@ -507,7 +511,7 @@ void Combatant::ProposeMove( int ScreenX, int ScreenY )
         this->ScreenY = z->TransportScreenY;
         if( z->TransportFacing != GameDirection::UNCHANGED )
         {
-          CurrentDirection == z->TransportFacing;
+          CurrentDirection = z->TransportFacing;
         }
         if( z->TransportClearInput )
         {
