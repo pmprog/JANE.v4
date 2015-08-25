@@ -138,6 +138,12 @@ void CombatantState::InitialiseCombatantStates()
 	s->FrameNumbers.push_back( { 17, true, true, 0, false, false } );
 	s->FrameNumbers.push_back( { 18, true, true, 0, false, false } );
 	s->FrameNumbers.push_back( { 19, true, true, 0, false, false } );
+	s->FrameNumbers.push_back( { 17, true, true, 0, false, false } );
+	s->FrameNumbers.push_back( { 18, true, true, 0, false, false } );
+	s->FrameNumbers.push_back( { 19, true, true, 0, false, false } );
+	s->FrameNumbers.push_back( { 17, true, true, 0, false, false } );
+	s->FrameNumbers.push_back( { 18, true, true, 0, false, false } );
+	s->FrameNumbers.push_back( { 19, true, true, 0, false, false } );
 	s->FrameNumbers.push_back( { 15, false, false, 0, false, false } );
 	s->FrameNumbers.push_back( { 14, false, false, 0, false, false } );
 	StateList.push_back(s);
@@ -161,7 +167,9 @@ void CombatantState::InitialiseCombatantStates()
 	s->FrameNumbers.push_back( { 21, false, false, 0, false, false } );
 	s->FrameNumbers.push_back( { 21, false, false, 0, false, false } );
 	s->FrameNumbers.push_back( { 20, false, false, 0, true, false } );
+	s->FrameNumbers.push_back( { 20, false, false, 0, false, false } );
 	s->FrameNumbers.push_back( { 24, false, false, 0, true, false } );
+	s->FrameNumbers.push_back( { 24, false, false, 0, false, false } );
 	s->FrameNumbers.push_back( { 25, false, false, 0, true, false } );
 	s->FrameNumbers.push_back( { 25, false, false, 0, false, false } );
 	s->FrameNumbers.push_back( { 24, false, false, 0, false, false } );
@@ -176,6 +184,7 @@ void CombatantState::InitialiseCombatantStates()
 	s->FrameNumbers.push_back( { 24, false, false, 0, false, false } );
 	s->FrameNumbers.push_back( { 14, false, false, 0, true, false } );
 	s->FrameNumbers.push_back( { 14, false, false, 0, false, false } );
+	s->FrameNumbers.push_back( { 14, false, false, 0, false, false } );
 	s->FrameNumbers.push_back( { 14, false, false, 0, true, false } );
 	s->FrameNumbers.push_back( { 14, false, false, 0, false, false } );
 	s->FrameNumbers.push_back( { 24, false, false, 0, false, false } );
@@ -188,8 +197,11 @@ void CombatantState::InitialiseCombatantStates()
 	s->LockControls = true;
 	s->NextState = States::STANDING;
 	s->FrameNumbers.push_back( { 9, false, false, 0, false, false } );
+	s->FrameNumbers.push_back( { 9, false, false, 0, false, false } );
 	s->FrameNumbers.push_back( { 10, false, false, 0, true, false } );
+	s->FrameNumbers.push_back( { 10, false, false, 0, false, false } );
 	s->FrameNumbers.push_back( { 10, false, false, 0, true, false } );
+	s->FrameNumbers.push_back( { 9, false, false, 0, false, false } );
 	s->FrameNumbers.push_back( { 9, false, false, 0, false, false } );
 	StateList.push_back(s);
 
@@ -223,10 +235,14 @@ void CombatantState::InitialiseCombatantStates()
 	s->LockControls = true;
 	s->NextState = States::STANDING;
 	s->FrameNumbers.push_back( { 13, false, false, 0, false, false } );
+	s->FrameNumbers.push_back( { 14, false, false, 0, false, false } );
 	s->FrameNumbers.push_back( { 14, false, false, 0, false, true } );
 	s->FrameNumbers.push_back( { 14, false, false, 0, false, false } );
+	s->FrameNumbers.push_back( { 15, false, false, 0, false, false } );
+	s->FrameNumbers.push_back( { 15, false, false, 0, false, false } );
 	s->FrameNumbers.push_back( { 15, false, false, 0, false, true } );
 	s->FrameNumbers.push_back( { 15, false, false, 0, false, false } );
+	s->FrameNumbers.push_back( { 14, false, false, 0, false, false } );
 	s->FrameNumbers.push_back( { 14, false, false, 0, false, false } );
 	s->FrameNumbers.push_back( { 14, false, false, 0, false, false } );
 	StateList.push_back(s);

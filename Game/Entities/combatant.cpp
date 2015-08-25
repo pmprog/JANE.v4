@@ -34,7 +34,7 @@ Combatant::Combatant(Controller* Controls)
 	magicrampdelay = 0;
 
 	speed_delay = 0;
-	Speed = 4;
+	Speed = 3;
 
 	CurrentPower = COMBATANT_POWER;
 	world_zone = nullptr;
@@ -202,14 +202,14 @@ void Combatant::OnUpdate()
     {
       switch( GetPrimaryControllerState() )
       {
-      case Controller::NORTH:
+				case Controller::NORTH:
           switch( GetSecondaryControllerState() )
           {
             case Controller::EAST:
               ProposeMove( ScreenX + 4, ScreenY );
               break;
             case Controller::WEST:
-							ProposeMove( ScreenX + 2, ScreenY - 2 );
+							ProposeMove( ScreenX + 3, ScreenY - 2 );
               break;
             default:
 							ProposeMove( ScreenX + 4, ScreenY - 1 );
@@ -224,7 +224,7 @@ void Combatant::OnUpdate()
               ProposeMove( ScreenX + 4, ScreenY );
               break;
             case Controller::SOUTH:
-              ProposeMove( ScreenX + 2, ScreenY + 2 );
+              ProposeMove( ScreenX + 3, ScreenY + 2 );
               break;
             default:
               ProposeMove( ScreenX + 4, ScreenY + 1 );
@@ -236,7 +236,7 @@ void Combatant::OnUpdate()
           switch( GetSecondaryControllerState() )
           {
             case Controller::EAST:
-              ProposeMove( ScreenX - 2, ScreenY + 2 );
+              ProposeMove( ScreenX - 3, ScreenY + 2 );
               break;
             case Controller::WEST:
               ProposeMove( ScreenX - 4, ScreenY );
@@ -251,7 +251,7 @@ void Combatant::OnUpdate()
           switch( GetSecondaryControllerState() )
           {
             case Controller::NORTH:
-              ProposeMove( ScreenX - 2, ScreenY - 2 );
+              ProposeMove( ScreenX - 3, ScreenY - 2 );
               break;
             case Controller::SOUTH:
               ProposeMove( ScreenX - 4, ScreenY );
@@ -262,6 +262,37 @@ void Combatant::OnUpdate()
           }
           break;
       }
+
+			/*
+			Controller::ControllerStateFlags ctrlstate = (Controller::ControllerStateFlags)(Controls->GetState() & Controller::MASK_DIRECTIONS);
+			switch( ctrlstate )
+			{
+				case Controller::NORTH:
+					ProposeMove( ScreenX + 3, ScreenY - 1 );
+					break;
+				case Controller::NORTH | Controller::EAST:
+					ProposeMove( ScreenX + 4, ScreenY - 1 );
+					break;
+				case Controller::EAST:
+					ProposeMove( ScreenX + 4, ScreenY );
+					break;
+				case Controller::SOUTH | Controller::EAST:
+					ProposeMove( ScreenX + 4, ScreenY + 1 );
+					break;
+				case Controller::SOUTH:
+					ProposeMove( ScreenX - 3, ScreenY + 1 );
+					break;
+				case Controller::SOUTH | Controller::WEST:
+					ProposeMove( ScreenX - 4, ScreenY + 1 );
+					break;
+				case Controller::WEST:
+					ProposeMove( ScreenX - 4, ScreenY );
+					break;
+				case Controller::NORTH | Controller::WEST:
+					ProposeMove( ScreenX - 4, ScreenY - 1 );
+					break;
+			}
+			*/
 
     }
 

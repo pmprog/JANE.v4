@@ -78,7 +78,12 @@ void GameStage::Render()
 	{
 		GameResources::GameWorld->Rooms.at( curroom )->Render( 0, ninja->ScreenY );
 		ninja->OnRender();
-		GameResources::GameWorld->Rooms.at( curroom )->Render( ninja->ScreenY, 200 );
+		if( ninja->ScreenY <= 144 )
+		{
+			GameResources::GameWorld->Rooms.at( curroom )->Render( ninja->ScreenY, 200 );
+		} else {
+			GameResources::GameWorld->Rooms.at( curroom )->Render( 144, 200 );
+		}
 	} else {
 		GameResources::GameWorld->Rooms.at( curroom )->Render( 0, 200 );
 	}
