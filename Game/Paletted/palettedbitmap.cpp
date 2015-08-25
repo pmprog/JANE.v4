@@ -145,15 +145,17 @@ void PalettedBitmap::PrerenderImage()
   {
     return;
   }
-  if( prerendered == nullptr )
+  if( prerendered != nullptr )
   {
-    prerendered = al_create_bitmap( width, height );
+    // prerendered = al_create_bitmap( width, height );
+    al_destroy_bitmap( prerendered );
   }
+  prerendered = al_create_bitmap( width, height );
 
   PackedARGB8888* pixelcolour;
 
 
-  ALLEGRO_LOCKED_REGION* rgn = al_lock_bitmap( prerendered, ALLEGRO_PIXEL_FORMAT_ABGR_8888_LE, ALLEGRO_LOCK_READWRITE );
+  ALLEGRO_LOCKED_REGION* rgn = al_lock_bitmap( prerendered, ALLEGRO_PIXEL_FORMAT_ABGR_8888_LE, ALLEGRO_LOCK_WRITEONLY );
   for( int y = 0; y < height; y++ )
   {
     for( int x = 0; x < width; x++ )

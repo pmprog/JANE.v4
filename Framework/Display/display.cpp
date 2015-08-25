@@ -68,13 +68,13 @@ void Display::Initialise( int ScreenWidth, int ScreenHeight, bool Fullscreen, Di
 		screen = al_create_display( fallback.X, fallback.Y );
 	}
 
-	screenGameBuffer = al_create_bitmap( gameSize.X, gameSize.Y );
-	al_set_target_bitmap( screenGameBuffer );
-
 #else
 	al_set_new_display_flags( ALLEGRO_FULLSCREEN );
 	screen = al_create_display( 800, 480 );
 #endif
+
+	screenGameBuffer = al_create_bitmap( gameSize.X, gameSize.Y );
+	al_set_target_bitmap( screenGameBuffer );
 
 	float bestscale = 1.0f;
 	switch( Scale )
@@ -142,23 +142,13 @@ ALLEGRO_BITMAP* Display::GetCurrentTarget()
 	{
 		return screenRetarget;
 	}
-#ifdef PANDORA
-	return nullptr;
-#else
 	return screenGameBuffer;
-#endif
 }
 
 void Display::ClearTarget()
 {
 	screenRetarget = nullptr;
-
-#ifdef PANDORA
-	al_set_target_backbuffer( screen );
-#else
 	al_set_target_bitmap( screenGameBuffer );
-#endif
-
 }
 
 void Display::SetTarget( ALLEGRO_BITMAP* Target )
@@ -185,17 +175,12 @@ void Display::MouseVisible( bool Visible )
 
 void Display::Render()
 {
-#ifndef PANDORA
 	al_set_target_backbuffer( screen );
-	al_clear_to_color( al_map_rgb(0, 0, 0));
+	// al_clear_to_color( al_map_rgb(0, 0, 0));
 	al_draw_scaled_bitmap( screenGameBuffer, 0, 0, gameSize.X, gameSize.Y, gameScreenLocation.X, gameScreenLocation.Y, gameScreenSize.X, gameScreenSize.Y, 0 );
 	al_flip_display();
 
 	al_set_target_bitmap( screenGameBuffer );
-#else
-	al_flip_display();
-	al_clear_to_color( al_map_rgb(0, 0, 0) );
-#endif
 }
 
 Vector2* Display::ScreenPointToGamePoint( Vector2* Point )
