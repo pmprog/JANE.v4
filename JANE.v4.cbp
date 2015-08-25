@@ -34,16 +34,27 @@
 				</Linker>
 			</Target>
 			<Target title="Release Pandora">
-				<Option output="bin/Pandora/JANE" prefix_auto="1" extension_auto="1" />
-				<Option object_output="objs/Pandora/" />
+				<Option output="JANE" prefix_auto="1" extension_auto="1" />
+				<Option object_output="objs/PandoraRelease/" />
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="-DPANDORA" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
 				</Linker>
+			</Target>
+			<Target title="Debug Pandora">
+				<Option output="JANE" prefix_auto="1" extension_auto="1" />
+				<Option object_output="objs/PandoraDebug/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-DPANDORA" />
+				</Compiler>
 			</Target>
 		</Build>
 		<Compiler>
