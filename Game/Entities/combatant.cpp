@@ -209,7 +209,7 @@ void Combatant::OnUpdate()
               ProposeMove( ScreenX + 4, ScreenY );
               break;
             case Controller::WEST:
-							ProposeMove( ScreenX + 3, ScreenY - 2 );
+							ProposeMove( ScreenX + 4, ScreenY - 2 );
               break;
             default:
 							ProposeMove( ScreenX + 4, ScreenY - 1 );
@@ -224,7 +224,7 @@ void Combatant::OnUpdate()
               ProposeMove( ScreenX + 4, ScreenY );
               break;
             case Controller::SOUTH:
-              ProposeMove( ScreenX + 3, ScreenY + 2 );
+              ProposeMove( ScreenX + 4, ScreenY + 2 );
               break;
             default:
               ProposeMove( ScreenX + 4, ScreenY + 1 );
@@ -236,7 +236,7 @@ void Combatant::OnUpdate()
           switch( GetSecondaryControllerState() )
           {
             case Controller::EAST:
-              ProposeMove( ScreenX - 3, ScreenY + 2 );
+              ProposeMove( ScreenX - 4, ScreenY + 2 );
               break;
             case Controller::WEST:
               ProposeMove( ScreenX - 4, ScreenY );
@@ -251,7 +251,7 @@ void Combatant::OnUpdate()
           switch( GetSecondaryControllerState() )
           {
             case Controller::NORTH:
-              ProposeMove( ScreenX - 3, ScreenY - 2 );
+              ProposeMove( ScreenX - 4, ScreenY - 2 );
               break;
             case Controller::SOUTH:
               ProposeMove( ScreenX - 4, ScreenY );
