@@ -145,12 +145,12 @@ void PalettedBitmap::PrerenderImage()
   {
     return;
   }
-  if( prerendered != nullptr )
+  if( prerendered == nullptr )
   {
-    // prerendered = al_create_bitmap( width, height );
-    al_destroy_bitmap( prerendered );
+    prerendered = al_create_bitmap( width, height );
+    // al_destroy_bitmap( prerendered );
   }
-  prerendered = al_create_bitmap( width, height );
+  // prerendered = al_create_bitmap( width, height );
 
   PackedARGB8888* pixelcolour;
 

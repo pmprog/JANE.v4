@@ -54,6 +54,7 @@
 				<Compiler>
 					<Add option="-g" />
 					<Add option="-DPANDORA" />
+					<Add option="-DWRITE_LOG" />
 				</Compiler>
 			</Target>
 		</Build>
