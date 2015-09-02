@@ -68,6 +68,17 @@ void GameStage::Update()
     GameResources::GameWorld->Rooms.at( curroom )->OnEnter();
   }
 
+	if( ninja->CurrentState == CombatantState::DEAD )
+	{
+		ninja->NewLife();
+		if( ninja < 0 )
+		{
+			delete FRAMEWORK->ProgramStages->Pop();
+			return;
+		}
+    curroom = ninja->CurrentRoomID;
+    GameResources::GameWorld->Rooms.at( curroom )->OnEnter();
+	}
 }
 
 void GameStage::Render()

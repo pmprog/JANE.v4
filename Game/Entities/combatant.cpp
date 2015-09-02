@@ -40,6 +40,9 @@ Combatant::Combatant(Controller* Controls)
 	world_zone = nullptr;
 	world_z = 0;
 
+	lives = 3;
+	falldistance = 0;
+
 	ZoneClipping = false;
 	UnlimitedPower = false;
 	UnlimitedMagic = false;
@@ -298,14 +301,20 @@ void Combatant::OnUpdate()
 
     if( CurrentState == CombatantState::FALLING )
     {
+			falldistance++;
       if( world_z > world_zone->WorldZ )
       {
         world_z -= 4;
         ScreenY += 4;
       } else {
         world_z = world_zone->WorldZ;
-        SetNewState( CombatantState::FALLING_LANDED );
-        ProposeMove( ScreenX, ScreenY );
+				if( falldistance < COMBATANT_MAXFALL )
+				{
+					SetNewState( CombatantState::FALLING_LANDED );
+					ProposeMove( ScreenX, ScreenY );
+				} else {
+					SetNewState( CombatantState::DYING );
+				}
       }
     }
 
@@ -459,11 +468,28 @@ void Combatant::SetRoomZone(RoomZone* CurrentZone, bool IsWarped)
 	{
 		world_z = CurrentZone->WorldZ;
 	}
+
+	if( IsWarped )
+	{
+		// Save state (for death)
+		newlife_ScreenX = ScreenX;
+		newlife_ScreenY = ScreenY;
+		newlife_CurrentDirection = CurrentDirection;
+		newlife_CurrentRoomID = CurrentRoomID;
+		newlife_CurrentState = CurrentState;
+		newlife_CurrentStateTime = CurrentStateTime;
+		newlife_world_zone = world_zone;
+		newlife_world_z = world_z;
+	}
+	
+	
+
 	// TODO: Run Enter Script
 
   if( world_z > CurrentZone->WorldZ && CurrentState != CombatantState::LONGJUMP && CurrentState != CombatantState::SHORTJUMP )
   {
     SetNewState( CombatantState::FALLING );
+		falldistance = 0;
     return;
   }
 }
@@ -563,5 +589,21 @@ void Combatant::ProposeMove( int ScreenX, int ScreenY )
       }
 
 		}
+	}
+}
+
+void Combatant::NewLife()
+{
+	lives--;
+	if( lives >= 0 )
+	{
+		ScreenX = newlife_ScreenX;
+		ScreenY = newlife_ScreenY;
+		CurrentDirection = newlife_CurrentDirection;
+		CurrentRoomID = newlife_CurrentRoomID;
+		SetNewState( newlife_CurrentState );
+		CurrentStateTime = newlife_CurrentStateTime;
+		SetRoomZone( newlife_world_zone, true );
+		CurrentPower = COMBATANT_POWER;
 	}
 }

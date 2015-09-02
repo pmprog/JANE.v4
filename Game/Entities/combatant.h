@@ -11,6 +11,7 @@ class RoomZone;
 #endif
 
 #define COMBATANT_POWER		32
+#define COMBATANT_MAXFALL	10
 
 class CombatantRenderStyle
 {
@@ -26,8 +27,21 @@ class Combatant
 {
 
 	private:
+		int newlife_ScreenX;
+		int newlife_ScreenY;
+		GameDirection::Direction newlife_CurrentDirection;
+		int newlife_CurrentRoomID;
+		CombatantState::States newlife_CurrentState;
+		int newlife_CurrentStateTime;
+
+		RoomZone* newlife_world_zone;
+		int newlife_world_z;
+
 		RoomZone* world_zone;
 		int world_z;
+
+		int lives;
+		int falldistance;
 
 	  bool weapon_change_on_stand;
 	  int weapon_current_index;
@@ -87,5 +101,6 @@ class Combatant
 
 
 		void SetRoomZone(RoomZone* CurrentZone, bool IsWarped);
+		void NewLife();
 
 };

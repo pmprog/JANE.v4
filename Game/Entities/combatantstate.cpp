@@ -242,6 +242,12 @@ void CombatantState::InitialiseCombatantStates()
 	s->FrameNumbers.push_back( { 15, false, false, 0, false, false } );
 	s->FrameNumbers.push_back( { 15, false, false, 0, false, true } );
 	s->FrameNumbers.push_back( { 15, false, false, 0, false, false } );
+	s->FrameNumbers.push_back( { 15, false, false, 0, false, false } );
+	s->FrameNumbers.push_back( { 15, false, false, 0, false, false } );
+	s->FrameNumbers.push_back( { 15, false, false, 0, false, false } );
+	s->FrameNumbers.push_back( { 14, false, false, 0, false, false } );
+	s->FrameNumbers.push_back( { 14, false, false, 0, false, false } );
+	s->FrameNumbers.push_back( { 14, false, false, 0, false, false } );
 	s->FrameNumbers.push_back( { 14, false, false, 0, false, false } );
 	s->FrameNumbers.push_back( { 14, false, false, 0, false, false } );
 	s->FrameNumbers.push_back( { 14, false, false, 0, false, false } );
