@@ -60,12 +60,12 @@ void World::Save()
 	int roomid;
 	std::string query;
 
-	gamedb->ExecuteStatement("DELETE FROM `World` WHERE GameID = " + Strings::FromNumber( gameid ) + ";");
+	//gamedb->ExecuteStatement("DELETE FROM `World` WHERE GameID = " + Strings::FromNumber( gameid ) + ";");
 
 	query = "INSERT INTO `World` ( GameID, GameName, OnUpdate, Start_RoomID, Start_ScreenX, Start_ScreenY, Start_Facing ) ";
 	query += "SELECT " + Strings::FromNumber( gameid ) + ", 'JANE v4', '" + Strings::Replace( Script_OnUpdate, "'", "''" ) + "', ";
 	query += Strings::FromNumber( Start_RoomID ) + ", " + Strings::FromNumber( Start_ScreenX ) + ", " + Strings::FromNumber( Start_ScreenY ) + ", " + Strings::FromNumber( Start_Facing ) + ";";
-	gamedb->ExecuteStatement( query );
+	//gamedb->ExecuteStatement( query );
 
   roomid = 0;
   for( std::vector<Room*>::const_iterator roomptr = Rooms.begin(); roomptr != Rooms.end(); roomptr++ )
